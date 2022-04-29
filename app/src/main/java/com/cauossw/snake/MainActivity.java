@@ -1,38 +1,24 @@
 package com.cauossw.snake;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.cauossw.snake.databinding.ActivityGameBinding;
+import com.cauossw.snake.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
 
-    static String TAG = "MainActivity";
-    static ThreadNakyoung thread = null;
+    private static String TAG = "MainActivity";
+
+    private ActivityMainBinding activityMainBinding = null;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityMainBinding.getRoot());
 
-        //create thread object
-        thread = new ThreadNakyoung();
-        thread.setName("Thread #"+ThreadNakyoung.getThreadNum());
     }
-
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-
-        if(thread == null){
-            thread = new ThreadNakyoung();
-            thread.setName("Thread #"+ThreadNakyoung.getThreadNum());
-
-        }
-
-        thread.start();
-    }
-
 }

@@ -4,4 +4,5 @@
     <string name="rank_bt_menu_desc">menu button for ranking page</string>
     <string name="edit">edit</string>
     <string name="rank_seperator_desc">seperator for rank view</string>
+    <string name="main_title">Snake Game</string>
 </resources>

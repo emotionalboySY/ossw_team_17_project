@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gameTitle">SNAKE GAME</string>
+    <string name="gameStart">START</string>
+    <string name="ranking">RANKING</string>
+
+</resources>

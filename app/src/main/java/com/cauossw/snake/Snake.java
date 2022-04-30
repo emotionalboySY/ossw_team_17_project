@@ -1,3 +1,5 @@
+package com.cauossw.snake;
+
 import java.util.ArrayList;
 
 public class Snake {
@@ -11,10 +13,27 @@ public class Snake {
 
     Snake(Coordinate headPosition, int length, int speed, Direction dir) {
         this.speed = speed;
+
         this.dir = dir;
 
+        Direction dirForBody;
+        if (dir == Direction.UP) dirForBody = Direction.DOWN;
+        else if (dir == Direction.DOWN) dirForBody = Direction.UP;
+        else if (dir == Direction.LEFT) dirForBody = Direction.RIGHT;
+        else dirForBody = Direction.LEFT;
+
         int i;
-        for (i = 0; i < length; i++) body.add(headPosition.getMovedPosition(dir, i));
+        for (i = 1; i < length + 1; i++) body.add(headPosition.getMovedPosition(dirForBody, i));
+    }
+
+    public void setDir(Direction dir) {
+        if ((this.dir == Direction.UP && dir == Direction.DOWN)
+            || (this.dir == Direction.DOWN && dir == Direction.UP)
+            || (this.dir == Direction.LEFT && dir == Direction.RIGHT)
+            || (this.dir == Direction.RIGHT && dir == Direction.LEFT))
+            return;
+
+        this.dir = dir;
     }
 
     public ArrayList<Coordinate> getPositions() {
@@ -24,6 +43,18 @@ public class Snake {
         for (i = 0; i < body.size(); i++) clonedBody.add(body.get(i).clone());
 
         return clonedBody;
+    }
+
+    public String getPositionsStr() {
+        String result = "";
+        int i;
+
+        for (i = 0; i < body.size(); i++) {
+            result += body.get(i).getStr();
+            if (i != body.size() - 1) result += " ";
+        }
+
+        return result;
     }
 
     public boolean canEat(Apple apple) {
@@ -58,6 +89,6 @@ public class Snake {
     }
 
     protected void delTail() {
-        body.remove(body.size());
+        body.remove(body.size() - 1);
     }
 }

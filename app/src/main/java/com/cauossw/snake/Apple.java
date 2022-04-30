@@ -1,3 +1,5 @@
+package com.cauossw.snake;
+
 public class Apple {
     private Coordinate position;
 
@@ -7,5 +9,9 @@ public class Apple {
 
     public Coordinate getPosition() {
         return this.position.clone();
+    }
+
+    public String getPositionStr() {
+        return this.position.getStr();
     }
 }

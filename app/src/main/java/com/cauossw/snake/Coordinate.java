@@ -1,3 +1,5 @@
+package com.cauossw.snake;
+
 import java.util.Random;
 
 public class Coordinate implements Cloneable {
@@ -24,6 +26,10 @@ public class Coordinate implements Cloneable {
         return this.y;
     }
 
+    public String getStr() {
+        return String.format("<%d, %d>", this.x, this.y);
+    }
+
     public boolean equals(Object another) {
         return (another instanceof Coordinate
                 && this.x == ((Coordinate)another).x && this.y == ((Coordinate)another).y);
@@ -36,7 +42,7 @@ public class Coordinate implements Cloneable {
     public static Coordinate random() {
         // WIDTH, HEIGHT 제한 내에서 새 좌표 랜덤하게 생성
         Random random = new Random();
-        return new Coordinate((int)(random.nextInt() * WIDTH), (int)(random.nextInt() * HEIGHT));
+        return new Coordinate((random.nextInt(WIDTH)), (random.nextInt(HEIGHT)));
     }
 
     public boolean isOutOfBound() {

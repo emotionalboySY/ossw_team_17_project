@@ -1,3 +1,8 @@
+package com.cauossw.snake;
+
+import android.os.Handler;
+import android.os.Message;
+
 public class GameThread extends Thread {
     private Snake snake;
     private Apple apple;
@@ -7,11 +12,11 @@ public class GameThread extends Thread {
             isAtFirst,
             isLost;
 
-    GameThread() {
-        initData(); // 멤버 변수 초기화
+    private Handler handler;
 
-        // @ start, pause, restart 리스너 연결
-        // @ snake 이동 관련 유저 인풋 리스너 연결
+    GameThread(Handler handler) {
+        initData(); // 멤버 변수 초기화
+        this.handler = handler;
     }
 
     @Override
@@ -24,9 +29,25 @@ public class GameThread extends Thread {
             }
 
             snake.addHead(); // 이후 apple 먹지 않을 경우 꼬리 제거 필요
+            Message message1 = handler.obtainMessage();
+            message1.what = 0;
+            message1.obj = "add head";
+            handler.sendMessage(message1);
 
-            if (snake.isDead()) lose();
+            if (snake.isDead()) {
+                Message message2 = handler.obtainMessage();
+                message2.what = 0;
+                message2.obj = "dead";
+                handler.sendMessage(message2);
+
+                lose();
+            }
             if (snake.canEat(apple)) {
+                Message message2 = handler.obtainMessage();
+                message2.what = 0;
+                message2.obj = "eat apple";
+                handler.sendMessage(message2);
+
                 score++;
 
                 // 새 apple 생성
@@ -34,12 +55,28 @@ public class GameThread extends Thread {
                     apple = new Apple(Coordinate.random());
                     if (!(snake.canEat(apple) || snake.overlaps(apple.getPosition()))) break;
                 }
-            } else snake.delTail();
+            } else {
+                Message message2 = handler.obtainMessage();
+                message2.what = 0;
+                message2.obj = "don't eat apple";
+                handler.sendMessage(message2);
 
-            // *** draw
+                snake.delTail();
+            }
+
+            // draw func call message를 main thread로 전송
+            Message message3 = handler.obtainMessage();
+            message3.what = 0;
+            message3.obj = "APPLE : " + snake.getPositionsStr() + " APPLE : " + apple.getPositionStr();
+            handler.sendMessage(message3);
         }
     }
 
+    public void setSnakeDir(Direction dir) {
+        snake.setDir(dir);
+    }
+
+    @Override
     public void start() {
         if (isLost) return;
         if (isAtFirst) super.start();
@@ -79,8 +116,8 @@ public class GameThread extends Thread {
         isLost = false;
     }
 
-    public void recordScore() {
-        // ***
+    public int getScore() {
+        return score;
     }
 
     public void saveGameStatus() {

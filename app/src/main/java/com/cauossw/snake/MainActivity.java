@@ -11,7 +11,10 @@ import android.view.View;
 import com.cauossw.snake.databinding.ActivityGameBinding;
 import com.cauossw.snake.databinding.ActivityMainBinding;
 
+
 public class MainActivity extends AppCompatActivity {
+
+    GameThread gameThread;
 
     private static String TAG = "MainActivity";
 
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
 

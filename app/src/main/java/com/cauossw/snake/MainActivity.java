@@ -44,11 +44,7 @@ public class MainActivity extends AppCompatActivity {
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                switch (msg.what) {
-                    case 0:
-                        LOG.info((String)msg.obj);
-                        break;
-                }
+                LOG.info((String)msg.obj);
             }
         };
 
@@ -105,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         resume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (gameThread.checkIsPaused()) {
+                if (gameThread.checkIsPaused() && !gameThread.checkIsLost()) {
                     gameThread = new GameThread(handler, str);
                     gameThread.start();
                 }

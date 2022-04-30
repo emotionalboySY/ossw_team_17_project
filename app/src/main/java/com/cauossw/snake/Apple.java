@@ -8,6 +8,7 @@ public class Apple {
     }
 
     Apple(String positionStr) {
+        // 파싱
         this.position = new Coordinate(positionStr);
     }
 

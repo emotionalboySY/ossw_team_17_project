@@ -3,6 +3,8 @@ package com.cauossw.snake;
 import android.os.Handler;
 import android.os.Message;
 
+import java.util.ArrayList;
+
 public class GameThread extends Thread {
     private Snake snake;
     private Apple apple;
@@ -29,14 +31,13 @@ public class GameThread extends Thread {
     }
 
     GameThread(Handler handler, String gameInfo) {
-        // 멤버 변수 초기화
+        // 파싱
         this.handler = handler;
 
         String[] infoArray = gameInfo.split(" ");
 
         this.snake = new Snake(infoArray[0]);
         this.apple = new Apple(infoArray[1]);
-
         this.score = Integer.parseInt(infoArray[2]);
     }
 
@@ -57,10 +58,10 @@ public class GameThread extends Thread {
 
             snake.addHead(); // 이후 apple 먹지 않을 경우 꼬리 제거 필요
             // log
-            Message message1 = handler.obtainMessage();
-            message1.what = 0;
-            message1.obj = "add head";
-            handler.sendMessage(message1);
+//            Message msgAddHead = handler.obtainMessage();
+//            msgAddHead.what = 0;
+//            msgAddHead.obj = "add head";
+//            handler.sendMessage(msgAddHead);
 
             if (snake.canEat(apple)) {
                 score++;
@@ -72,38 +73,34 @@ public class GameThread extends Thread {
                 }
 
                 // log
-                Message message2 = handler.obtainMessage();
-                message2.what = 0;
-                message2.obj = "eat apple";
-                handler.sendMessage(message2);
+//                Message msgEatApple = handler.obtainMessage();
+//                msgEatApple.what = 0;
+//                msgEatApple.obj = "eat apple";
+//                handler.sendMessage(msgEatApple);
             } else {
                 snake.delTail();
 
                 // log
-                Message message2 = handler.obtainMessage();
-                message2.what = 0;
-                message2.obj = "don't eat apple";
-                handler.sendMessage(message2);
+//                Message msgDelTail = handler.obtainMessage();
+//                msgDelTail.what = 0;
+//                msgDelTail.obj = "don't eat apple";
+//                handler.sendMessage(msgDelTail);
             }
 
             if (snake.isDead()) {
                 lose();
 
                 // log
-                Message message2 = handler.obtainMessage();
-                message2.what = 0;
-                message2.obj = "dead";
-                handler.sendMessage(message2);
+//                Message msgLose = handler.obtainMessage();
+//                msgLose.what = 0;
+//                msgLose.obj = "dead";
+//                handler.sendMessage(msgLose);
             }
         }
     }
 
     public void setSnakeDir(Direction dir) {
         snake.setDir(dir);
-    }
-
-    public String getStatusStr() {
-        return snake.getStatusStr() + " " + apple.getPositionStr() + " " + this.score;
     }
 
     public void start() {
@@ -120,12 +117,28 @@ public class GameThread extends Thread {
         return score;
     }
 
+    public ArrayList<Coordinate> getSnakePositions() {
+        return snake.getPositions();
+    }
+
+    public Coordinate getApplePosition() {
+        return apple.getPosition();
+    }
+
+    public String getStatusStr() {
+        return snake.getStatusStr() + " " + apple.getPositionStr() + " " + this.score;
+    }
+
     public boolean checkIsPaused() {
         return isPaused;
     }
 
     public boolean checkIsAtFirst() {
         return isAtFirst;
+    }
+
+    public boolean checkIsLost() {
+        return isLost;
     }
 
     private void lose() {

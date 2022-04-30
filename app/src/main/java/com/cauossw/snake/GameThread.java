@@ -14,7 +14,7 @@ public class GameThread extends Thread {
 
     private Handler handler;
 
-    GameThread(Handler handler) {
+    public GameThread(Handler handler) {
         initData(); // 멤버 변수 초기화
         this.handler = handler;
     }

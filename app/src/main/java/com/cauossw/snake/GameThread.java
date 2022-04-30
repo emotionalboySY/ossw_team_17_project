@@ -61,7 +61,15 @@ public class GameThread extends Thread {
 //            Message appleMessage = handler.obtainMessage();
 //            appleMessage.obj = apple;
 //            handler.sendMessage(appleMessage);
-
+            Message Message = handler.obtainMessage();
+            Log.i(TAG,"메세지생성");
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("snake", getSnakePositions());
+            bundle.putSerializable("apple", getApplePosition());
+            Message.setData(bundle);
+            Log.i(TAG,"메세지에 번들 삽입");
+            handler.sendMessage(Message);
+            Log.i(TAG,"Bundle 전달");
 
             try {
                 if(isStart == false) {
@@ -108,6 +116,9 @@ public class GameThread extends Thread {
 //                handler.sendMessage(msgDelTail);
             }
 
+            //위치 절대 옮기면 안됨!
+            gameView.invalidate();
+
             if (snake.isDead()) {
                 Log.i(TAG,"is Dead");
                 lose();
@@ -119,16 +130,6 @@ public class GameThread extends Thread {
 //                handler.sendMessage(msgLose);
             }
 
-            Message Message = handler.obtainMessage();
-            Log.i(TAG,"메세지생성");
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("snake", getSnakePositions());
-            bundle.putSerializable("apple", getApplePosition());
-            Message.setData(bundle);
-            Log.i(TAG,"메세지에 번들 삽입");
-            handler.sendMessage(Message);
-            Log.i(TAG,"Bundle 전달");
-            gameView.invalidate();
         }
     }
 

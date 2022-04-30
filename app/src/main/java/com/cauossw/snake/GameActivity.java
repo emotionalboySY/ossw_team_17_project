@@ -19,7 +19,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         gameView = new GameView(this);
-        setContentView(gameView.getRootView());
+        setContentView(gameView.getRootView()); 
 
         //create thread object
         thread = new ThreadNakyoung();

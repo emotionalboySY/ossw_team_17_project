@@ -44,6 +44,12 @@
         android:text="restart" />
 
     <Button
+        android:id="@+id/resumeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESUME" />
+
+    <Button
         android:id="@+id/pauseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -19,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
     Button right;
     Button start;
     Button restart;
+    Button resume;
     Button pause;
+    String str;
 
     static Handler handler;
     GameThread gameThread;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         right = findViewById(R.id.rightButton);
         start = findViewById(R.id.startButton);
         restart = findViewById(R.id.restartButton);
+        resume= findViewById(R.id.resumeButton);
         pause = findViewById(R.id.pauseButton);
 
         handler = new Handler() {
@@ -91,14 +94,23 @@ public class MainActivity extends AppCompatActivity {
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameThread.restart();
+                gameThread.pause();
+                gameThread = new GameThread(handler);
+                gameThread.start();
+            }
+        });
+
+        resume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameThread = new GameThread(handler, str);
             }
         });
 
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameThread.pause();
+                str = gameThread.pause();
             }
         });
     }

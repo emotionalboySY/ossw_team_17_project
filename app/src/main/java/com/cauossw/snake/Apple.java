@@ -7,6 +7,10 @@ public class Apple {
         this.position = position;
     }
 
+    Apple(String positionStr) {
+        this.position = new Coordinate(positionStr);
+    }
+
     public Coordinate getPosition() {
         return this.position.clone();
     }

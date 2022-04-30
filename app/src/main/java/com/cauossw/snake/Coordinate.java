@@ -18,6 +18,13 @@ public class Coordinate implements Cloneable {
         this.y = y;
     }
 
+    Coordinate(String positionInfo) {
+        // 문자열 파싱 -> 좌표 얻기
+        String[] position = positionInfo.split(",|<|>");
+        this.x = Integer.parseInt(position[0]);
+        this.y = Integer.parseInt(position[1]);
+    }
+
     public int getX() {
         return this.x;
     }
@@ -27,7 +34,7 @@ public class Coordinate implements Cloneable {
     }
 
     public String getStr() {
-        return String.format("<%d, %d>", this.x, this.y);
+        return String.format("<%d,%d>", this.x, this.y);
     }
 
     public boolean equals(Object another) {

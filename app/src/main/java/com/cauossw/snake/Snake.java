@@ -13,7 +13,6 @@ public class Snake {
 
     Snake(Coordinate headPosition, int length, int speed, Direction dir) {
         this.speed = speed;
-
         this.dir = dir;
 
         Direction dirForBody;
@@ -24,6 +23,18 @@ public class Snake {
 
         int i;
         for (i = 1; i < length + 1; i++) body.add(headPosition.getMovedPosition(dirForBody, i));
+    }
+
+    Snake(String snakeInfo) {
+        String[] infoArray = snakeInfo.split("POSITION:|//SPEED:|//DIR:");
+
+        String[] positionArray = infoArray[0].split(",");
+
+        int i;
+        for (i = 0; i < positionArray.length; i++) body.add(new Coordinate());
+
+        this.speed = Integer.parseInt(infoArray[1]);
+        this.dir = Direction.valueOf(infoArray[2]);
     }
 
     public void setDir(Direction dir) {
@@ -45,13 +56,20 @@ public class Snake {
         return clonedBody;
     }
 
+    public String getStatusStr() {
+        String result = "";
+        result += "POSITION:" + getPositionsStr() + "//SPEED:" + this.speed + "//DIR:" + this.dir.toString();
+
+        return result;
+    }
+
     public String getPositionsStr() {
         String result = "";
         int i;
 
         for (i = 0; i < body.size(); i++) {
             result += body.get(i).getStr();
-            if (i != body.size() - 1) result += " ";
+            if (i != body.size() - 1) result += ",";
         }
 
         return result;

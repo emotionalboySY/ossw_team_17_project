@@ -20,10 +20,6 @@ public class GameView extends View {
 
     private final String TAG = "GameView";
 
-    private Snake snake = null;
-//    private Map map = null;
-    private Apple apple = null;
-
     private int canvasWidth;
     private int eachImageWidth;
 
@@ -64,9 +60,30 @@ public class GameView extends View {
 
 
     @Override
-    protected void onDraw(Canvas canvas) { //호출이 필요할때마다 호출
+    protected void onDraw(Canvas canvas) { //캔버스 수정이 필요할때마다 호출됨
         super.onDraw(canvas);
-        if(canvasWidth != getWidth()){ //저장된 캔버스 크기가, 현재 캔버스 크기와 맞지않을 때, 가로모드 등으로 화면 크기 변경
+        //저장된 캔버스 크기가, 현재 캔버스 크기와 맞지않을 때, 가로모드 등으로 화면 크기 변경
+        imageReSet(canvas);
+        canvas.drawBitmap(snakeHeadImage,0,0,null);
+    }
+
+    private void init(){
+        imageSet();
+    }
+    private void imageSet(){
+        snakeHeadImage = BitmapFactory.decodeResource(getResources(),R.drawable.snake_head);
+        Log.i(TAG, "snakeHead 로드완료");
+        snakeBodyImage = BitmapFactory.decodeResource(getResources(), R.drawable.snake_body);
+        Log.i(TAG, "snakeBody 로드완료");
+        snakeTailImage = BitmapFactory.decodeResource(getResources(), R.drawable.snake_tail);
+        Log.i(TAG, "snakeTail 로드완료");
+        appleImage = BitmapFactory.decodeResource(getResources(), R.drawable.apple);
+        Log.i(TAG, "apple 로드완료");
+        mapTileImage = BitmapFactory.decodeResource(getResources(), R.drawable.map_tile);
+        Log.i(TAG, "Map 로드완료");
+    }
+    private void imageReSet(Canvas canvas){
+        if(canvasWidth != getWidth()){
             canvasWidth = getWidth(); //현재 크기로 저장
             eachImageWidth = canvasWidth/DefaultConst.WIDTH; //각 요소당 크기 계산
             Log.i(TAG, "이미지 사이즈 변경 완료 "+ canvasWidth/DefaultConst.WIDTH + "px");
@@ -85,33 +102,5 @@ public class GameView extends View {
                 }
             }
         }
-
-        canvas.drawBitmap(snakeHeadImage,0,0,null);
-    }
-
-    private void init(){
-
-        if(snake == null){
-//            snake = new Snake();
-            Log.i(TAG, "snake 생성완료");
-        }
-        if(apple == null){
-//            apple = new Apple();
-            Log.i(TAG, "apple 생성완료");
-
-        }
-        imageSet();
-    }
-    private void imageSet(){
-        snakeHeadImage = BitmapFactory.decodeResource(getResources(),R.drawable.snake_head);
-        Log.i(TAG, "snakeHead 로드완료");
-        snakeBodyImage = BitmapFactory.decodeResource(getResources(), R.drawable.snake_body);
-        Log.i(TAG, "snakeBody 로드완료");
-        snakeTailImage = BitmapFactory.decodeResource(getResources(), R.drawable.snake_tail);
-        Log.i(TAG, "snakeTail 로드완료");
-        appleImage = BitmapFactory.decodeResource(getResources(), R.drawable.apple);
-        Log.i(TAG, "apple 로드완료");
-        mapTileImage = BitmapFactory.decodeResource(getResources(), R.drawable.map_tile);
-        Log.i(TAG, "Map 로드완료");
     }
 }

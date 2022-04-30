@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import java.util.ArrayList;
 
 public class Snake {
+
+    private static final String TAG = "Snake";
+
     private ArrayList<Coordinate> body = new ArrayList<Coordinate>();
     private int speed;
     private Direction dir;

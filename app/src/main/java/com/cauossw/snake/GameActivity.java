@@ -2,6 +2,8 @@ package com.cauossw.snake;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -57,54 +59,37 @@ public class GameActivity extends AppCompatActivity {
         }
 
         //버튼 리스너 연결
-        activityGameBinding.upButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                thread.setSnakeDir(Direction.UP);
-            }
-        });
+        activityGameBinding.upButton.setOnClickListener(v -> thread.setSnakeDir(Direction.UP));
 
-        activityGameBinding.downButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                thread.setSnakeDir(Direction.DOWN);
-            }
-        });
-        activityGameBinding.leftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                thread.setSnakeDir(Direction.LEFT);
-            }
-        });
-        activityGameBinding.rightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                thread.setSnakeDir(Direction.RIGHT);
-            }
-        });
+        activityGameBinding.downButton.setOnClickListener(v -> thread.setSnakeDir(Direction.DOWN));
+        activityGameBinding.leftButton.setOnClickListener(v -> thread.setSnakeDir(Direction.LEFT));
+        activityGameBinding.rightButton.setOnClickListener(v -> thread.setSnakeDir(Direction.RIGHT));
 
-        activityGameBinding.restartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                thread.pause();
-                thread = new GameThread(handler);
+        activityGameBinding.inGamePause.setOnClickListener(v -> {
+            activityGameBinding.inGamePausePopup.setVisibility(View.VISIBLE);
+            str = thread.pause();
+        });
+        activityGameBinding.popupResume.setOnClickListener(v -> {
+            if (thread.checkIsPaused() && !thread.checkIsLost()) {
+                thread = new GameThread(handler, str);
                 thread.start();
             }
         });
-        activityGameBinding.resumeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (thread.checkIsPaused() && !thread.checkIsLost()) {
-                    thread = new GameThread(handler, str);
-                    thread.start();
-                }
-            }
+        activityGameBinding.popupRestart.setOnClickListener(v -> {
+            thread.pause();
+            thread = new GameThread(handler);
+            thread.start();
         });
-        activityGameBinding.pauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str = thread.pause();
-            }
+        activityGameBinding.popupSave.setOnClickListener(view -> {
+            SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+            SharedPreferences.Editor ed = pref.edit();
+            ed.putString("data", str);
+            ed.apply();
+            finish();
+        });
+        activityGameBinding.popupExit.setOnClickListener(view -> {
+            str = null;
+            finish();
         });
     }
 
@@ -112,8 +97,15 @@ public class GameActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        Intent intent = getIntent();
+        String str = intent.getStringExtra("data");
+
         if(thread == null) {
-            thread = new GameThread(handler);
+            if(str.isEmpty()) {
+                thread = new GameThread(handler);
+            } else {
+                thread = new GameThread(handler, str);
+            }
         }
         thread.start();
     }

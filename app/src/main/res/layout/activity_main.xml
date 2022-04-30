@@ -52,7 +52,7 @@
         android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/main_bt_resume"
+        android:id="@+id/main_bt_load"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/main_bt_ranking"
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/main_bt_resume"
+        app:layout_constraintBottom_toTopOf="@id/main_bt_load"
         android:layout_marginBottom="20dp"
         android:paddingVertical="5dp"
         android:paddingHorizontal="10dp"

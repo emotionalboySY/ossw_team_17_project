@@ -15,7 +15,7 @@
         app:layout_constraintLeft_toRightOf="parent" >
 
         <ImageButton
-            android:id="@+id/rank_bt_menu"
+            android:id="@+id/rank_bt_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -35,17 +35,6 @@
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/rank_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:text="@string/edit"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:layout_margin="10dp" />
 
     </RelativeLayout>
 
@@ -69,5 +58,50 @@
         app:layout_constraintTop_toBottomOf="@id/rank_seperator"
         app:layout_constraintBottom_toBottomOf="parent"
         android:padding="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/rank_layout_nodata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rank_seperator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/rank_layout_nodata_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_twotone_report_24"
+            android:alpha="0.7"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/rank_nodata_image_desc" />
+
+        <TextView
+            android:id="@+id/rank_layout_nodata_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rank_layout_nodata_image"
+            android:layout_centerHorizontal="true"
+            android:text="@string/rank_nodata_text"
+            android:textSize="20sp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/rank_layout_nodata_startgame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rank_layout_nodata_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="@string/rank_nodata_start_new_game"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_background_with_borders" />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

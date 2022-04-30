@@ -5,4 +5,10 @@
     <string name="edit">edit</string>
     <string name="rank_seperator_desc">seperator for rank view</string>
     <string name="main_title">Snake Game</string>
+    <string name="rank_nodata_start_new_game">Start a new game</string>
+    <string name="rank_nodata_text">Cannot find ranking data!</string>
+    <string name="rank_nodata_image_desc">no ranking data image</string>
+    <string name="main_ranking">Ranking</string>
+    <string name="main_resume">Resume</string>
+    <string name="game_start">Start</string>
 </resources>

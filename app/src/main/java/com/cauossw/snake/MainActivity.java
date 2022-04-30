@@ -25,14 +25,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tv_start = (TextView) findViewById(R.id.main_bt_start);
-        tv_resume = (TextView) findViewById(R.id.main_bt_resume);
-        tv_ranking = (TextView) findViewById(R.id.main_bt_ranking);
-        tv_exit = (TextView) findViewById(R.id.main_bt_exit);
+        tv_start = findViewById(R.id.main_bt_start);
+        tv_resume = findViewById(R.id.main_bt_resume);
+        tv_ranking = findViewById(R.id.main_bt_ranking);
+        tv_exit = findViewById(R.id.main_bt_exit);
+
+        tv_start.setOnClickListener(view -> {
+            Intent startIntent = new Intent(MainActivity.this, GameActivity.class);
+            startActivity(startIntent);
+        });
 
         tv_ranking.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, RankingActivity.class);
-            startActivity(intent);
+            Intent rankingIntent = new Intent(MainActivity.this, RankingActivity.class);
+            startActivity(rankingIntent);
         });
         tv_exit.setOnClickListener(view -> {
             moveTaskToBack(true);

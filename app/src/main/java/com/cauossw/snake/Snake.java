@@ -8,7 +8,7 @@ public class Snake {
 
     private static final String TAG = "Snake";
 
-    private ArrayList<Coordinate> body = new ArrayList<Coordinate>();
+    private ArrayList<Coordinate> body = new ArrayList<>();
     private int speed;
     private Direction dir;
 

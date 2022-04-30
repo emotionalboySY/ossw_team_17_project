@@ -64,7 +64,7 @@ public class GameThread extends Thread {
 
 
             try {
-                if(isStart == false) {
+                if(!isStart) {
                     Thread.sleep(3000);
                     isStart = true;
                 }else{

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#aeff82"
     tools:context=".GameActivity">
 
     <Button
@@ -15,6 +16,7 @@
         android:hapticFeedbackEnabled="false"
         android:text="@string/pause"
         android:textSize="10sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/resumeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,6 +38,7 @@
         android:layout_height="wrap_content"
         android:text="@string/resume"
         android:textSize="10sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/restartButton"
         app:layout_constraintEnd_toEndOf="@+id/pauseButton"
         app:layout_constraintStart_toStartOf="@+id/pauseButton"
@@ -47,6 +50,7 @@
         android:layout_height="wrap_content"
         android:text="@string/restart"
         android:textSize="10sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/GameView"
         app:layout_constraintEnd_toEndOf="@+id/resumeButton"
         app:layout_constraintStart_toStartOf="@+id/resumeButton"

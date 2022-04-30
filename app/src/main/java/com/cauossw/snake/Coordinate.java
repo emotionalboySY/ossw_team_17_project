@@ -1,12 +1,14 @@
 package com.cauossw.snake;
 
 import android.annotation.SuppressLint;
+import android.graphics.Rect;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Coordinate implements Cloneable {
+public class Coordinate implements Cloneable, Serializable  {
     public static final int WIDTH = DefaultConst.WIDTH;
     public static final int HEIGHT = DefaultConst.HEIGHT;
 

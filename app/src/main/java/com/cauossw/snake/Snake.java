@@ -1,6 +1,7 @@
 package com.cauossw.snake;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -76,6 +77,11 @@ public class Snake {
         }
 
         return result;
+    }
+
+    public int getLength(){
+        Log.i(TAG, "Snake Body Size: "+ body.size());
+        return body.size();
     }
 
     public boolean canEat(Apple apple) {

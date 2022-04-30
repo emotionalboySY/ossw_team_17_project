@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="#aeff82">
 
     <RelativeLayout
         android:id="@+id/rank_layout_title"
@@ -32,7 +32,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="@string/rank_title"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -86,7 +86,7 @@
             android:layout_centerHorizontal="true"
             android:text="@string/rank_nodata_text"
             android:textSize="20sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/rank_layout_nodata_startgame"
@@ -99,7 +99,7 @@
             android:paddingVertical="5dp"
             android:text="@string/rank_nodata_start_new_game"
             android:textSize="30sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:background="@drawable/button_background_with_borders" />
 
     </RelativeLayout>

@@ -4,19 +4,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+ /*
+import android.util.Log;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import android.view.View;
+ */
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView tv_start, tv_resume, tv_ranking;
+    private TextView tv_start, tv_resume, tv_ranking, tv_exit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,10 +28,17 @@ public class MainActivity extends AppCompatActivity {
         tv_start = (TextView) findViewById(R.id.main_bt_start);
         tv_resume = (TextView) findViewById(R.id.main_bt_resume);
         tv_ranking = (TextView) findViewById(R.id.main_bt_ranking);
+        tv_exit = (TextView) findViewById(R.id.main_bt_exit);
 
         tv_ranking.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, RankingActivity.class);
             startActivity(intent);
+        });
+        tv_exit.setOnClickListener(view -> {
+            moveTaskToBack(true);
+            finishAndRemoveTask();
+
+            System.exit(0);
         });
         /*
         FileOutputStream fos;

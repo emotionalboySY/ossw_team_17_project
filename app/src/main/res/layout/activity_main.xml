@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/black" >
+    android:background="#aeff82" >
 
     <TextView
         android:id="@+id/main_title"
@@ -15,23 +15,39 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/main_title"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="50sp"
         android:layout_marginTop="100dp" />
+
+    <TextView
+        android:id="@+id/main_bt_exit"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/button_background_with_borders"
+        android:text="@string/exit"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/main_bt_ranking"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main_bt_exit"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
         android:paddingVertical="5dp"
         android:paddingHorizontal="10dp"
         android:background="@drawable/button_background_with_borders"
         android:text="@string/main_ranking"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="30sp"
         android:textAlignment="center" />
 
@@ -46,8 +62,8 @@
         android:paddingVertical="5dp"
         android:paddingHorizontal="10dp"
         android:background="@drawable/button_background_with_borders"
-        android:text="@string/main_resume"
-        android:textColor="@color/white"
+        android:text="@string/main_load"
+        android:textColor="@color/black"
         android:textSize="30sp"
         android:textAlignment="center" />
 
@@ -63,7 +79,7 @@
         android:paddingHorizontal="10dp"
         android:background="@drawable/button_background_with_borders"
         android:text="@string/game_start"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="30sp"
         android:textAlignment="center" />
 

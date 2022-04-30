@@ -9,9 +9,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.cauossw.snake.databinding.ActivityGameBinding;
 
@@ -29,9 +31,6 @@ public class GameActivity extends AppCompatActivity {
     private GameThread thread = null;
 
     private String str = "";
-
-
-
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -60,13 +59,14 @@ public class GameActivity extends AppCompatActivity {
 
         //버튼 리스너 연결
         activityGameBinding.upButton.setOnClickListener(v -> thread.setSnakeDir(Direction.UP));
-
         activityGameBinding.downButton.setOnClickListener(v -> thread.setSnakeDir(Direction.DOWN));
         activityGameBinding.leftButton.setOnClickListener(v -> thread.setSnakeDir(Direction.LEFT));
         activityGameBinding.rightButton.setOnClickListener(v -> thread.setSnakeDir(Direction.RIGHT));
-
         activityGameBinding.inGamePause.setOnClickListener(v -> {
             activityGameBinding.inGamePausePopup.setVisibility(View.VISIBLE);
+            activityGameBinding.inGamePausePopup.bringToFront();
+            LinearLayout blackBG = findViewById(R.id.gameView_black);
+            blackBG.setAlpha(0.3f);
             str = thread.pause();
         });
         activityGameBinding.popupResume.setOnClickListener(v -> {

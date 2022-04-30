@@ -26,12 +26,12 @@ public class Snake {
     }
 
     Snake(String snakeInfo) {
-        String[] infoArray = snakeInfo.split("POSITION:|//SPEED:|//DIR:");
+        String[] infoArray = snakeInfo.split("/");
 
-        String[] positionArray = infoArray[0].split(",");
+        String[] positionArray = infoArray[0].split("-");
 
         int i;
-        for (i = 0; i < positionArray.length; i++) body.add(new Coordinate());
+        for (i = 0; i < positionArray.length; i++) body.add(new Coordinate(positionArray[i]));
 
         this.speed = Integer.parseInt(infoArray[1]);
         this.dir = Direction.valueOf(infoArray[2]);
@@ -58,7 +58,7 @@ public class Snake {
 
     public String getStatusStr() {
         String result = "";
-        result += "POSITION:" + getPositionsStr() + "//SPEED:" + this.speed + "//DIR:" + this.dir.toString();
+        result += getPositionsStr() + "/" + this.speed + "/" + this.dir.toString();
 
         return result;
     }
@@ -69,7 +69,7 @@ public class Snake {
 
         for (i = 0; i < body.size(); i++) {
             result += body.get(i).getStr();
-            if (i != body.size() - 1) result += ",";
+            if (i != body.size() - 1) result += "-";
         }
 
         return result;

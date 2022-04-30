@@ -21,8 +21,8 @@ public class Coordinate implements Cloneable {
     Coordinate(String positionInfo) {
         // 문자열 파싱 -> 좌표 얻기
         String[] position = positionInfo.split(",|<|>");
-        this.x = Integer.parseInt(position[0]);
-        this.y = Integer.parseInt(position[1]);
+        this.x = Integer.parseInt(position[1]);
+        this.y = Integer.parseInt(position[2]);
     }
 
     public int getX() {

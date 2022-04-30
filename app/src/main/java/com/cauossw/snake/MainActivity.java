@@ -87,7 +87,9 @@ public class MainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameThread.start();
+                if (gameThread.checkIsAtFirst()){
+                    gameThread.start();
+                }
             }
         });
 
@@ -103,7 +105,10 @@ public class MainActivity extends AppCompatActivity {
         resume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameThread = new GameThread(handler, str);
+                if (gameThread.checkIsPaused()) {
+                    gameThread = new GameThread(handler, str);
+                    gameThread.start();
+                }
             }
         });
 

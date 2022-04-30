@@ -8,7 +8,9 @@ public class GameThread extends Thread {
     private Apple apple;
 
     private int score;
-    private boolean isPaused, isLost;
+    private boolean isPaused = false,
+            isLost = false,
+            isAtFirst = true;
 
     private Handler handler;
 
@@ -22,24 +24,20 @@ public class GameThread extends Thread {
         }
 
         this.score = 0;
-        this.isPaused = false;
-        this.isLost = false;
 
         this.handler = handler;
     }
 
     GameThread(Handler handler, String gameInfo) {
         // 멤버 변수 초기화
-        String[] infoArray = gameInfo.split("SNAKE:|//APPLE:|//SCORE:");
+        this.handler = handler;
+
+        String[] infoArray = gameInfo.split(" ");
 
         this.snake = new Snake(infoArray[0]);
         this.apple = new Apple(infoArray[1]);
 
         this.score = Integer.parseInt(infoArray[2]);
-        this.isPaused = true;
-        this.isLost = false;
-
-        this.handler = handler;
     }
 
     @Override
@@ -105,23 +103,29 @@ public class GameThread extends Thread {
     }
 
     public String getStatusStr() {
-        return "SNAKE:" + snake.getStatusStr() + "//APPLE:" + apple.getPositionStr() + "//SCORE:" + this.score;
+        return snake.getStatusStr() + " " + apple.getPositionStr() + " " + this.score;
+    }
+
+    public void start() {
+        isAtFirst = false;
+        super.start();
+    }
+
+    public String pause() {
+        isPaused = true;
+        return getStatusStr();
     }
 
     public int getScore() {
         return score;
     }
 
-    public String pause() {
-        isPaused = true;
-        String result = getStatusStr();
+    public boolean checkIsPaused() {
+        return isPaused;
+    }
 
-
-        Message message3 = handler.obtainMessage();
-        message3.what = 0;
-        message3.obj = result;
-        handler.sendMessage(message3);
-        return result;
+    public boolean checkIsAtFirst() {
+        return isAtFirst;
     }
 
     private void lose() {

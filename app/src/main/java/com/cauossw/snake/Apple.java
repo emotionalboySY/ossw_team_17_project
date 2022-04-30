@@ -7,6 +7,11 @@ public class Apple {
         this.position = position;
     }
 
+    Apple(String positionStr) {
+        // 파싱
+        this.position = new Coordinate(positionStr);
+    }
+
     public Coordinate getPosition() {
         return this.position.clone();
     }

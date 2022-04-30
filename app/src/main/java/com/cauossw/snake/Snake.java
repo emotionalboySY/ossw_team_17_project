@@ -15,10 +15,9 @@ public class Snake {
 
     Snake(Coordinate headPosition, int length, int speed, Direction dir) {
         this.speed = speed;
-
         this.dir = dir;
 
-        Direction dirForBody;
+        Direction dirForBody; // 현재 진행방향의 반대 방향으로 나머지 몸통 생성
         if (dir == Direction.UP) dirForBody = Direction.DOWN;
         else if (dir == Direction.DOWN) dirForBody = Direction.UP;
         else if (dir == Direction.LEFT) dirForBody = Direction.RIGHT;
@@ -28,7 +27,20 @@ public class Snake {
         for (i = 1; i < length + 1; i++) body.add(headPosition.getMovedPosition(dirForBody, i));
     }
 
+    Snake(String snakeInfo) {
+        // 파싱
+        String[] infoArray = snakeInfo.split("/");
+
+        String[] positionArray = infoArray[0].split("-");
+        int i;
+        for (i = 0; i < positionArray.length; i++) body.add(new Coordinate(positionArray[i]));
+
+        this.speed = Integer.parseInt(infoArray[1]);
+        this.dir = Direction.valueOf(infoArray[2]);
+    }
+
     public void setDir(Direction dir) {
+        // 방향 전환 불가능한 경우 check
         if ((this.dir == Direction.UP && dir == Direction.DOWN)
             || (this.dir == Direction.DOWN && dir == Direction.UP)
             || (this.dir == Direction.LEFT && dir == Direction.RIGHT)
@@ -47,13 +59,17 @@ public class Snake {
         return clonedBody;
     }
 
+    public String getStatusStr() {
+        return getPositionsStr() + "/" + this.speed + "/" + this.dir.toString();
+    }
+
     public String getPositionsStr() {
         String result = "";
         int i;
 
         for (i = 0; i < body.size(); i++) {
             result += body.get(i).getStr();
-            if (i != body.size() - 1) result += " ";
+            if (i != body.size() - 1) result += "-";
         }
 
         return result;

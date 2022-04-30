@@ -1,5 +1,9 @@
 package com.cauossw.snake;
 
+import android.annotation.SuppressLint;
+
+import androidx.annotation.NonNull;
+
 import java.util.Random;
 
 public class Coordinate implements Cloneable {
@@ -18,6 +22,13 @@ public class Coordinate implements Cloneable {
         this.y = y;
     }
 
+    Coordinate(String positionInfo) {
+        // 파싱
+        String[] position = positionInfo.split(",|<|>");
+        this.x = Integer.parseInt(position[1]);
+        this.y = Integer.parseInt(position[2]);
+    }
+
     public int getX() {
         return this.x;
     }
@@ -26,8 +37,9 @@ public class Coordinate implements Cloneable {
         return this.y;
     }
 
+    @SuppressLint("DefaultLocale")
     public String getStr() {
-        return String.format("<%d, %d>", this.x, this.y);
+        return String.format("<%d,%d>", this.x, this.y);
     }
 
     public boolean equals(Object another) {
@@ -35,6 +47,7 @@ public class Coordinate implements Cloneable {
                 && this.x == ((Coordinate)another).x && this.y == ((Coordinate)another).y);
     }
 
+    @NonNull
     public Coordinate clone() {
         return new Coordinate(this.x, this.y);
     }

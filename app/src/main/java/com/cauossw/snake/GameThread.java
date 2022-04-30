@@ -1,8 +1,11 @@
 package com.cauossw.snake;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class GameThread extends Thread {
@@ -12,7 +15,8 @@ public class GameThread extends Thread {
     private int score;
     private boolean isPaused = false,
             isLost = false,
-            isAtFirst = true;
+            isAtFirst = true,
+            isStart = false;
 
     private Handler handler;
 
@@ -50,11 +54,26 @@ public class GameThread extends Thread {
             message3.obj = getStatusStr();
             handler.sendMessage(message3);
 
+            Message snakeMessage = handler.obtainMessage();
+            snakeMessage.obj = snake;
+            handler.sendMessage(snakeMessage);
+
+            Message appleMessage = handler.obtainMessage();
+            appleMessage.obj = apple;
+            handler.sendMessage(appleMessage);
+
+
             try {
-                Thread.sleep(snake.getSpeed());
+                if(isStart == false) {
+                    Thread.sleep(3000);
+                    isStart = true;
+                }else{
+                    Thread.sleep(snake.getSpeed());
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
 
             snake.addHead(); // 이후 apple 먹지 않을 경우 꼬리 제거 필요
             // log
@@ -96,6 +115,7 @@ public class GameThread extends Thread {
 //                msgLose.obj = "dead";
 //                handler.sendMessage(msgLose);
             }
+
         }
     }
 

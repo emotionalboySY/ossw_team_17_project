@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Size;
@@ -28,6 +29,14 @@ public class GameView extends View {
     private Bitmap snakeTailImage;
     private Bitmap appleImage;
     private Bitmap mapTileImage;
+
+    private Snake snake;
+    private Apple apple;
+
+    private ArrayList<Coordinate> snakePositions;
+    private Coordinate applePosition;
+
+    private Bundle bundle;
 
 
     public GameView(Context context) {
@@ -64,10 +73,24 @@ public class GameView extends View {
         super.onDraw(canvas);
         //저장된 캔버스 크기가, 현재 캔버스 크기와 맞지않을 때, 가로모드 등으로 화면 크기 변경
         imageReSet(canvas);
-        canvas.drawBitmap(snakeHeadImage,0,0,null);
+
+//        canvas.drawBitmap(snakeHeadImage,);
+//        canvas.drawBitmap(snakeBodyImage,);
+//        canvas.drawBitmap(snakeTailImage,);
+    }
+
+    public void setSnake(Snake snake){
+        this.snake = snake;
+        Log.i(TAG,"set Snake object");
+    }
+
+    public void setApple(Apple apple){
+        this.apple = apple;
+        Log.i(TAG,"set Snake object");
     }
 
     private void init(){
+        bundle = new Bundle();
         imageSet();
     }
     private void imageSet(){
@@ -103,4 +126,6 @@ public class GameView extends View {
             }
         }
     }
+
+
 }

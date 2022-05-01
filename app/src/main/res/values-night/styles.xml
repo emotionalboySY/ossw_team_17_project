@@ -3,8 +3,4 @@
     <style name="Widget.Theme.Snake.MyView" parent="">
         <item name="android:background">@color/gray_600</item>
     </style>
-
-    <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
-        <item name="android:fontFamily">@font/font</item>
-    </style>
 </resources>

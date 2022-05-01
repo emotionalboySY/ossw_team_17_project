@@ -4,21 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/button_background"
     tools:context=".GameActivity">
 
     <Button
         android:id="@+id/pauseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/popup_background"
+        android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
         android:hapticFeedbackEnabled="false"
         android:onClick="pause"
         android:text="@string/pause"
-        android:textSize="10sp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/GameView"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.cauossw.snake.GameView
         android:id="@+id/GameView"
@@ -31,6 +38,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/popup_background"
+        android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
+        android:gravity="center"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/pauseButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/GameView"
+        app:layout_constraintTop_toTopOf="@+id/pauseButton" />
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -48,7 +72,9 @@
             <Button
                 android:id="@+id/upButton"
                 android:layout_width="50sp"
-                android:layout_height="50sp" />
+                android:layout_height="50sp"
+                android:background="@drawable/popup_background"
+                android:stateListAnimator="@null"/>
         </TableRow>
 
         <TableRow
@@ -58,7 +84,9 @@
             <Button
                 android:id="@+id/leftButton"
                 android:layout_width="50sp"
-                android:layout_height="50sp" />
+                android:layout_height="50sp"
+                android:background="@drawable/popup_background"
+                android:stateListAnimator="@null"/>
 
             <Button
                 android:id="@+id/blank"
@@ -70,7 +98,9 @@
             <Button
                 android:id="@+id/rightButton"
                 android:layout_width="50sp"
-                android:layout_height="50sp" />
+                android:layout_height="50sp"
+                android:background="@drawable/popup_background"
+                android:stateListAnimator="@null"/>
         </TableRow>
 
         <TableRow
@@ -81,7 +111,9 @@
             <Button
                 android:id="@+id/downButton"
                 android:layout_width="50sp"
-                android:layout_height="50sp" />
+                android:layout_height="50sp"
+                android:background="@drawable/popup_background"
+                android:stateListAnimator="@null"/>
         </TableRow>
 
     </TableLayout>

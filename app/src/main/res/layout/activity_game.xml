@@ -19,7 +19,7 @@
         android:onClick="pause"
         android:text="@string/pause"
         android:textColor="@color/white"
-        android:textSize="10sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +52,8 @@
                 android:id="@+id/upButton"
                 android:layout_width="50sp"
                 android:layout_height="50sp"
-                android:background="@drawable/popup_background" />
+                android:background="@drawable/popup_background"
+                android:stateListAnimator="@null" />
         </TableRow>
 
         <TableRow
@@ -63,7 +64,8 @@
                 android:id="@+id/leftButton"
                 android:layout_width="50sp"
                 android:layout_height="50sp"
-                android:background="@drawable/popup_background" />
+                android:background="@drawable/popup_background"
+                android:stateListAnimator="@null"/>
 
             <Button
                 android:id="@+id/blank"
@@ -76,7 +78,8 @@
                 android:id="@+id/rightButton"
                 android:layout_width="50sp"
                 android:layout_height="50sp"
-                android:background="@drawable/popup_background" />
+                android:background="@drawable/popup_background"
+                android:stateListAnimator="@null"/>
         </TableRow>
 
         <TableRow
@@ -88,7 +91,8 @@
                 android:id="@+id/downButton"
                 android:layout_width="50sp"
                 android:layout_height="50sp"
-                android:background="@drawable/popup_background" />
+                android:background="@drawable/popup_background"
+                android:stateListAnimator="@null"/>
         </TableRow>
 
     </TableLayout>
@@ -98,18 +102,18 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/popup_background"
         android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
         android:gravity="center"
         android:text="0"
         android:textAlignment="center"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/GameView"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/pauseButton"
         app:layout_constraintEnd_toStartOf="@+id/pauseButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/pauseButton"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

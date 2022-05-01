@@ -1,5 +1,7 @@
 package com.cauossw.snake;
 
+import static java.lang.Integer.parseInt;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +23,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Objects;
 
 public class RankingActivity extends AppCompatActivity {
 
@@ -43,18 +50,43 @@ public class RankingActivity extends AppCompatActivity {
                 String line = reader.readLine();
                 while (line != null) {
                     String[] lineData = line.split(",", -1);
+                    Log.i("@@@@@@ RANKING ACTIVITY @@@@@@", line);
                     RankData singleData = new RankData();
-                    singleData.setName(lineData[0]);
-                    singleData.setScore(lineData[1]);
-                    singleData.setTime(lineData[2]);
-                    data.add(singleData);
+                    if(lineData.length == 2) {
+                        singleData.setName(lineData[0]);
+                        singleData.setScore(lineData[1]);
+                        data.add(singleData);
+                        Log.d("RANKING DATA", singleData.getData());
+                    }
                     line = reader.readLine();
-                    Log.d("RANKING DATA", singleData.getData());
                 }
+
+                Comparator<RankData> scoreDesc = new Comparator<RankData>() {
+                    @Override
+                    public int compare(RankData rankData, RankData t1) {
+                        int ret;
+
+                        if(parseInt(rankData.getScore()) < parseInt(t1.getScore()))
+                            ret = 1;
+                        else if(parseInt(rankData.getScore()) == parseInt(t1.getScore()))
+                            ret = 0;
+                        else
+                            ret = -1;
+
+                        return ret;
+                    }
+                };
+
+                Collections.sort(data, scoreDesc);
             } catch (IOException e) {
                 Toast.makeText(getApplicationContext(), "Data Loading Failed", Toast.LENGTH_SHORT).show();
                 Log.e("Ranking", "Data Loading Failed");
             }
+
+            fis.close();
+
+            DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+            recyclerView.addItemDecoration(decoration);
 
             recyclerView.setVisibility(View.VISIBLE);
             rankDataNotFound.setVisibility(View.GONE);
@@ -78,6 +110,8 @@ public class RankingActivity extends AppCompatActivity {
                 startActivity(startIntent);
                 finish();
             });
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

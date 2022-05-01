@@ -2,6 +2,8 @@ package com.cauossw.snake;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,16 +11,26 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cauossw.snake.databinding.ActivityGameBinding;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 
 public class GameActivity extends AppCompatActivity {
 
     private static final String TAG = "GameActivity";
+    private EditText edT;
 
     static Handler handler;
     static GameView gameView;
@@ -26,6 +38,7 @@ public class GameActivity extends AppCompatActivity {
 
     private ActivityGameBinding activityGameBinding;
     private GameThread thread = null;
+    private Bundle bundle;
 
     private String str = "";
 
@@ -44,7 +57,7 @@ public class GameActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 Log.i(TAG, "handler, get message");
 
-                Bundle bundle = new Bundle();
+                bundle = new Bundle();
                 bundle = msg.getData();
 
                 if(bundle.getInt("dead") == 1){
@@ -155,6 +168,7 @@ public class GameActivity extends AppCompatActivity {
         activityGameBinding.inGameDeadPopup.setVisibility(View.VISIBLE);
         activityGameBinding.inGameDeadPopup.bringToFront();
         activityGameBinding.gameViewBlack.setAlpha(0.3f);
+        activityGameBinding.inGameDeadPopupScoreContent.setText(String.valueOf(bundle.getInt("score")));
 
         activityGameBinding.inGameDeadPopupRestart.setOnClickListener(view -> {
             activityGameBinding.inGameDeadPopup.setVisibility(View.GONE);
@@ -162,7 +176,7 @@ public class GameActivity extends AppCompatActivity {
             activityGameBinding.gameViewBlack.setAlpha(0f);
             thread = new GameThread(handler, gameView);
             thread.start();
-            activityGameBinding.score.setText(String.valueOf(0));
+            activityGameBinding.inGameDeadPopupScoreContent.setText(0);
             Log.i(TAG, "Restart After Death");
         });
 
@@ -170,7 +184,36 @@ public class GameActivity extends AppCompatActivity {
             str = null;
             finish();
         });
+        activityGameBinding.inGameDeadPopupRanking.setOnClickListener(view -> {
+            edT = new EditText(getApplicationContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Submit to Ranking")
+                    .setMessage("Write your name for ranking page.")
+                    .setCancelable(false)
+                    .setView(edT)
+                    .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String name = edT.getText().toString();
+                            int score = bundle.getInt("score");
+                            String scoreS = String.valueOf(score);
+                            String inputData = name + "," + scoreS + "\n";
+                            try {
+                                File file = new File(getFilesDir(), "data.txt");
+                                FileWriter fw = new FileWriter(file, true);
+                                PrintWriter writer = new PrintWriter(fw, true);
+                                writer.println(inputData);
+                                Log.i(TAG, "Ranking Submitted: " + inputData);
+                                writer.close();
+                                fw.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            finish();
+                        }
+                    });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        });
     }
-
-
 }

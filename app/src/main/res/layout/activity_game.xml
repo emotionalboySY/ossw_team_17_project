@@ -262,6 +262,47 @@
                 android:textColor="@color/white"
                 android:textSize="55sp" />
 
+            <LinearLayout
+                android:id="@+id/inGame_dead_popup_score"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp" >
+
+                <TextView
+                    android:id="@+id/inGame_dead_popup_score_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scoreDesc"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/maplestory_l" />
+
+                <TextView
+                    android:id="@+id/inGame_dead_popup_score_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/maplestory_b" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/inGame_dead_popup_ranking"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="5dp"
+                android:background="@drawable/button_popup_background"
+                android:paddingVertical="10dp"
+                android:text="Submit Ranking"
+                android:textColor="@color/deep_green"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:fontFamily="@font/maplestory_l" />
+
             <TextView
                 android:id="@+id/inGame_dead_popup_restart"
                 android:layout_width="300sp"

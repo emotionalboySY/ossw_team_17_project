@@ -18,14 +18,12 @@ public class RankingViewAdapter extends RecyclerView.Adapter<RankingViewAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView score;
-        TextView time;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.ranking_item_name);
             score = itemView.findViewById(R.id.ranking_item_score);
-            time = itemView.findViewById(R.id.ranking_item_time);
         }
     }
 
@@ -48,11 +46,9 @@ public class RankingViewAdapter extends RecyclerView.Adapter<RankingViewAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String name = mData.get(position).getName();
         String score = mData.get(position).getScore();
-        String time = mData.get(position).getTime();
 
         holder.title.setText(name);
         holder.score.setText(score);
-        holder.time.setText(time);
     }
 
     @Override

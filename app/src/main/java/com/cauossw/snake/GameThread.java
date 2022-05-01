@@ -136,6 +136,7 @@ public class GameThread extends Thread {
                 Log.i(TAG,"메세지생성");
                 Bundle deadBundle = new Bundle();
                 deadBundle.putInt("dead",1);
+                deadBundle.putInt("score", getScore());
                 Message.setData(deadBundle);
                 Log.i(TAG,"메세지에 번들 삽입");
                 handler.sendMessage(dead);

@@ -19,4 +19,8 @@
     <string name="resume">Resume</string>
     <string name="save">Save</string>
     <string name="restart">Restart</string>
+    <string name="pause">PAUSE</string>
+    <string name="you_died">YOU DIED</string>
+    <string name="pause_popup_desc">pause popup desc</string>
+    <string name="popup_death_desc">popup death desc</string>
 </resources>

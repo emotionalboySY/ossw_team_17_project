@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         tv_start.setOnClickListener(view -> {
             Intent startIntent = new Intent(MainActivity.this, GameActivity.class);
+            startIntent.putExtra("data", "");
             startActivity(startIntent);
         });
         tv_load.setOnClickListener(view -> {

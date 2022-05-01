@@ -4,24 +4,16 @@ package com.cauossw.snake;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.view.WindowManager;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.cauossw.snake.databinding.ActivityGameBinding;
-
-import java.util.ArrayList;
 
 
 public class GameActivity extends AppCompatActivity {
@@ -36,11 +28,6 @@ public class GameActivity extends AppCompatActivity {
     private GameThread thread = null;
 
     private String str = "";
-    private PopupPauseDialog popupPauseDialog;
-    private PopupDeadDialog popupDeadDialog;
-
-    private String status = "";
-
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -69,47 +56,29 @@ public class GameActivity extends AppCompatActivity {
                     activityGameBinding.score.setText("" + bundle.getInt("score"));
                 }
                 gameView.setBundle(bundle);
-                TextView scoreView = findViewById(R.id.score);
-                scoreView.setText(bundle.getSerializable("score").toString());
                 Log.i(TAG, gameView.toString());
 
             }
         };
 
-        if (thread == null) {
-            thread = new GameThread(handler, gameView);
-        }
-
         //버튼 리스너 연결
-        activityGameBinding.upButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                thread.setSnakeDir(Direction.UP);
-                Log.i(TAG, "Button UP");
-            }
+        activityGameBinding.upButton.setOnClickListener(v -> {
+            thread.setSnakeDir(Direction.UP);
+            Log.i(TAG, "Button UP");
         });
-        activityGameBinding.downButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                thread.setSnakeDir(Direction.DOWN);
-                Log.i(TAG, "Button DOWN");
+        activityGameBinding.downButton.setOnClickListener(v -> {
+            thread.setSnakeDir(Direction.DOWN);
+            Log.i(TAG, "Button DOWN");
 
-            }
         });
-        activityGameBinding.leftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                thread.setSnakeDir(Direction.LEFT);
-                Log.i(TAG, "Button LEFT");
+        activityGameBinding.leftButton.setOnClickListener(v -> {
+            thread.setSnakeDir(Direction.LEFT);
+            Log.i(TAG, "Button LEFT");
 
-            }
         });
-        activityGameBinding.rightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                thread.setSnakeDir(Direction.RIGHT);
-                Log.i(TAG, "Button RIGHT");
-            }
+        activityGameBinding.rightButton.setOnClickListener(v -> {
+            thread.setSnakeDir(Direction.RIGHT);
+            Log.i(TAG, "Button RIGHT");
         });
         activityGameBinding.inGamePause.setOnClickListener(v -> {
             activityGameBinding.inGamePausePopup.setVisibility(View.VISIBLE);
@@ -119,20 +88,28 @@ public class GameActivity extends AppCompatActivity {
             str = thread.pause();
             Log.i(TAG,"Button PAUSE");
         });
-        activityGameBinding.popupResume.setOnClickListener(v -> {
+        activityGameBinding.inGamePausePopupResume.setOnClickListener(v -> {
+            activityGameBinding.inGamePausePopup.setVisibility(View.GONE);
+            activityGameBinding.inGamePausePopup.bringToFront();
+            LinearLayout blackBG = findViewById(R.id.gameView_black);
+            blackBG.setAlpha(0f);
             if (thread.checkIsPaused() && !thread.checkIsLost()) {
                 thread = new GameThread(handler, gameView, str);
                 thread.start();
                 Log.i(TAG,"Button RESUME");
             }
         });
-        activityGameBinding.popupRestart.setOnClickListener(v -> {
-            thread.pause();
+        activityGameBinding.inGamePausePopupRestart.setOnClickListener(v -> {
+            activityGameBinding.inGamePausePopup.setVisibility(View.GONE);
+            activityGameBinding.inGamePausePopup.bringToFront();
+            LinearLayout blackBG = findViewById(R.id.gameView_black);
+            blackBG.setAlpha(0f);
             thread = new GameThread(handler, gameView);
             thread.start();
+            activityGameBinding.score.setText(String.valueOf(0));
             Log.i(TAG,"Button RESTART");
         });
-        activityGameBinding.popupSave.setOnClickListener(view -> {
+        activityGameBinding.inGamePausePopupSave.setOnClickListener(view -> {
             SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
             SharedPreferences.Editor ed = pref.edit();
             ed.putString("data", str);
@@ -140,7 +117,7 @@ public class GameActivity extends AppCompatActivity {
             finish();
             Log.i(TAG,"Button EXIT");
         });
-        activityGameBinding.popupExit.setOnClickListener(view -> {
+        activityGameBinding.inGamePausePopupExit.setOnClickListener(view -> {
             str = null;
             finish();
         });
@@ -175,10 +152,24 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void showDeadDialog(){
-        popupDeadDialog = new PopupDeadDialog(GameActivity.this);
-        popupDeadDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //투명배경
-        popupDeadDialog.show();
-        Log.i(TAG,"dead Dialog");
+        activityGameBinding.inGameDeadPopup.setVisibility(View.VISIBLE);
+        activityGameBinding.inGameDeadPopup.bringToFront();
+        activityGameBinding.gameViewBlack.setAlpha(0.3f);
+
+        activityGameBinding.inGameDeadPopupRestart.setOnClickListener(view -> {
+            activityGameBinding.inGameDeadPopup.setVisibility(View.GONE);
+            activityGameBinding.inGameDeadPopup.bringToFront();
+            activityGameBinding.gameViewBlack.setAlpha(0f);
+            thread = new GameThread(handler, gameView);
+            thread.start();
+            activityGameBinding.score.setText(String.valueOf(0));
+            Log.i(TAG, "Restart After Death");
+        });
+
+        activityGameBinding.inGameDeadPopupExit.setOnClickListener(view -> {
+            str = null;
+            finish();
+        });
     }
 
 

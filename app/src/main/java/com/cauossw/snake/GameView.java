@@ -8,13 +8,9 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.Size;
-import android.view.Display;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 
 
@@ -31,7 +27,6 @@ public class GameView extends View {
     private Bitmap appleImage;
     private Bitmap mapTileImage;
 
-    private Bundle bundle;
     private ArrayList<Coordinate> snakePositions;
     private Coordinate applePosition;
 
@@ -100,7 +95,6 @@ public class GameView extends View {
             }
         }
     }
-
 //    public void setSnake(ArrayList<Coordinate> snakePositions){
 //        this.snakePositions = snakePositions;
 //        Log.i(TAG,"set Snake object");

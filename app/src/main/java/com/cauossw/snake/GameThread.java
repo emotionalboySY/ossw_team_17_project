@@ -17,7 +17,6 @@ public class GameThread extends Thread {
     private Snake snake;
     private Apple apple;
     private GameView gameView;
-
     private int score;
     private boolean isPaused = false,
             isLost = false,

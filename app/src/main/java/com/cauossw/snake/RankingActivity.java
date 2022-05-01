@@ -29,7 +29,7 @@ public class RankingActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_ranking);
 
-        ImageButton backButton = (ImageButton) findViewById(R.id.rank_bt_back);
+        ImageButton backButton = findViewById(R.id.rank_bt_back);
         ArrayList<RankData> data = new ArrayList<>();
         RelativeLayout rankDataNotFound = findViewById(R.id.rank_layout_nodata);
         RecyclerView recyclerView = findViewById(R.id.rank_layout_content);
@@ -65,7 +65,6 @@ public class RankingActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
 
         } catch (FileNotFoundException e) {
-            Toast.makeText(getApplicationContext(), "Data File Not Found", Toast.LENGTH_SHORT).show();
             Log.e("Ranking", "Data File Not Found");
 
             recyclerView.setVisibility(View.GONE);
@@ -74,8 +73,10 @@ public class RankingActivity extends AppCompatActivity {
             TextView restart = findViewById(R.id.rank_layout_nodata_startgame);
 
             restart.setOnClickListener(view -> {
-                // ******** TBD!! *********
-                //Intent intent = new Intent(this, GameActivity.class);
+                Intent startIntent = new Intent(RankingActivity.this, GameActivity.class);
+                startIntent.putExtra("data", "");
+                startActivity(startIntent);
+                finish();
             });
         }
 

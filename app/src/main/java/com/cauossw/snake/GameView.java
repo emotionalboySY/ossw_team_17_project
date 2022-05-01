@@ -112,11 +112,15 @@ public class GameView extends View {
 //        Log.i(TAG,"set Apple object");
 //    }
     public void setBundle(Bundle bundle){
-        Log.i(TAG,"game 인스턴스"+GameView.this.toString());
-        snakePositions = (ArrayList<Coordinate>) bundle.getSerializable("snake");
-        Log.i(TAG,"snake Head Position X:"+snakePositions.get(0).getX());
-        applePosition = (Coordinate) bundle.getSerializable("apple");
-        Log.i(TAG,"applePosition X:"+applePosition.getX());
+        if(bundle.getSerializable("snake")!=null) {
+            Log.i(TAG, "game 인스턴스" + GameView.this.toString());
+            snakePositions = (ArrayList<Coordinate>) bundle.getSerializable("snake");
+            Log.i(TAG, "snake Head Position X:" + snakePositions.get(0).getX());
+        }
+        if(bundle.getSerializable("apple")!=null) {
+            applePosition = (Coordinate) bundle.getSerializable("apple");
+            Log.i(TAG, "applePosition X:" + applePosition.getX());
+        }
     }
 
     private void init(){

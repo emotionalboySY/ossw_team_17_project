@@ -13,32 +13,24 @@ import androidx.annotation.Nullable;
 
 import com.cauossw.snake.databinding.PopupPauseBinding;
 
-public class PopupDialog extends Dialog {
+public class PopupPauseDialog extends Dialog {
 
 
     private final String TAG = "popupDialog";
     private PopupPauseBinding popupPauseBinding;
 
-    private String status;
-    private GameThread thread;
 
-
-    public PopupDialog(@NonNull Context context) {
+    public PopupPauseDialog(@NonNull Context context) {
         super(context);
         init();
     }
-    public PopupDialog(@NonNull Context context, int themeResId) {
+    public PopupPauseDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
         init();
 
     }
-    public PopupDialog(@NonNull Context context, String status, GameThread thread){
-        super(context);
-        init();
-        this.status = status;
-        this.thread = thread;
-    }
-    protected PopupDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
+
+    protected PopupPauseDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
         init();
     }

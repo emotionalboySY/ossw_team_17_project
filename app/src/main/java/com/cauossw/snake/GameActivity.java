@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,7 +26,8 @@ public class GameActivity extends AppCompatActivity {
     private ActivityGameBinding activityGameBinding;
     private GameThread thread = null;
 
-    private PopupDialog popupDialog;
+    private PopupPauseDialog popupPauseDialog;
+    private PopupDeadDialog popupDeadDialog;
 
     private String status = "";
 
@@ -49,8 +49,16 @@ public class GameActivity extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 bundle = msg.getData();
+
+                if(bundle.getInt("dead") == 1){
+                    Log.i(TAG, "handler, is dead");
+                    showDeadDialog();
+                }
+
+                if(bundle.getInt("score")!=0) {
+                    activityGameBinding.score.setText("" + bundle.getInt("score"));
+                }
                 gameView.setBundle(bundle);
-                activityGameBinding.score.setText(""+bundle.getInt("score"));
             }
         };
 
@@ -90,39 +98,6 @@ public class GameActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    //pause onclick
-    public void pause(View v){
-        status = thread.pause();
-        popupDialog = new PopupDialog(GameActivity.this, status,thread);
-        popupDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //투명배경
-        popupDialog.show();
-        Log.i(TAG,"Button PAUSE");
-    }
-    //resume onclick
-    public void resume(View v){
-        if (thread.checkIsPaused() && !thread.checkIsLost()) {
-            thread = new GameThread(handler, gameView, status);
-            thread.start();
-            Log.i(TAG,"Button RESUME");
-        }
-        if(popupDialog.isShowing()){
-            popupDialog.dismiss();
-        }
-    }
-    //restart onclick
-    public void restart(View v){
-        thread.pause();
-        thread = new GameThread(handler, gameView);
-        thread.start();
-        Log.i(TAG,"Button RESTART");
-
-        if(popupDialog.isShowing()){
-            popupDialog.dismiss();
-        }
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -133,16 +108,58 @@ public class GameActivity extends AppCompatActivity {
         thread.start();
         Log.i(TAG,"스레드 시작");
     }
-
     @Override
     protected void onPause() {
         super.onPause();
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    //pause onclick
+    public void pause(View v){
+        status = thread.pause();
+        popupPauseDialog = new PopupPauseDialog(GameActivity.this);
+        popupPauseDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //투명배경
+        popupPauseDialog.show();
+        Log.i(TAG,"Button PAUSE");
+    }
+    //resume onclick
+    public void resume(View v){
+        if (thread.checkIsPaused() && !thread.checkIsLost()) {
+            thread = new GameThread(handler, gameView, status);
+            thread.start();
+            Log.i(TAG,"Button RESUME");
+        }
+        if(popupPauseDialog.isShowing()){
+            popupPauseDialog.dismiss();
+        }
+    }
+    //restart onclick
+    public void restart(View v){
+        thread.pause();
+        thread = new GameThread(handler, gameView);
+        thread.start();
+        Log.i(TAG,"Button RESTART");
+
+        if(popupPauseDialog !=null && popupPauseDialog.isShowing()){
+            popupPauseDialog.dismiss();
+            popupPauseDialog = null;
+        }
+        if(popupDeadDialog !=null && popupDeadDialog.isShowing()){
+            popupDeadDialog.dismiss();
+            popupDeadDialog = null;
+        }
+    }
+
+    private void showDeadDialog(){
+        popupDeadDialog = new PopupDeadDialog(GameActivity.this);
+        popupDeadDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //투명배경
+        popupDeadDialog.show();
+        Log.i(TAG,"dead Dialog");
+    }
+
 
 
 }

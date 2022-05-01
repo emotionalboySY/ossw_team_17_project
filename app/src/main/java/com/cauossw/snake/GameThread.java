@@ -129,7 +129,6 @@ public class GameThread extends Thread {
 //                msgLose.obj = "dead";
 //                handler.sendMessage(msgLose);
             }
-
         }
     }
 

@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hapticFeedbackEnabled="false"
+        android:onClick="pause"
         android:text="@string/pause"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,26 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/resumeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/resume"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/pauseButton"
-        app:layout_constraintStart_toStartOf="@+id/pauseButton"
-        app:layout_constraintTop_toBottomOf="@+id/pauseButton" />
-
-
-    <Button
-        android:id="@+id/restartButton"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="@string/restart"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/resumeButton"
-        app:layout_constraintStart_toStartOf="@+id/resumeButton"
-        app:layout_constraintTop_toBottomOf="@+id/resumeButton" />
 
     <TableLayout
         android:layout_width="wrap_content"

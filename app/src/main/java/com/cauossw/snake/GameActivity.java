@@ -2,31 +2,34 @@ package com.cauossw.snake;
 
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cauossw.snake.databinding.ActivityGameBinding;
-
-import java.util.ArrayList;
 
 
 public class GameActivity extends AppCompatActivity {
 
     private static final String TAG = "GameActivity";
 
+    static Handler handler;
+    static GameView gameView;
+
 
     private ActivityGameBinding activityGameBinding;
-    private GameView gameView;
-    static Handler handler;
     private GameThread thread = null;
 
-    private String str = "";
+    private PopupDialog popupDialog;
+
+    private String status = "";
 
 
     @SuppressLint("HandlerLeak")
@@ -37,31 +40,23 @@ public class GameActivity extends AppCompatActivity {
         setContentView(activityGameBinding.getRoot());
 
         gameView = activityGameBinding.GameView;
-        Log.i(TAG,"gameView 객체 생성, id:"+gameView.toString());
+        Log.i(TAG, "gameView 객체 생성, id:" + gameView.toString());
 
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 Log.i(TAG, "handler, get message");
-//                if(msg.obj.getClass().getName().equals(Snake.class.getName())){
-//                    Log.i(TAG,"Message obj: "+Snake.class.getName());
-//                    Log.i(TAG,"Snake length: "+((Snake) msg.obj).getLength());
-//                    gameView.setSnake((Snake)msg.obj);
-//
-//                }else if(msg.obj.getClass().getName().equals(Apple.class.getName())){
-//                    Log.i(TAG,"Message obj: "+Apple.class.getName());
-//                    gameView.setApple((Apple)msg.obj);
-//                }
+
                 Bundle bundle = new Bundle();
                 bundle = msg.getData();
                 gameView.setBundle(bundle);
-                Log.i(TAG,gameView.toString());
+                Log.i(TAG, gameView.toString());
 
             }
         };
 
-        if(thread == null){
-            thread = new GameThread(handler,gameView);
+        if (thread == null) {
+            thread = new GameThread(handler, gameView);
         }
 
         //버튼 리스너 연결
@@ -69,7 +64,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 thread.setSnakeDir(Direction.UP);
-                Log.i(TAG,"Button UP");
+                Log.i(TAG, "Button UP");
             }
         });
 
@@ -77,7 +72,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 thread.setSnakeDir(Direction.DOWN);
-                Log.i(TAG,"Button DOWN");
+                Log.i(TAG, "Button DOWN");
 
             }
         });
@@ -85,7 +80,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 thread.setSnakeDir(Direction.LEFT);
-                Log.i(TAG,"Button LEFT");
+                Log.i(TAG, "Button LEFT");
 
             }
         });
@@ -93,36 +88,39 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 thread.setSnakeDir(Direction.RIGHT);
-                Log.i(TAG,"Button RIGHT");
+                Log.i(TAG, "Button RIGHT");
             }
         });
+    }
 
-        activityGameBinding.restartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                thread.pause();
-                thread = new GameThread(handler, gameView);
-                thread.start();
-                Log.i(TAG,"Button RESTART");
-            }
-        });
-        activityGameBinding.resumeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (thread.checkIsPaused() && !thread.checkIsLost()) {
-                    thread = new GameThread(handler, gameView, str);
-                    thread.start();
-                    Log.i(TAG,"Button RESUME");
-                }
-            }
-        });
-        activityGameBinding.pauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str = thread.pause();
-                Log.i(TAG,"Button PAUSE");
-            }
-        });
+
+    public void pause(View v){
+        status = thread.pause();
+        popupDialog = new PopupDialog(GameActivity.this, status,thread);
+        popupDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //투명배경
+        popupDialog.show();
+        Log.i(TAG,"Button PAUSE");
+    }
+    public void resume(View v){
+        if (thread.checkIsPaused() && !thread.checkIsLost()) {
+            thread = new GameThread(handler, gameView, status);
+            thread.start();
+            Log.i(TAG,"Button RESUME");
+        }
+        if(popupDialog.isShowing()){
+            popupDialog.dismiss();
+        }
+    }
+
+    public void restart(View v){
+        thread.pause();
+        thread = new GameThread(handler, gameView);
+        thread.start();
+        Log.i(TAG,"Button RESTART");
+
+        if(popupDialog.isShowing()){
+            popupDialog.dismiss();
+        }
     }
 
     @Override

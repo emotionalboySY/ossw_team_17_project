@@ -31,7 +31,6 @@ public class GameView extends View {
     private Bitmap appleImage;
     private Bitmap mapTileImage;
 
-    private Bundle bundle;
     private ArrayList<Coordinate> snakePositions;
     private Coordinate applePosition;
 

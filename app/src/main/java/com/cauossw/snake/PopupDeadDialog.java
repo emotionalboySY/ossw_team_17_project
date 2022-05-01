@@ -16,9 +16,6 @@ public class PopupDeadDialog extends Dialog {
     private final String TAG = "popupDialog";
     private PopupEndBinding popupEndBinding;
 
-    private String status;
-    private GameThread thread;
-
 
     public PopupDeadDialog(@NonNull Context context) {
         super(context);

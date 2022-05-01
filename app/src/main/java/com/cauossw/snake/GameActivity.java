@@ -19,12 +19,12 @@ public class GameActivity extends AppCompatActivity {
 
     private static final String TAG = "GameActivity";
 
-    static Handler handler;
-    static GameView gameView;
+    private static Handler handler;
+    private GameView gameView;
 
 
     private ActivityGameBinding activityGameBinding;
-    private GameThread thread = null;
+    private GameThread thread;
 
     private PopupPauseDialog popupPauseDialog;
     private PopupDeadDialog popupDeadDialog;
@@ -50,6 +50,9 @@ public class GameActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle = msg.getData();
 
+                if(bundle.containsKey("dead")){
+                    Log.i(TAG,""+bundle.getInt("dead"));
+                }
                 if(bundle.getInt("dead") == 1){
                     Log.i(TAG, "handler, is dead");
                     showDeadDialog();
@@ -120,9 +123,7 @@ public class GameActivity extends AppCompatActivity {
     //pause onclick
     public void pause(View v){
         status = thread.pause();
-        popupPauseDialog = new PopupPauseDialog(GameActivity.this);
-        popupPauseDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //투명배경
-        popupPauseDialog.show();
+        showPauseDialog();
         Log.i(TAG,"Button PAUSE");
     }
     //resume onclick
@@ -138,6 +139,7 @@ public class GameActivity extends AppCompatActivity {
     }
     //restart onclick
     public void restart(View v){
+        activityGameBinding.score.setText(""+0);
         thread.pause();
         thread = new GameThread(handler, gameView);
         thread.start();
@@ -160,6 +162,12 @@ public class GameActivity extends AppCompatActivity {
         Log.i(TAG,"dead Dialog");
     }
 
+    private void showPauseDialog(){
+        popupPauseDialog = new PopupPauseDialog(GameActivity.this);
+        popupPauseDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //투명배경
+        popupPauseDialog.show();
+        Log.i(TAG,"dead Dialog");
+    }
 
 
 }

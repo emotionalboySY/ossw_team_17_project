@@ -77,17 +77,28 @@ public class GameView extends View {
             for (int snakeLength = 0; snakeLength < snakePositions.size(); snakeLength += 1) {
                 int x = setToCanvasPosition(snakePositions.get(snakeLength).getX());
                 int y = setToCanvasPosition(snakePositions.get(snakeLength).getY());
-                if (snakeLength == 0) { //머리
-                    Log.i(TAG,"SnakeHead: "+x+","+y);
-                    canvas.drawBitmap(snakeHeadImage, null, new Rect(x, y, x + eachImageWidth, y + eachImageWidth), null);
-                } else if (snakeLength == snakePositions.size() - 1) { //꼬리
-                    canvas.drawBitmap(snakeTailImage, null, new Rect(x, y, x + eachImageWidth, y + eachImageWidth), null);
-                } else {//몸통
-                    canvas.drawBitmap(snakeBodyImage, null, new Rect(x, y, x + eachImageWidth, y + eachImageWidth), null);
-                }
+                canvas.drawBitmap(snakeBodyImage, null, new Rect(x, y, x + eachImageWidth, y + eachImageWidth), null);
                 Log.i(TAG,"end draw Snake");
             }
         }
+//
+//        if(snakePositions != null) {
+//            //뱀 몸체그리기
+//            Log.i(TAG,"start draw Snake");
+//            for (int snakeLength = 0; snakeLength < snakePositions.size(); snakeLength += 1) {
+//                int x = setToCanvasPosition(snakePositions.get(snakeLength).getX());
+//                int y = setToCanvasPosition(snakePositions.get(snakeLength).getY());
+//                if (snakeLength == 0) { //머리
+//                    Log.i(TAG,"SnakeHead: "+x+","+y);
+//                    canvas.drawBitmap(snakeHeadImage, null, new Rect(x, y, x + eachImageWidth, y + eachImageWidth), null);
+//                } else if (snakeLength == snakePositions.size() - 1) { //꼬리
+//                    canvas.drawBitmap(snakeTailImage, null, new Rect(x, y, x + eachImageWidth, y + eachImageWidth), null);
+//                } else {//몸통
+//                    canvas.drawBitmap(snakeBodyImage, null, new Rect(x, y, x + eachImageWidth, y + eachImageWidth), null);
+//                }
+//                Log.i(TAG,"end draw Snake");
+//            }
+//        }
     }
     /*
 //    public void setSnake(ArrayList<Coordinate> snakePositions){

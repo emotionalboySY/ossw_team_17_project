@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/button_background"
     tools:context=".GameActivity">
 
     <Button
@@ -12,11 +13,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/button_popup_background"
+        android:background="@drawable/popup_background"
         android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
         android:hapticFeedbackEnabled="false"
         android:onClick="pause"
         android:text="@string/pause"
+        android:textColor="@color/white"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -93,11 +95,16 @@
 
     <TextView
         android:id="@+id/score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/popup_background"
+        android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
+        android:gravity="center"
         android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/GameView"
         app:layout_constraintEnd_toStartOf="@+id/pauseButton"
         app:layout_constraintHorizontal_bias="0.0"

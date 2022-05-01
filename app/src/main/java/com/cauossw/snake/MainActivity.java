@@ -10,12 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
- /*
-import android.util.Log;
-import java.io.FileOutputStream;
-import java.io.IOException;
- */
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,18 +77,5 @@ public class MainActivity extends AppCompatActivity {
 
             System.exit(0);
         });
-        /*
-        FileOutputStream fos;
-        String strFileContents = "Sam,30,10min 59sec";
-        try {
-            fos = openFileOutput("data.txt", MODE_PRIVATE);
-
-            fos.write(strFileContents.getBytes());
-
-            fos.close();
-        } catch (IOException e) {
-            Log.e("MAINACTIVITY", e.toString());
-        }
-        */
     }
 }

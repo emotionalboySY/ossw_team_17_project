@@ -44,11 +44,6 @@ public class GameView extends View {
         super(context, attrs, defStyleAttr);
         init();
     }
-    public GameView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init();
-    }
-
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) { //뷰 크기 설정
@@ -60,7 +55,6 @@ public class GameView extends View {
             Log.i(TAG, "onMeasure size:"+heightMeasureSpec);
         }
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) { //캔버스 수정이 필요할때마다 호출됨
@@ -95,6 +89,7 @@ public class GameView extends View {
             }
         }
     }
+    /*
 //    public void setSnake(ArrayList<Coordinate> snakePositions){
 //        this.snakePositions = snakePositions;
 //        Log.i(TAG,"set Snake object");
@@ -105,6 +100,7 @@ public class GameView extends View {
 //        this.applePosition = applePosition;
 //        Log.i(TAG,"set Apple object");
 //    }
+     */
     public void setBundle(Bundle bundle){
         if(bundle.getSerializable("snake")!=null) {
             Log.i(TAG, "game 인스턴스" + GameView.this.toString());
@@ -120,8 +116,10 @@ public class GameView extends View {
     private void init(){
         setWillNotDraw(false);
         Log.i(TAG,"게임뷰 생성");
-//        snake = new Snake(new Coordinate());
-//        apple = new Apple(new Coordinate());
+        /*
+//      snake = new Snake(new Coordinate());
+//      apple = new Apple(new Coordinate());
+         */
         imageSet();
     }
     private void imageSet(){

@@ -23,10 +23,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.Objects;
 
 public class RankingActivity extends AppCompatActivity {
 
@@ -61,23 +58,9 @@ public class RankingActivity extends AppCompatActivity {
                     line = reader.readLine();
                 }
 
-                Comparator<RankData> scoreDesc = new Comparator<RankData>() {
-                    @Override
-                    public int compare(RankData rankData, RankData t1) {
-                        int ret;
+                Comparator<RankData> scoreDesc = (rankData, t1) -> Integer.compare(parseInt(t1.getScore()), parseInt(rankData.getScore()));
 
-                        if(parseInt(rankData.getScore()) < parseInt(t1.getScore()))
-                            ret = 1;
-                        else if(parseInt(rankData.getScore()) == parseInt(t1.getScore()))
-                            ret = 0;
-                        else
-                            ret = -1;
-
-                        return ret;
-                    }
-                };
-
-                Collections.sort(data, scoreDesc);
+                data.sort(scoreDesc);
             } catch (IOException e) {
                 Toast.makeText(getApplicationContext(), "Data Loading Failed", Toast.LENGTH_SHORT).show();
                 Log.e("Ranking", "Data Loading Failed");

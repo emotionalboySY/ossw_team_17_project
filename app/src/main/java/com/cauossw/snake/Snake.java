@@ -1,6 +1,5 @@
 package com.cauossw.snake;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -88,7 +87,7 @@ public class Snake {
         return this.body.get(0).equals(apple.getPosition());
     }
 
-    public boolean overlaps(Coordinate position) { // (head를 뺀) body에 겹치는지 check
+    public boolean overlaps(Coordinate position) { // (head 를 뺀) body 에 겹치는지 check
         boolean isInBody = false;
 
         int i;
@@ -103,7 +102,7 @@ public class Snake {
     }
 
     public boolean isDead() {
-        // head가 body와 겹치는지, 또는 bound 벗어나는지 check
+        // head 가 body 와 겹치는지, 또는 bound 벗어나는지 check
         return overlaps(body.get(0)) || body.get(0).isOutOfBound();
     }
 

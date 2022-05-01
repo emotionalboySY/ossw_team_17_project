@@ -1,8 +1,6 @@
 package com.cauossw.snake;
 
 import android.annotation.SuppressLint;
-import android.graphics.Rect;
-
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;

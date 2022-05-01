@@ -2,7 +2,7 @@ package com.cauossw.snake;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,18 +13,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cauossw.snake.databinding.ActivityGameBinding;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 
 
 public class GameActivity extends AppCompatActivity {
@@ -50,7 +47,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(activityGameBinding.getRoot());
 
         gameView = activityGameBinding.GameView;
-        Log.i(TAG, "gameView 객체 생성, id:" + gameView.toString());
+        Log.i(TAG, "gameView 객체 생성, id:" + gameView);
 
         handler = new Handler() {
             @Override
@@ -176,7 +173,7 @@ public class GameActivity extends AppCompatActivity {
             activityGameBinding.gameViewBlack.setAlpha(0f);
             thread = new GameThread(handler, gameView);
             thread.start();
-            activityGameBinding.inGameDeadPopupScoreContent.setText(0);
+            activityGameBinding.inGameDeadPopupScoreContent.setText("0");
             Log.i(TAG, "Restart After Death");
         });
 
@@ -191,26 +188,23 @@ public class GameActivity extends AppCompatActivity {
                     .setMessage("Write your name for ranking page.")
                     .setCancelable(false)
                     .setView(edT)
-                    .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            String name = edT.getText().toString();
-                            int score = bundle.getInt("score");
-                            String scoreS = String.valueOf(score);
-                            String inputData = name + "," + scoreS + "\n";
-                            try {
-                                File file = new File(getFilesDir(), "data.txt");
-                                FileWriter fw = new FileWriter(file, true);
-                                PrintWriter writer = new PrintWriter(fw, true);
-                                writer.println(inputData);
-                                Log.i(TAG, "Ranking Submitted: " + inputData);
-                                writer.close();
-                                fw.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            finish();
+                    .setPositiveButton("Submit", (dialogInterface, i) -> {
+                        String name = edT.getText().toString();
+                        int score = bundle.getInt("score");
+                        String scoreS = String.valueOf(score);
+                        String inputData = name + "," + scoreS + "\n";
+                        try {
+                            File file = new File(getFilesDir(), "data.txt");
+                            FileWriter fw = new FileWriter(file, true);
+                            PrintWriter writer = new PrintWriter(fw, true);
+                            writer.println(inputData);
+                            Log.i(TAG, "Ranking Submitted: " + inputData);
+                            writer.close();
+                            fw.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
+                        finish();
                     });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();

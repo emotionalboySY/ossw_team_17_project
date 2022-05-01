@@ -28,14 +28,14 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toTopOf="@+id/popupResumeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/popupBackground" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/popupResumeButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -43,17 +43,17 @@
         android:background="@drawable/button_popup_background"
         android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
         android:padding="20sp"
-        android:text="Button"
+        android:text="@string/resume"
         android:textColor="@color/deep_green"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
+        app:layout_constraintBottom_toTopOf="@+id/popupRestartButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/popupTitle" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/popupRestartButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -61,17 +61,17 @@
         android:background="@drawable/button_popup_background"
         android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
         android:padding="20sp"
-        android:text="Button"
+        android:text="@string/restart"
         android:textColor="@color/deep_green"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
+        app:layout_constraintBottom_toTopOf="@+id/popupSaveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+        app:layout_constraintTop_toBottomOf="@+id/popupResumeButton" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/popupSaveButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -79,17 +79,17 @@
         android:background="@drawable/button_popup_background"
         android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
         android:padding="20sp"
-        android:text="Button"
+        android:text="@string/save"
         android:textColor="@color/deep_green"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/button8"
+        app:layout_constraintBottom_toTopOf="@+id/popupExitButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        app:layout_constraintTop_toBottomOf="@+id/popupRestartButton" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/popupExitButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -97,14 +97,14 @@
         android:background="@drawable/button_popup_background"
         android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
         android:padding="20sp"
-        android:text="Button"
+        android:text="@string/exit"
         android:textColor="@color/deep_green"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintTop_toBottomOf="@+id/popupSaveButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,4 +6,6 @@
     <string name="pause">PAUSE</string>
     <string name="resume">RESUME</string>
     <string name="restart">RESTART</string>
+    <string name="save">SAVE</string>
+    <string name="exit">EXIT</string>
 </resources>

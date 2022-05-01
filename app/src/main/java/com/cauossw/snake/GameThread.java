@@ -4,13 +4,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class GameThread extends Thread {
+
+    private final String TAG = "GameThread";
     private Snake snake;
     private Apple apple;
+    private GameView gameView;
 
     private int score;
     private boolean isPaused = false,
@@ -20,7 +24,7 @@ public class GameThread extends Thread {
 
     private Handler handler;
 
-    GameThread(Handler handler) {
+    GameThread(Handler handler, GameView gameView) {
         // 멤버 변수 초기화
         snake = new Snake(new Coordinate());
 
@@ -28,13 +32,12 @@ public class GameThread extends Thread {
             apple = new Apple(Coordinate.random());
             if (!(snake.canEat(apple) || snake.overlaps(apple.getPosition()))) break;
         }
-
         this.score = 0;
-
         this.handler = handler;
+        this.gameView = gameView;
     }
 
-    GameThread(Handler handler, String gameInfo) {
+    GameThread(Handler handler, GameView gameView, String gameInfo) {
         // 파싱
         this.handler = handler;
 
@@ -42,6 +45,7 @@ public class GameThread extends Thread {
 
         this.snake = new Snake(infoArray[0]);
         this.apple = new Apple(infoArray[1]);
+        this.gameView = gameView;
         this.score = Integer.parseInt(infoArray[2]);
     }
 
@@ -49,19 +53,23 @@ public class GameThread extends Thread {
     public void run() { // 주기적으로 반복되는 부분
         while(!isPaused) {
             // *** main thread로 message 보내 canvas 출력 필요
-            Message message3 = handler.obtainMessage();
-            message3.what = 0;
-            message3.obj = getStatusStr();
-            handler.sendMessage(message3);
 
-            Message snakeMessage = handler.obtainMessage();
-            snakeMessage.obj = snake;
-            handler.sendMessage(snakeMessage);
-
-            Message appleMessage = handler.obtainMessage();
-            appleMessage.obj = apple;
-            handler.sendMessage(appleMessage);
-
+//            Message snakeMessage = handler.obtainMessage();
+//            snakeMessage.obj = snake;
+//            handler.sendMessage(snakeMessage);
+//
+//            Message appleMessage = handler.obtainMessage();
+//            appleMessage.obj = apple;
+//            handler.sendMessage(appleMessage);
+            Message Message = handler.obtainMessage();
+            Log.i(TAG,"메세지생성");
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("snake", getSnakePositions());
+            bundle.putSerializable("apple", getApplePosition());
+            Message.setData(bundle);
+            Log.i(TAG,"메세지에 번들 삽입");
+            handler.sendMessage(Message);
+            Log.i(TAG,"Bundle 전달");
 
             try {
                 if(!isStart) {
@@ -83,12 +91,14 @@ public class GameThread extends Thread {
 //            handler.sendMessage(msgAddHead);
 
             if (snake.canEat(apple)) {
+                Log.i(TAG,"eat apple");
                 score++;
 
                 // 새 apple 생성
                 while(true) { // snake가 바로 apple 먹을 수 있는 경우, 또는 snake body와 겹치는 경우 재생성
                     apple = new Apple(Coordinate.random());
-                    if (!(snake.canEat(apple) || snake.overlaps(apple.getPosition()))) break;
+                    Log.i(TAG, "새 apple 생성");
+                   if (!(snake.canEat(apple) || snake.overlaps(apple.getPosition()))) break;
                 }
 
                 // log
@@ -98,7 +108,7 @@ public class GameThread extends Thread {
 //                handler.sendMessage(msgEatApple);
             } else {
                 snake.delTail();
-
+                Log.i(TAG, "꼬리 원복");
                 // log
 //                Message msgDelTail = handler.obtainMessage();
 //                msgDelTail.what = 0;
@@ -106,7 +116,11 @@ public class GameThread extends Thread {
 //                handler.sendMessage(msgDelTail);
             }
 
+            //위치 절대 옮기면 안됨!
+            gameView.invalidate();
+
             if (snake.isDead()) {
+                Log.i(TAG,"is Dead");
                 lose();
 
                 // log
@@ -115,7 +129,6 @@ public class GameThread extends Thread {
 //                msgLose.obj = "dead";
 //                handler.sendMessage(msgLose);
             }
-
         }
     }
 
@@ -124,8 +137,8 @@ public class GameThread extends Thread {
     }
 
     public void start() {
-        isAtFirst = false;
         super.start();
+        isAtFirst = false;
     }
 
     public String pause() {

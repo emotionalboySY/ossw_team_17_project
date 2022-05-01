@@ -166,4 +166,23 @@
 
     </TableLayout>
 
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/popup_background"
+        android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
+        android:gravity="center"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/pauseButton"
+        app:layout_constraintEnd_toStartOf="@+id/pauseButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pauseButton"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

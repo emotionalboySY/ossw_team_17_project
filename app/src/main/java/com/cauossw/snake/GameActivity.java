@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,9 +34,7 @@ public class GameActivity extends AppCompatActivity {
     static Handler handler;
     private GameThread thread = null;
 
-    private PopupDialog popupDialog;
     private String str = "";
-
     private String status = "";
 
 
@@ -57,6 +56,8 @@ public class GameActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle = msg.getData();
                 gameView.setBundle(bundle);
+                TextView scoreView = findViewById(R.id.score);
+                scoreView.setText(bundle.getSerializable("score").toString());
                 Log.i(TAG, gameView.toString());
 
             }
@@ -74,7 +75,6 @@ public class GameActivity extends AppCompatActivity {
                 Log.i(TAG, "Button UP");
             }
         });
-
         activityGameBinding.downButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,14 +108,14 @@ public class GameActivity extends AppCompatActivity {
         });
         activityGameBinding.popupResume.setOnClickListener(v -> {
             if (thread.checkIsPaused() && !thread.checkIsLost()) {
-                thread = new GameThread(handler, str);
+                thread = new GameThread(handler, gameView, str);
                 thread.start();
                 Log.i(TAG,"Button RESUME");
             }
         });
         activityGameBinding.popupRestart.setOnClickListener(v -> {
             thread.pause();
-            thread = new GameThread(handler);
+            thread = new GameThread(handler, gameView);
             thread.start();
             Log.i(TAG,"Button RESTART");
         });
@@ -144,9 +144,9 @@ public class GameActivity extends AppCompatActivity {
         if(thread == null) {
             thread = new GameThread(handler, gameView);
             if(str.isEmpty()) {
-                thread = new GameThread(handler);
+                thread = new GameThread(handler, gameView);
             } else {
-                thread = new GameThread(handler, str);
+                thread = new GameThread(handler, gameView, str);
             }
         }
         thread.start();

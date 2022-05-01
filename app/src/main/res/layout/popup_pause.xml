@@ -38,7 +38,7 @@
             android:layout_gravity="center"
             android:layout_marginVertical="5sp"
             android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
-            android:text="@string/pause"
+            android:text="pause"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="60sp" />

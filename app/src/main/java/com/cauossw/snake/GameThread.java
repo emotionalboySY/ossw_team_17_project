@@ -1,10 +1,12 @@
 package com.cauossw.snake;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -66,6 +68,7 @@ public class GameThread extends Thread {
             Bundle bundle = new Bundle();
             bundle.putSerializable("snake", getSnakePositions());
             bundle.putSerializable("apple", getApplePosition());
+            bundle.putSerializable("score", getScore());
             Message.setData(bundle);
             Log.i(TAG,"메세지에 번들 삽입");
             handler.sendMessage(Message);

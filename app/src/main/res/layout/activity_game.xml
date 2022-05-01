@@ -26,6 +26,76 @@
         android:src="@drawable/ic_baseline_pause_24"
         android:background="@android:color/transparent" />
 
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/GameView">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/upButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/leftButton"
+                android:layout_width="50sp"
+                android:layout_height="50sp" />
+
+            <Button
+                android:id="@+id/blank"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
+
+            <Button
+                android:id="@+id/rightButton"
+                android:layout_width="50sp"
+                android:layout_height="50sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/downButton"
+                android:layout_width="50sp"
+                android:layout_height="50sp" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/popup_background"
+        android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
+        android:gravity="center"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        />
+
     <LinearLayout
         android:id="@+id/gameView_black"
         android:layout_width="match_parent"
@@ -111,78 +181,5 @@
             android:background="@drawable/button_background_with_borders" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GameView">
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/upButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/leftButton"
-                android:layout_width="50sp"
-                android:layout_height="50sp" />
-
-            <Button
-                android:id="@+id/blank"
-                android:layout_width="50sp"
-                android:layout_height="50sp"
-                android:visibility="invisible"
-                tools:visibility="invisible" />
-
-            <Button
-                android:id="@+id/rightButton"
-                android:layout_width="50sp"
-                android:layout_height="50sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/downButton"
-                android:layout_width="50sp"
-                android:layout_height="50sp" />
-        </TableRow>
-
-    </TableLayout>
-
-    <TextView
-        android:id="@+id/score"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/popup_background"
-        android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
-        android:gravity="center"
-        android:text="0"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/pauseButton"
-        app:layout_constraintEnd_toStartOf="@+id/pauseButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/pauseButton"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

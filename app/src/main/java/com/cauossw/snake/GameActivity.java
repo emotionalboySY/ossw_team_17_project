@@ -50,8 +50,7 @@ public class GameActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle = msg.getData();
                 gameView.setBundle(bundle);
-                Log.i(TAG, gameView.toString());
-
+                activityGameBinding.score.setText(""+bundle.getInt("score"));
             }
         };
 
@@ -67,7 +66,6 @@ public class GameActivity extends AppCompatActivity {
                 Log.i(TAG, "Button UP");
             }
         });
-
         activityGameBinding.downButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +92,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
+    //pause onclick
     public void pause(View v){
         status = thread.pause();
         popupDialog = new PopupDialog(GameActivity.this, status,thread);
@@ -101,6 +100,7 @@ public class GameActivity extends AppCompatActivity {
         popupDialog.show();
         Log.i(TAG,"Button PAUSE");
     }
+    //resume onclick
     public void resume(View v){
         if (thread.checkIsPaused() && !thread.checkIsLost()) {
             thread = new GameThread(handler, gameView, status);
@@ -111,7 +111,7 @@ public class GameActivity extends AppCompatActivity {
             popupDialog.dismiss();
         }
     }
-
+    //restart onclick
     public void restart(View v){
         thread.pause();
         thread = new GameThread(handler, gameView);

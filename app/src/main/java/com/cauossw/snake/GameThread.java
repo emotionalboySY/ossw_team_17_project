@@ -66,7 +66,9 @@ public class GameThread extends Thread {
             Bundle bundle = new Bundle();
             bundle.putSerializable("snake", getSnakePositions());
             bundle.putSerializable("apple", getApplePosition());
+            bundle.putInt("score",getScore());
             Message.setData(bundle);
+
             Log.i(TAG,"메세지에 번들 삽입");
             handler.sendMessage(Message);
             Log.i(TAG,"Bundle 전달");

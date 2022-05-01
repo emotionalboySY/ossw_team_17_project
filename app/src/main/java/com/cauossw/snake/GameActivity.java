@@ -28,13 +28,17 @@ public class GameActivity extends AppCompatActivity {
 
     private static final String TAG = "GameActivity";
 
+    static Handler handler;
+    static GameView gameView;
+
 
     private ActivityGameBinding activityGameBinding;
-    private GameView gameView;
-    static Handler handler;
     private GameThread thread = null;
 
     private String str = "";
+    private PopupPauseDialog popupPauseDialog;
+    private PopupDeadDialog popupDeadDialog;
+
     private String status = "";
 
 
@@ -55,6 +59,15 @@ public class GameActivity extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 bundle = msg.getData();
+
+                if(bundle.getInt("dead") == 1){
+                    Log.i(TAG, "handler, is dead");
+                    showDeadDialog();
+                }
+
+                if(bundle.getInt("score")!=0) {
+                    activityGameBinding.score.setText("" + bundle.getInt("score"));
+                }
                 gameView.setBundle(bundle);
                 TextView scoreView = findViewById(R.id.score);
                 scoreView.setText(bundle.getSerializable("score").toString());
@@ -152,15 +165,20 @@ public class GameActivity extends AppCompatActivity {
         thread.start();
         Log.i(TAG,"스레드 시작");
     }
-
     @Override
     protected void onPause() {
         super.onPause();
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    private void showDeadDialog(){
+        popupDeadDialog = new PopupDeadDialog(GameActivity.this);
+        popupDeadDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //투명배경
+        popupDeadDialog.show();
+        Log.i(TAG,"dead Dialog");
     }
 
 

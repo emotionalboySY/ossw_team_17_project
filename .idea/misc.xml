@@ -5,6 +5,11 @@
       <map>
         <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout-land/activity_game.xml" value="0.25" />
         <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/activity_game.xml" value="0.25" />
+        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/drawable/button_popup_background.xml" value="0.42552083333333335" />
+        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/drawable/popup_background.xml" value="0.42552083333333335" />
+        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/font/font.xml" value="0.4395833333333333" />
+        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout-land/activity_game.xml" value="0.33" />
+        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/activity_game.xml" value="0.33" />
         <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/fragment_game.xml" value="0.3302083333333333" />
         <entry key="..\:/Users/yoppy/AndroidStudioProjects/ossw_team_17_project/app/src/main/res/drawable/baseline_arrow_back_20.xml" value="0.3295" />
@@ -28,6 +33,9 @@
         <entry key="..\:/Users/yoppy/AndroidStudioProjects/ossw_team_17_project/app/src/main/res/layout/popup_pause.xml" value="0.32708333333333334" />
         <entry key="..\:/Users/yoppy/AndroidStudioProjects/ossw_team_17_project/app/src/main/res/layout/ranking_item.xml" value="0.32708333333333334" />
         <entry key="..\:/Users/yoppy/AndroidStudioProjects/ossw_team_17_project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.243" />
+        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/popup_end.xml" value="0.409375" />
+        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/popup_pause.xml" value="0.33" />
+        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/sample_pause_pop_up.xml" value="0.33" />
         <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/layout/activity_game.xml" value="0.33489583333333334" />
         <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/layout/activity_main.xml" value="0.2857142857142857" />
       </map>

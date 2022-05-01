@@ -26,7 +26,7 @@ public class GameThread extends Thread {
 
     private Handler handler;
 
-    GameThread(Handler handler, GameView gameView) {
+    GameThread(Handler handler , GameView gameView) {
         // 멤버 변수 초기화
         snake = new Snake(new Coordinate());
 
@@ -39,7 +39,7 @@ public class GameThread extends Thread {
         this.gameView = gameView;
     }
 
-    GameThread(Handler handler, GameView gameView, String gameInfo) {
+    GameThread(Handler handler ,GameView gameView, String gameInfo) {
         // 파싱
         this.handler = handler;
 
@@ -97,6 +97,16 @@ public class GameThread extends Thread {
                 Log.i(TAG,"eat apple");
                 score++;
 
+                Message upScore = handler.obtainMessage();
+                Log.i(TAG,"메세지생성");
+                Bundle upScoreBundle = new Bundle();
+                upScoreBundle.putInt("score",getScore());
+                Message.setData(upScoreBundle);
+                Log.i(TAG,"메세지에 번들 삽입");
+                handler.sendMessage(upScore);
+                Log.i(TAG,"Bundle 전달");
+
+
                 // 새 apple 생성
                 while(true) { // snake가 바로 apple 먹을 수 있는 경우, 또는 snake body와 겹치는 경우 재생성
                     apple = new Apple(Coordinate.random());
@@ -119,11 +129,19 @@ public class GameThread extends Thread {
 //                handler.sendMessage(msgDelTail);
             }
 
-            //위치 절대 옮기면 안됨!
-            gameView.invalidate();
 
             if (snake.isDead()) {
                 Log.i(TAG,"is Dead");
+
+                Message dead = handler.obtainMessage();
+                Log.i(TAG,"메세지생성");
+                Bundle deadBundle = new Bundle();
+                deadBundle.putInt("dead",1);
+                Message.setData(deadBundle);
+                Log.i(TAG,"메세지에 번들 삽입");
+                handler.sendMessage(dead);
+                Log.i(TAG,"Bundle 전달");
+
                 lose();
 
                 // log
@@ -132,6 +150,9 @@ public class GameThread extends Thread {
 //                msgLose.obj = "dead";
 //                handler.sendMessage(msgLose);
             }
+
+            //위치 절대 옮기면 안됨!
+            gameView.invalidate();
         }
     }
 

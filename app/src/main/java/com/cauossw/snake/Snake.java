@@ -3,31 +3,28 @@ package com.cauossw.snake;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Snake {
 
     private static final String TAG = "Snake";
 
-    private ArrayList<Coordinate> body = new ArrayList<>();
+    private ArrayList<Coordinate> body = new ArrayList<Coordinate>();
     private int speed;
     private Direction dir;
 
-    Snake(Coordinate headPosition){
-        this(headPosition, DefaultConst.SNAKE_LENGTH, DefaultConst.SNAKE_SPEED, DefaultConst.SNAKE_DIR);
+    Snake(Coordinate tailPosition, Direction dir){
+        this(tailPosition, DefaultConst.SNAKE_LENGTH, DefaultConst.SNAKE_SPEED, dir);
     }
 
-    Snake(Coordinate headPosition, int length, int speed, Direction dir) {
+    Snake(Coordinate tailPosition, int length, int speed, Direction dir) {
         this.speed = speed;
         this.dir = dir;
 
-        Direction dirForBody; // 현재 진행방향의 반대 방향으로 나머지 몸통 생성
-        if (dir == Direction.UP) dirForBody = Direction.DOWN;
-        else if (dir == Direction.DOWN) dirForBody = Direction.UP;
-        else if (dir == Direction.LEFT) dirForBody = Direction.RIGHT;
-        else dirForBody = Direction.LEFT;
-
+        // 꼬리에서부터, 현재 진행방향으로 나머지 몸 생성
         int i;
-        for (i = 1; i < length + 1; i++) body.add(headPosition.getMovedPosition(dirForBody, i));
+        for (i = 0; i < length; i++) body.add(i, tailPosition.getMovedPosition(dir, i));
+        Collections.reverse(body);
     }
 
     Snake(String snakeInfo) {

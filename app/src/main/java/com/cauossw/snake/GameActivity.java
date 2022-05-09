@@ -73,21 +73,21 @@ public class GameActivity extends AppCompatActivity {
 
         //버튼 리스너 연결
         activityGameBinding.upButton.setOnClickListener(v -> {
-            thread.setSnakeDir(Direction.UP);
+            thread.setSnakeDir(0, Direction.UP);
             Log.i(TAG, "Button UP");
         });
         activityGameBinding.downButton.setOnClickListener(v -> {
-            thread.setSnakeDir(Direction.DOWN);
+            thread.setSnakeDir(0, Direction.DOWN);
             Log.i(TAG, "Button DOWN");
 
         });
         activityGameBinding.leftButton.setOnClickListener(v -> {
-            thread.setSnakeDir(Direction.LEFT);
+            thread.setSnakeDir(0, Direction.LEFT);
             Log.i(TAG, "Button LEFT");
 
         });
         activityGameBinding.rightButton.setOnClickListener(v -> {
-            thread.setSnakeDir(Direction.RIGHT);
+            thread.setSnakeDir(0, Direction.RIGHT);
             Log.i(TAG, "Button RIGHT");
         });
         activityGameBinding.inGamePause.setOnClickListener(v -> {
@@ -114,7 +114,7 @@ public class GameActivity extends AppCompatActivity {
             activityGameBinding.inGamePausePopup.bringToFront();
             LinearLayout blackBG = findViewById(R.id.gameView_black);
             blackBG.setAlpha(0f);
-            thread = new GameThread(handler, gameView);
+            thread = new GameThread(handler, gameView, PlayMode.Dual);
             thread.start();
             activityGameBinding.score.setText(String.valueOf(0));
             Log.i(TAG,"Button RESTART");
@@ -142,9 +142,9 @@ public class GameActivity extends AppCompatActivity {
         String str = intent.getStringExtra("data");
 
         if(thread == null) {
-            thread = new GameThread(handler, gameView);
+            thread = new GameThread(handler, gameView, PlayMode.Dual);
             if(str.isEmpty()) {
-                thread = new GameThread(handler, gameView);
+                thread = new GameThread(handler, gameView, PlayMode.Dual);
             } else {
                 thread = new GameThread(handler, gameView, str);
             }
@@ -171,7 +171,7 @@ public class GameActivity extends AppCompatActivity {
             activityGameBinding.inGameDeadPopup.setVisibility(View.GONE);
             activityGameBinding.inGameDeadPopup.bringToFront();
             activityGameBinding.gameViewBlack.setAlpha(0f);
-            thread = new GameThread(handler, gameView);
+            thread = new GameThread(handler, gameView, PlayMode.Dual);
             thread.start();
             activityGameBinding.inGameDeadPopupScoreContent.setText("0");
             Log.i(TAG, "Restart After Death");

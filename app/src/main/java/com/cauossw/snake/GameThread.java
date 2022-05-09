@@ -10,31 +10,39 @@ import java.util.ArrayList;
 public class GameThread extends Thread {
 
     private final String TAG = "GameThread";
-    private Snake snake;
-    private Apple apple;
+    private ArrayList<Snake> snakes = new ArrayList<Snake>();
+    private ArrayList<Apple> apples = new ArrayList<Apple>();
     private GameView gameView;
     private int score;
+    private PlayMode mode;
     private boolean isPaused = false,
             isLost = false,
-            isAtFirst = true,
             isStart = false;
 
     private Handler handler;
 
-    GameThread(Handler handler , GameView gameView) {
-        // 멤버 변수 초기화
-        snake = new Snake(new Coordinate());
+    GameThread(Handler handler, GameView gameView, PlayMode mode) {
+        if (mode == PlayMode.Dual) { // dual
+            snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_DUAL_1_X, DefaultConst.SNAKE_DUAL_1_Y),
+                    DefaultConst.SNAKE_DUAL_1_DIR));
+            snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_DUAL_2_X, DefaultConst.SNAKE_DUAL_2_Y),
+                    DefaultConst.SNAKE_DUAL_2_DIR));
 
-        while(true) { // snake 가 바로 apple 먹을 수 있는 경우, snake body 와 겹치는 경우 다시 생성 필요
-            apple = new Apple(Coordinate.random());
-            if (!(snake.canEat(apple) || snake.overlaps(apple.getPosition()))) break;
+            mkApples(DefaultConst.SNAKE_DUAL_APPLE_NUM);
+        } else { // single / auto
+            snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_SINGLE_X, DefaultConst.SNAKE_SINGLE_Y),
+                    DefaultConst.SNAKE_SINGLE_DIR));
+
+            mkApples(DefaultConst.SNAKE_SINGLE_APPLE_NUM);
         }
+
         this.score = 0;
         this.handler = handler;
         this.gameView = gameView;
+        this.mode = mode;
     }
 
-    GameThread(Handler handler ,GameView gameView, String gameInfo) {
+    GameThread(Handler handler, GameView gameView, String gameInfo) {
         // 파싱
         this.handler = handler;
 
@@ -44,6 +52,7 @@ public class GameThread extends Thread {
         this.apple = new Apple(infoArray[1]);
         this.gameView = gameView;
         this.score = Integer.parseInt(infoArray[2]);
+        this.mode = PlayMode.valueOf(infoArray[3]);
     }
 
     @Override
@@ -52,20 +61,11 @@ public class GameThread extends Thread {
             /*
             *** main thread 로 message 보내 canvas 출력 필요
 
-            Message snakeMessage = handler.obtainMessage();
-            snakeMessage.obj = snake;
-            handler.sendMessage(snakeMessage);
-
-            Message appleMessage = handler.obtainMessage();
-            appleMessage.obj = apple;
-            handler.sendMessage(appleMessage);
-
-             */
             Message Message = handler.obtainMessage();
-            Log.i(TAG,"메세지생성");
+            Log.i(TAG,"메세지 생성");
             Bundle bundle = new Bundle();
-            bundle.putSerializable("snake", getSnakePositions());
-            bundle.putSerializable("apple", getApplePosition());
+            bundle.putSerializable("snake", getSnakePositions(0));
+            bundle.putSerializable("apple", getApplePosition(0));
             bundle.putSerializable("score", getScore());
             Message.setData(bundle);
             Log.i(TAG,"메세지에 번들 삽입");
@@ -73,86 +73,60 @@ public class GameThread extends Thread {
             Log.i(TAG,"Bundle 전달");
 
             try {
-                if(!isStart) {
+                if (!isStart) {
                     Thread.sleep(3000);
                     isStart = true;
-                }else{
-                    Thread.sleep(snake.getSpeed());
+                } else {
+                    Thread.sleep(snakes.get(0).getSpeed());
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
+            int snakeIndex, eatableAppleIndex;
+            for (snakeIndex = 0; snakeIndex < snakes.size(); snakeIndex++) {
+                snakes.get(snakeIndex).addHead(); // 이후 apple 먹지 않을 경우 꼬리 제거 필요
 
-            snake.addHead(); // 이후 apple 먹지 않을 경우 꼬리 제거 필요
-                /*log
-                Message msgAddHead = handler.obtainMessage();
-                msgAddHead.what = 0;
-                msgAddHead.obj = "add head";
-                handler.sendMessage(msgAddHead);
+                eatableAppleIndex = getEatableAppleIndex(snakeIndex);
+                if (eatableAppleIndex != -1) { // 특정 index의 apple 먹을 수 있는 경우
+                    Log.i(TAG,(snakeIndex + 1) + " eat apple");
+                    score++;
 
-                 */
+                    Message upScore = handler.obtainMessage();
+                    Log.i(TAG,"메세지 생성");
+                    Bundle upScoreBundle = new Bundle();
+                    upScoreBundle.putInt("score", getScore());
+                    Message.setData(upScoreBundle);
+                    Log.i(TAG,"메세지에 번들 삽입");
+                    handler.sendMessage(upScore);
+                    Log.i(TAG,"Bundle 전달");
 
-            if (snake.canEat(apple)) {
-                Log.i(TAG,"eat apple");
-                score++;
-
-                Message upScore = handler.obtainMessage();
-                Log.i(TAG,"메세지생성");
-                Bundle upScoreBundle = new Bundle();
-                upScoreBundle.putInt("score",getScore());
-                Message.setData(upScoreBundle);
-                Log.i(TAG,"메세지에 번들 삽입");
-                handler.sendMessage(upScore);
-                Log.i(TAG,"Bundle 전달");
-
-
-                // 새 apple 생성
-                while(true) { // snake 가 바로 apple 먹을 수 있는 경우, 또는 snake body 와 겹치는 경우 재생성
-                    apple = new Apple(Coordinate.random());
-                    Log.i(TAG, "새 apple 생성");
-                   if (!(snake.canEat(apple) || snake.overlaps(apple.getPosition()))) break;
+                    // 삭제 후 새 apple 생성
+                    apples.remove(eatableAppleIndex);
+                    mkApple(eatableAppleIndex);
+                } else {
+                    snakes.get(snakeIndex).delTail();
+                    Log.i(TAG, "꼬리 원복");
                 }
 
-                /* log
-                Message msgEatApple = handler.obtainMessage();
-                msgEatApple.what = 0;
-                msgEatApple.obj = "eat apple";
-                handler.sendMessage(msgEatApple);
-                 */
-            } else {
-                snake.delTail();
-                Log.i(TAG, "꼬리 원복");
-                /* log
-//                Message msgDelTail = handler.obtainMessage();
-//                msgDelTail.what = 0;
-//                msgDelTail.obj = "don't eat apple";
-//                handler.sendMessage(msgDelTail);
-                 */
-            }
+                // 뱀이 죽거나, dual mode에서 다른 뱀을 먹은 경우
+                if (snakes.get(snakeIndex).isDead()
+                    || (mode == PlayMode.Dual && snakes.get(snakeIndex).canEat(snakes.get((snakeIndex + 1) % 2)))) {
+                    Log.i(TAG,(snakeIndex + 1) + " is Dead");
 
+                    Message dead = handler.obtainMessage();
+                    Log.i(TAG,"메세지 생성");
+                    Bundle deadBundle = new Bundle();
+                    deadBundle.putInt("dead", 1);
+                    deadBundle.putInt("score", getScore());
+                    Message.setData(deadBundle);
+                    Log.i(TAG,"메세지에 번들 삽입");
+                    handler.sendMessage(dead);
+                    Log.i(TAG,"Bundle 전달");
 
-            if (snake.isDead()) {
-                Log.i(TAG,"is Dead");
-
-                Message dead = handler.obtainMessage();
-                Log.i(TAG,"메세지생성");
-                Bundle deadBundle = new Bundle();
-                deadBundle.putInt("dead",1);
-                deadBundle.putInt("score", getScore());
-                Message.setData(deadBundle);
-                Log.i(TAG,"메세지에 번들 삽입");
-                handler.sendMessage(dead);
-                Log.i(TAG,"Bundle 전달");
-
-                lose();
-
-                /* log
-//                Message msgLose = handler.obtainMessage();
-//                msgLose.what = 0;
-//                msgLose.obj = "dead";
-//                handler.sendMessage(msgLose);
-                 */
+                    lose();
+                    break;
+                }
             }
 
             //위치 절대 옮기면 안됨!
@@ -160,13 +134,8 @@ public class GameThread extends Thread {
         }
     }
 
-    public void setSnakeDir(Direction dir) {
-        snake.setDir(dir);
-    }
-
-    public void start() {
-        super.start();
-        isAtFirst = false;
+    public void setSnakeDir(int index, Direction dir) {
+        snakes.get(index).setDir(dir);
     }
 
     public String pause() {
@@ -178,12 +147,12 @@ public class GameThread extends Thread {
         return score;
     }
 
-    public ArrayList<Coordinate> getSnakePositions() {
-        return snake.getPositions();
+    public ArrayList<Coordinate> getSnakePositions(int snakeIndex) {
+        return snakes.get(snakeIndex).getPositions();
     }
 
-    public Coordinate getApplePosition() {
-        return apple.getPosition();
+    public Coordinate getApplePosition(int appleIndex) {
+        return apples.get(appleIndex).getPosition();
     }
 
     public String getStatusStr() {
@@ -201,5 +170,17 @@ public class GameThread extends Thread {
     private void lose() {
         isLost = true;
         isPaused = true;
+    }
+
+    private int getEatableAppleIndex(int snakeIndex) {
+        
+    }
+
+    private void mkApple(int appleIndex) {
+        
+    }
+
+    private void mkApples(int appleNum) {
+
     }
 }

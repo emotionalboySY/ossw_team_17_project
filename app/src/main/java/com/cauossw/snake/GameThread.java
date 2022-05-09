@@ -47,9 +47,13 @@ public class GameThread extends Thread {
         this.handler = handler;
 
         String[] infoArray = gameInfo.split(" ");
+        String[] snakeInfoArray = infoArray[0].split("#");
+        String[] appleInfoArray = infoArray[1].split("#");
 
-        this.snake = new Snake(infoArray[0]);
-        this.apple = new Apple(infoArray[1]);
+        int i;
+        for (i = 0; i < snakeInfoArray.length; i++) this.snakes.add(new Snake(snakeInfoArray[i]));
+        for (i = 0; i < appleInfoArray.length; i++) this.apples.add(new Apple(appleInfoArray[i]));
+
         this.gameView = gameView;
         this.score = Integer.parseInt(infoArray[2]);
         this.mode = PlayMode.valueOf(infoArray[3]);
@@ -58,8 +62,7 @@ public class GameThread extends Thread {
     @Override
     public void run() { // 주기적으로 반복되는 부분
         while(!isPaused) {
-            /*
-            *** main thread 로 message 보내 canvas 출력 필요
+            Log.i(TAG, getStatusStr());
 
             Message Message = handler.obtainMessage();
             Log.i(TAG,"메세지 생성");
@@ -156,7 +159,19 @@ public class GameThread extends Thread {
     }
 
     public String getStatusStr() {
-        return snake.getStatusStr() + " " + apple.getPositionStr() + " " + this.score;
+        String snakesStr = "", applesStr = "";
+
+        int i;
+        for (i = 0; i < snakes.size(); i++) {
+            snakesStr += snakes.get(i).getStatusStr();
+            if (i != snakes.size() - 1) snakesStr += "#";
+        }
+        for (i = 0; i < apples.size(); i++) {
+            applesStr += apples.get(i).getPositionStr();
+            if (i != apples.size() - 1) applesStr += "#";
+        }
+
+        return snakesStr + " " + applesStr + " " + this.score + " " + this.mode.toString();
     }
 
     public boolean checkIsPaused() {

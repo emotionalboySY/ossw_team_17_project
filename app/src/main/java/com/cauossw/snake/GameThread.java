@@ -184,10 +184,29 @@ public class GameThread extends Thread {
     }
 
     private void mkApple(int appleIndex) {
-        
+        boolean isOkay = true;
+
+        do { // snake 가 바로 apple 먹을 수 있는 경우, 다른 apple과 겹치는 경우, snake body 와 겹치는 경우 다시 생성 필요
+            isOkay = true;
+            apples.add(appleIndex, new Apple(Coordinate.random()));
+
+            // 다른 apple과 position 겹치는 경우 check
+            int i;
+            for (i = 0; i < apples.size(); i++) {
+                if (i != appleIndex) isOkay = isOkay
+                        && !apples.get(appleIndex).getPosition().equals(apples.get(i).getPosition());
+            }
+
+            // snake가 바로 먹을 수 있는 경우, snake body와 겹치는 경우 check
+            for (i = 0; i < snakes.size(); i++) {
+                isOkay = isOkay && !((snakes.get(i).canEat(apples.get(appleIndex))
+                        || snakes.get(i).overlaps(apples.get(appleIndex).getPosition())));
+            }
+        } while(!isOkay);
     }
 
     private void mkApples(int appleNum) {
-
+        int i;
+        for (i = 0; i < appleNum; i++) mkApple(i);
     }
 }

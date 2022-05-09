@@ -84,6 +84,10 @@ public class Snake {
         return this.body.get(0).equals(apple.getPosition());
     }
 
+    public boolean canEat(Snake another) {
+        return another.overlaps(this.body.get(0)) || this.body.get(0).equals(another.getPositions().get(0));
+    }
+
     public boolean overlaps(Coordinate position) { // (head 를 뺀) body 에 겹치는지 check
         boolean isInBody = false;
 

@@ -172,8 +172,15 @@ public class GameThread extends Thread {
         isPaused = true;
     }
 
-    private int getEatableAppleIndex(int snakeIndex) {
-        
+   private int getEatableAppleIndex(int snakeIndex) {
+        int i, appleIndex = -1;
+
+        for (i = 0; i < apples.size(); i++) {
+            appleIndex = snakes.get(snakeIndex).canEat(apples.get(i)) ? i : appleIndex;
+            if (appleIndex != -1) break;
+        }
+
+        return appleIndex;
     }
 
     private void mkApple(int appleIndex) {

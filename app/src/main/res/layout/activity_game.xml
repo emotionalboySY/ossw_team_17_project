@@ -7,6 +7,60 @@
     android:background="#aeff82"
     tools:context=".GameActivity">
 
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/GameView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gameView_black">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/upButton1P"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/leftButton1P"
+                android:layout_width="50sp"
+                android:layout_height="50sp" />
+
+            <Button
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
+
+            <Button
+                android:id="@+id/rightButton1P"
+                android:layout_width="50sp"
+                android:layout_height="50sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/downButton1P"
+                android:layout_width="50sp"
+                android:layout_height="50sp" />
+        </TableRow>
+
+    </TableLayout>
+
     <com.cauossw.snake.GameView
         android:id="@+id/GameView"
         android:layout_width="wrap_content"
@@ -40,7 +94,7 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/upButton"
+                android:id="@+id/upButton2P"
                 android:layout_width="50dp"
                 android:layout_height="50dp" />
         </TableRow>
@@ -50,19 +104,18 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/leftButton"
+                android:id="@+id/leftButton2P"
                 android:layout_width="50sp"
                 android:layout_height="50sp" />
 
             <Button
-                android:id="@+id/blank"
                 android:layout_width="50sp"
                 android:layout_height="50sp"
                 android:visibility="invisible"
                 tools:visibility="invisible" />
 
             <Button
-                android:id="@+id/rightButton"
+                android:id="@+id/rightButton2P"
                 android:layout_width="50sp"
                 android:layout_height="50sp" />
         </TableRow>
@@ -73,7 +126,7 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/downButton"
+                android:id="@+id/downButton2P"
                 android:layout_width="50sp"
                 android:layout_height="50sp" />
         </TableRow>

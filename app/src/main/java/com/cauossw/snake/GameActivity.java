@@ -73,24 +73,47 @@ public class GameActivity extends AppCompatActivity {
         };
 
         //버튼 리스너 연결
-        activityGameBinding.upButton.setOnClickListener(v -> {
+        //1P
+        activityGameBinding.upButton1P.setOnClickListener(v -> {
             thread.setSnakeDir(0, Direction.UP);
             Log.i(TAG, "Button UP");
         });
-        activityGameBinding.downButton.setOnClickListener(v -> {
+        activityGameBinding.downButton1P.setOnClickListener(v -> {
             thread.setSnakeDir(0, Direction.DOWN);
             Log.i(TAG, "Button DOWN");
 
         });
-        activityGameBinding.leftButton.setOnClickListener(v -> {
+        activityGameBinding.leftButton1P.setOnClickListener(v -> {
             thread.setSnakeDir(0, Direction.LEFT);
             Log.i(TAG, "Button LEFT");
 
         });
-        activityGameBinding.rightButton.setOnClickListener(v -> {
+        activityGameBinding.rightButton1P.setOnClickListener(v -> {
             thread.setSnakeDir(0, Direction.RIGHT);
             Log.i(TAG, "Button RIGHT");
         });
+
+        //2P
+        activityGameBinding.upButton2P.setOnClickListener(v -> {
+            thread.setSnakeDir(1, Direction.UP);
+            Log.i(TAG, "Button UP");
+        });
+        activityGameBinding.downButton2P.setOnClickListener(v -> {
+            thread.setSnakeDir(1, Direction.DOWN);
+            Log.i(TAG, "Button DOWN");
+
+        });
+        activityGameBinding.leftButton2P.setOnClickListener(v -> {
+            thread.setSnakeDir(1, Direction.LEFT);
+            Log.i(TAG, "Button LEFT");
+
+        });
+        activityGameBinding.rightButton2P.setOnClickListener(v -> {
+            thread.setSnakeDir(1, Direction.RIGHT);
+            Log.i(TAG, "Button RIGHT");
+        });
+
+        //etc button
         activityGameBinding.inGamePause.setOnClickListener(v -> {
             activityGameBinding.inGamePausePopup.setVisibility(View.VISIBLE);
             activityGameBinding.inGamePausePopup.bringToFront();

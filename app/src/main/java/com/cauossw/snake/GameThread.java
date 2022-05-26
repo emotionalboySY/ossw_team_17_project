@@ -94,7 +94,7 @@ public class GameThread extends Thread {
                 eatableAppleIndex = getEatableAppleIndex(snakeIndex);
                 if (eatableAppleIndex != -1) { // 특정 index의 apple 먹을 수 있는 경우
                     Log.i(TAG,(snakeIndex + 1) + " eat apple");
-                    score++;
+                    if (mode != PlayMode.Dual) score++;
 
                     Message upScore = handler.obtainMessage();
                     Log.i(TAG,"메세지 생성");
@@ -122,20 +122,21 @@ public class GameThread extends Thread {
                     Log.i(TAG,"메세지 생성");
                     Bundle deadBundle = new Bundle();
                     deadBundle.putInt("dead", 1);
-                    deadBundle.putInt("snakeIndex", snakeIndex);
+                    deadBundle.putInt("snakeIndex", snakeIndex + 1);
                     deadBundle.putInt("score", getScore());
                     Message.setData(deadBundle);
                     Log.i(TAG,"메세지에 번들 삽입");
                     handler.sendMessage(dead);
                     Log.i(TAG,"Bundle 전달");
 
-                    lose();
+                    isLost = true;
+                    isPaused = true;
                     break;
                 }
             }
 
             //위치 절대 옮기면 안됨!
-            gameView.invalidate();
+            if (!isPaused) gameView.invalidate();
         }
     }
 
@@ -190,11 +191,6 @@ public class GameThread extends Thread {
 
     public boolean checkIsLost() {
         return isLost;
-    }
-
-    private void lose() {
-        isLost = true;
-        isPaused = true;
     }
 
    private int getEatableAppleIndex(int snakeIndex) {

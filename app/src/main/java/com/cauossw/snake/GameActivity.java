@@ -2,23 +2,18 @@ package com.cauossw.snake;
 
 
 import android.annotation.SuppressLint;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-
 
 import com.cauossw.snake.databinding.ActivityGameBinding;
 
@@ -65,7 +60,7 @@ public class GameActivity extends AppCompatActivity {
                 bundle = msg.getData();
 
                 if(bundle.getInt("dead") == 1){
-                    Log.i(TAG, "handler, is dead");
+                    Log.i(TAG, "handler " + bundle.getInt("snakeIndex") + " is dead");
                     showDeadDialog();
                 }
 

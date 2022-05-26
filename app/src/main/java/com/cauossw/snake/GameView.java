@@ -158,9 +158,9 @@ public class GameView extends View {
     private void imageReSet(Canvas canvas) {
 
         //현재 크기로 저장
-        eachImageWidth = getWidth() / DefaultConst.WIDTH; //각 요소당 크기 계산
+        eachImageWidth = getWidth() / DefaultConst.DUAL_WIDTH; //각 요소당 크기 계산
         Log.i(TAG, "canvas width:" + getWidth() + " canvas Height:" + getHeight());
-        Log.i(TAG, "이미지 사이즈 변경 완료 " + getWidth() / DefaultConst.WIDTH + "px");
+        Log.i(TAG, "이미지 사이즈 변경 완료 " + getWidth() / DefaultConst.DUAL_WIDTH + "px");
 
         snakeHeadImage = Bitmap.createScaledBitmap(snakeHeadImage, eachImageWidth, eachImageWidth, true);
         snakeBodyImage = Bitmap.createScaledBitmap(snakeBodyImage, eachImageWidth, eachImageWidth, true);
@@ -169,8 +169,8 @@ public class GameView extends View {
         mapTileImage = Bitmap.createScaledBitmap(mapTileImage, eachImageWidth, eachImageWidth, true);
         Log.i(TAG, "리사이징 완료");
 
-        for (int vert = 0; vert < eachImageWidth * DefaultConst.HEIGHT; vert += eachImageWidth) { //draw mapTile
-            for (int hor = 0; hor < eachImageWidth * DefaultConst.WIDTH; hor += eachImageWidth) {
+        for (int vert = 0; vert < eachImageWidth * DefaultConst.DUAL_HEIGHT; vert += eachImageWidth) { //draw mapTile
+            for (int hor = 0; hor < eachImageWidth * DefaultConst.DUAL_WIDTH; hor += eachImageWidth) {
                 canvas.drawBitmap(mapTileImage, hor, vert, null);
             }
         }

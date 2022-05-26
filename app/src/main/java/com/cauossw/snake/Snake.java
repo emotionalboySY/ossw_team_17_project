@@ -27,13 +27,13 @@ public class Snake {
         Collections.reverse(body);
     }
 
-    Snake(String snakeInfo) {
+    Snake(String snakeInfo, PlayMode mode) {
         // 파싱
         String[] infoArray = snakeInfo.split("/");
 
         String[] positionArray = infoArray[0].split("-");
         int i;
-        for (i = 0; i < positionArray.length; i++) body.add(new Coordinate(positionArray[i]));
+        for (i = 0; i < positionArray.length; i++) body.add(new Coordinate(positionArray[i], mode));
 
         this.speed = Integer.parseInt(infoArray[1]);
         this.dir = Direction.valueOf(infoArray[2]);

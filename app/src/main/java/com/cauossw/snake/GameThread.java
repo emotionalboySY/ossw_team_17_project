@@ -23,14 +23,14 @@ public class GameThread extends Thread {
 
     GameThread(Handler handler, GameView gameView, PlayMode mode) {
         if (mode == PlayMode.Dual) { // dual
-            snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_DUAL_1_X, DefaultConst.SNAKE_DUAL_1_Y),
+            snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_DUAL_1_X, DefaultConst.SNAKE_DUAL_1_Y, mode),
                     DefaultConst.SNAKE_DUAL_1_DIR));
-            snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_DUAL_2_X, DefaultConst.SNAKE_DUAL_2_Y),
+            snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_DUAL_2_X, DefaultConst.SNAKE_DUAL_2_Y, mode),
                     DefaultConst.SNAKE_DUAL_2_DIR));
 
             mkApples(DefaultConst.SNAKE_DUAL_APPLE_NUM);
         } else { // single / auto
-            snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_SINGLE_X, DefaultConst.SNAKE_SINGLE_Y),
+            snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_SINGLE_X, DefaultConst.SNAKE_SINGLE_Y, mode),
                     DefaultConst.SNAKE_SINGLE_DIR));
 
             mkApples(DefaultConst.SNAKE_SINGLE_APPLE_NUM);
@@ -50,13 +50,13 @@ public class GameThread extends Thread {
         String[] snakeInfoArray = infoArray[0].split("#");
         String[] appleInfoArray = infoArray[1].split("#");
 
-        int i;
-        for (i = 0; i < snakeInfoArray.length; i++) this.snakes.add(new Snake(snakeInfoArray[i]));
-        for (i = 0; i < appleInfoArray.length; i++) this.apples.add(new Apple(appleInfoArray[i]));
-
         this.gameView = gameView;
         this.score = Integer.parseInt(infoArray[2]);
         this.mode = PlayMode.valueOf(infoArray[3]);
+
+        int i;
+        for (i = 0; i < snakeInfoArray.length; i++) this.snakes.add(new Snake(snakeInfoArray[i], mode));
+        for (i = 0; i < appleInfoArray.length; i++) this.apples.add(new Apple(appleInfoArray[i], mode));
     }
 
     @Override
@@ -123,6 +123,7 @@ public class GameThread extends Thread {
                     Log.i(TAG,"메세지 생성");
                     Bundle deadBundle = new Bundle();
                     deadBundle.putInt("dead", 1);
+                    deadBundle.putInt("snakeIndex", snakeIndex);
                     deadBundle.putInt("score", getScore());
                     Message.setData(deadBundle);
                     Log.i(TAG,"메세지에 번들 삽입");
@@ -205,7 +206,7 @@ public class GameThread extends Thread {
 
         do { // snake 가 바로 apple 먹을 수 있는 경우, 다른 apple과 겹치는 경우, snake body 와 겹치는 경우 다시 생성 필요
             isOkay = true;
-            apples.add(appleIndex, new Apple(Coordinate.random()));
+            apples.add(appleIndex, new Apple(Coordinate.random(mode)));
 
             // 다른 apple과 position 겹치는 경우 check
             int i;

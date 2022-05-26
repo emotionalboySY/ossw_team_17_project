@@ -7,26 +7,22 @@ import java.io.Serializable;
 import java.util.Random;
 
 public class Coordinate implements Cloneable, Serializable  {
-    public static final int WIDTH = DefaultConst.WIDTH;
-    public static final int HEIGHT = DefaultConst.HEIGHT;
-
     private int x;
     private int y;
+    private PlayMode mode;
 
-    Coordinate() {
-        this(WIDTH / 2, HEIGHT / 2);
-    }
-
-    Coordinate(int x, int y) {
+    Coordinate(int x, int y, PlayMode mode) {
         this.x = x;
         this.y = y;
+        this.mode = mode;
     }
 
-    Coordinate(String positionInfo) {
+    Coordinate(String positionInfo, PlayMode mode) {
         // 파싱
         String[] position = positionInfo.split(",|<|>");
         this.x = Integer.parseInt(position[1]);
         this.y = Integer.parseInt(position[2]);
+        this.mode = mode;
     }
 
     public int getX() {
@@ -49,17 +45,17 @@ public class Coordinate implements Cloneable, Serializable  {
 
     @NonNull
     public Coordinate clone() {
-        return new Coordinate(this.x, this.y);
+        return new Coordinate(this.x, this.y, this.mode);
     }
 
-    public static Coordinate random() {
+    public static Coordinate random(PlayMode mode) {
         // WIDTH, HEIGHT 제한 내에서 새 좌표 랜덤하게 생성
         Random random = new Random();
-        return new Coordinate((random.nextInt(WIDTH)), (random.nextInt(HEIGHT)));
+        return new Coordinate((random.nextInt(DefaultConst.getWidth(mode))), (random.nextInt(DefaultConst.getHeight(mode))), mode);
     }
 
     public boolean isOutOfBound() {
-        return (this.x < 0 || this.x >= WIDTH || this.y < 0 || this.y >= HEIGHT);
+        return (this.x < 0 || this.x >= DefaultConst.getWidth(mode) || this.y < 0 || this.y >= DefaultConst.getHeight(mode));
     }
 
     protected Coordinate getMovedPosition(Direction dir) {

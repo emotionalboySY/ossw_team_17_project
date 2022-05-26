@@ -7,9 +7,9 @@ public class Apple {
     Apple(Coordinate position) {
         this.position = position;
     }
-    Apple(String positionStr) {
+    Apple(String positionStr, PlayMode mode) {
         // 파싱
-        this.position = new Coordinate(positionStr);
+        this.position = new Coordinate(positionStr, mode);
     }
     public Coordinate getPosition() {
         return this.position.clone();

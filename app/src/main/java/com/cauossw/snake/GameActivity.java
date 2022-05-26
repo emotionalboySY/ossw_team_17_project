@@ -6,16 +6,19 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import com.cauossw.snake.databinding.ActivityGameBinding;
 
@@ -40,15 +43,18 @@ public class GameActivity extends AppCompatActivity {
 
     private String str = "";
 
-    @SuppressLint("HandlerLeak")
+    @SuppressLint({"HandlerLeak", "WrongCall"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityGameBinding = ActivityGameBinding.inflate(getLayoutInflater());
         setContentView(activityGameBinding.getRoot());
 
+//        Display display = getWindowManager().getDefaultDisplay();
+//        Point size = new Point();
+//        display.getSize(size);
+
         gameView = activityGameBinding.GameView;
-        Log.i(TAG, "gameView 객체 생성, id:" + gameView);
 
         handler = new Handler() {
             @Override
@@ -73,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
         };
 
         //버튼 리스너 연결
-        //1P
+        //1P 상하좌우 반전
         activityGameBinding.upButton1P.setOnClickListener(v -> {
             thread.setSnakeDir(0, Direction.UP);
             Log.i(TAG, "Button UP");

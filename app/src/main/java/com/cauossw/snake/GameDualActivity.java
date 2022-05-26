@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cauossw.snake.databinding.ActivityGameBinding;
+import com.cauossw.snake.databinding.ActivityGameDualBinding;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -23,16 +23,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-public class GameActivity extends AppCompatActivity {
+public class GameDualActivity extends AppCompatActivity {
 
-    private static final String TAG = "GameActivity";
+    private static final String TAG = "GameDualActivity";
     private EditText edT;
 
     static Handler handler;
     static GameView gameView;
 
 
-    private ActivityGameBinding activityGameBinding;
+    private ActivityGameDualBinding activityGameDualBinding;
     private GameThread thread = null;
     private Bundle bundle;
 
@@ -42,14 +42,14 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityGameBinding = ActivityGameBinding.inflate(getLayoutInflater());
-        setContentView(activityGameBinding.getRoot());
+        activityGameDualBinding = ActivityGameDualBinding.inflate(getLayoutInflater());
+        setContentView(activityGameDualBinding.getRoot());
 
 //        Display display = getWindowManager().getDefaultDisplay();
 //        Point size = new Point();
 //        display.getSize(size);
 
-        gameView = activityGameBinding.GameView;
+        gameView = activityGameDualBinding.GameView;
 
         handler = new Handler() {
             @Override
@@ -66,7 +66,7 @@ public class GameActivity extends AppCompatActivity {
                 }
 
                 if(bundle.getInt("score") != 0) {
-                    activityGameBinding.score.setText("" + bundle.getInt("score"));
+                    activityGameDualBinding.score.setText("" + bundle.getInt("score"));
                 }
                 gameView.setBundle(bundle);
                 Log.i(TAG, gameView.toString());
@@ -76,57 +76,57 @@ public class GameActivity extends AppCompatActivity {
 
         //버튼 리스너 연결
         //1P 상하좌우 반전
-        activityGameBinding.upButton1P.setOnClickListener(v -> {
+        activityGameDualBinding.upButton1P.setOnClickListener(v -> {
             thread.setSnakeDir(0, Direction.UP);
             Log.i(TAG, "Button UP");
         });
-        activityGameBinding.downButton1P.setOnClickListener(v -> {
+        activityGameDualBinding.downButton1P.setOnClickListener(v -> {
             thread.setSnakeDir(0, Direction.DOWN);
             Log.i(TAG, "Button DOWN");
 
         });
-        activityGameBinding.leftButton1P.setOnClickListener(v -> {
+        activityGameDualBinding.leftButton1P.setOnClickListener(v -> {
             thread.setSnakeDir(0, Direction.LEFT);
             Log.i(TAG, "Button LEFT");
 
         });
-        activityGameBinding.rightButton1P.setOnClickListener(v -> {
+        activityGameDualBinding.rightButton1P.setOnClickListener(v -> {
             thread.setSnakeDir(0, Direction.RIGHT);
             Log.i(TAG, "Button RIGHT");
         });
 
         //2P
-        activityGameBinding.upButton2P.setOnClickListener(v -> {
+        activityGameDualBinding.upButton2P.setOnClickListener(v -> {
             thread.setSnakeDir(1, Direction.UP);
             Log.i(TAG, "Button UP");
         });
-        activityGameBinding.downButton2P.setOnClickListener(v -> {
+        activityGameDualBinding.downButton2P.setOnClickListener(v -> {
             thread.setSnakeDir(1, Direction.DOWN);
             Log.i(TAG, "Button DOWN");
 
         });
-        activityGameBinding.leftButton2P.setOnClickListener(v -> {
+        activityGameDualBinding.leftButton2P.setOnClickListener(v -> {
             thread.setSnakeDir(1, Direction.LEFT);
             Log.i(TAG, "Button LEFT");
 
         });
-        activityGameBinding.rightButton2P.setOnClickListener(v -> {
+        activityGameDualBinding.rightButton2P.setOnClickListener(v -> {
             thread.setSnakeDir(1, Direction.RIGHT);
             Log.i(TAG, "Button RIGHT");
         });
 
         //etc button
-        activityGameBinding.inGamePause.setOnClickListener(v -> {
-            activityGameBinding.inGamePausePopup.setVisibility(View.VISIBLE);
-            activityGameBinding.inGamePausePopup.bringToFront();
+        activityGameDualBinding.inGamePause.setOnClickListener(v -> {
+            activityGameDualBinding.inGamePausePopup.setVisibility(View.VISIBLE);
+            activityGameDualBinding.inGamePausePopup.bringToFront();
             LinearLayout blackBG = findViewById(R.id.gameView_black);
             blackBG.setAlpha(0.3f);
             str = thread.pause();
             Log.i(TAG,"Button PAUSE");
         });
-        activityGameBinding.inGamePausePopupResume.setOnClickListener(v -> {
-            activityGameBinding.inGamePausePopup.setVisibility(View.GONE);
-            activityGameBinding.inGamePausePopup.bringToFront();
+        activityGameDualBinding.inGamePausePopupResume.setOnClickListener(v -> {
+            activityGameDualBinding.inGamePausePopup.setVisibility(View.GONE);
+            activityGameDualBinding.inGamePausePopup.bringToFront();
             LinearLayout blackBG = findViewById(R.id.gameView_black);
             blackBG.setAlpha(0f);
             if (thread.checkIsPaused() && !thread.checkIsLost()) {
@@ -135,17 +135,17 @@ public class GameActivity extends AppCompatActivity {
                 Log.i(TAG,"Button RESUME");
             }
         });
-        activityGameBinding.inGamePausePopupRestart.setOnClickListener(v -> {
-            activityGameBinding.inGamePausePopup.setVisibility(View.GONE);
-            activityGameBinding.inGamePausePopup.bringToFront();
+        activityGameDualBinding.inGamePausePopupRestart.setOnClickListener(v -> {
+            activityGameDualBinding.inGamePausePopup.setVisibility(View.GONE);
+            activityGameDualBinding.inGamePausePopup.bringToFront();
             LinearLayout blackBG = findViewById(R.id.gameView_black);
             blackBG.setAlpha(0f);
             thread = new GameThread(handler, gameView, PlayMode.Dual);
             thread.start();
-            activityGameBinding.score.setText(String.valueOf(0));
+            activityGameDualBinding.score.setText(String.valueOf(0));
             Log.i(TAG,"Button RESTART");
         });
-        activityGameBinding.inGamePausePopupSave.setOnClickListener(view -> {
+        activityGameDualBinding.inGamePausePopupSave.setOnClickListener(view -> {
             SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
             SharedPreferences.Editor ed = pref.edit();
             ed.putString("data", str);
@@ -153,7 +153,7 @@ public class GameActivity extends AppCompatActivity {
             finish();
             Log.i(TAG,"Button EXIT");
         });
-        activityGameBinding.inGamePausePopupExit.setOnClickListener(view -> {
+        activityGameDualBinding.inGamePausePopupExit.setOnClickListener(view -> {
             str = null;
             finish();
         });
@@ -187,26 +187,26 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void showDeadDialog(){
-        activityGameBinding.inGameDeadPopup.setVisibility(View.VISIBLE);
-        activityGameBinding.inGameDeadPopup.bringToFront();
-        activityGameBinding.gameViewBlack.setAlpha(0.3f);
-        activityGameBinding.inGameDeadPopupScoreContent.setText(String.valueOf(bundle.getInt("score")));
+        activityGameDualBinding.inGameDeadPopup.setVisibility(View.VISIBLE);
+        activityGameDualBinding.inGameDeadPopup.bringToFront();
+        activityGameDualBinding.gameViewBlack.setAlpha(0.3f);
+        activityGameDualBinding.inGameDeadPopupScoreContent.setText(String.valueOf(bundle.getInt("score")));
 
-        activityGameBinding.inGameDeadPopupRestart.setOnClickListener(view -> {
-            activityGameBinding.inGameDeadPopup.setVisibility(View.GONE);
-            activityGameBinding.inGameDeadPopup.bringToFront();
-            activityGameBinding.gameViewBlack.setAlpha(0f);
+        activityGameDualBinding.inGameDeadPopupRestart.setOnClickListener(view -> {
+            activityGameDualBinding.inGameDeadPopup.setVisibility(View.GONE);
+            activityGameDualBinding.inGameDeadPopup.bringToFront();
+            activityGameDualBinding.gameViewBlack.setAlpha(0f);
             thread = new GameThread(handler, gameView, PlayMode.Dual);
             thread.start();
-            activityGameBinding.inGameDeadPopupScoreContent.setText("0");
+            activityGameDualBinding.inGameDeadPopupScoreContent.setText("0");
             Log.i(TAG, "Restart After Death");
         });
 
-        activityGameBinding.inGameDeadPopupExit.setOnClickListener(view -> {
+        activityGameDualBinding.inGameDeadPopupExit.setOnClickListener(view -> {
             str = null;
             finish();
         });
-        activityGameBinding.inGameDeadPopupRanking.setOnClickListener(view -> {
+        activityGameDualBinding.inGameDeadPopupRanking.setOnClickListener(view -> {
             edT = new EditText(getApplicationContext());
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Submit to Ranking")

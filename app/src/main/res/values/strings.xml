@@ -10,7 +10,10 @@
     <string name="rank_nodata_image_desc">no ranking data image</string>
     <string name="main_ranking">Ranking</string>
     <string name="main_load">Load</string>
-    <string name="game_start">Start</string>
+    <string name="single_play">SINGLE</string>
+    <string name="dual_play">DUAL</string>
+    <string name="auto_play">AUTO</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="exit">Exit</string>

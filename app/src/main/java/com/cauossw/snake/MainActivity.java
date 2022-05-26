@@ -10,12 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cauossw.snake.databinding.ActivityMainBinding;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView tv_start, tv_load, tv_ranking, tv_exit;
+    private ActivityMainBinding activityMainBinding;
     private String str;
-    private final String TAG = "MAINACTIVITY";
+    private final String TAG = "MainActivity";
 
     @Override
     protected void onResume() {
@@ -27,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG + " onStart", String.valueOf(str.isEmpty()));
 
         if(str.isEmpty()) {
-            tv_load.setVisibility(View.GONE);
+            activityMainBinding.mainBtLoad.setVisibility(View.GONE);
         } else {
-            tv_load.setVisibility(View.VISIBLE);
+            activityMainBinding.mainBtLoad.setVisibility(View.VISIBLE);
         }
 
     }
@@ -37,41 +39,50 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        tv_start = findViewById(R.id.main_bt_start);
-        tv_load = findViewById(R.id.main_bt_load);
-        tv_ranking = findViewById(R.id.main_bt_ranking);
-        tv_exit = findViewById(R.id.main_bt_exit);
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityMainBinding.getRoot());
 
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         str = pref.getString("data", "");
         Log.i(TAG, str);
         Log.i(TAG, String.valueOf(str.isEmpty()));
         if(str.isEmpty()) {
-            tv_load.setVisibility(View.GONE);
+            activityMainBinding.mainBtLoad.setVisibility(View.GONE);
         } else {
-            tv_load.setVisibility(View.VISIBLE);
+            activityMainBinding.mainBtLoad.setVisibility(View.VISIBLE);
         }
 
-        tv_start.setOnClickListener(view -> {
-            Intent startIntent = new Intent(MainActivity.this, GameActivity.class);
+        activityMainBinding.singlePlay.setOnClickListener(view -> {
+            Intent startIntent = new Intent(MainActivity.this, GameSingleActivity.class);
             startIntent.putExtra("data", "");
             startActivity(startIntent);
         });
-        tv_load.setOnClickListener(view -> {
-            Intent loadIntent = new Intent(MainActivity.this, GameActivity.class);
+
+        activityMainBinding.dualPlay.setOnClickListener(view -> {
+            Intent startIntent = new Intent(MainActivity.this, GameDualActivity.class);
+            startIntent.putExtra("data", "");
+            startActivity(startIntent);
+        });
+
+        activityMainBinding.autoPlay.setOnClickListener(view -> {
+            Intent startIntent = new Intent(MainActivity.this, GameAutoActivity.class);
+            startIntent.putExtra("data", "");
+            startActivity(startIntent);
+        });
+
+        activityMainBinding.mainBtLoad.setOnClickListener(view -> {
+            Intent loadIntent = new Intent(MainActivity.this, GameDualActivity.class);
             SharedPreferences.Editor ed = pref.edit();
             ed.remove("data");
             ed.apply();
             loadIntent.putExtra("data", str);
             startActivity(loadIntent);
         });
-        tv_ranking.setOnClickListener(view -> {
+        activityMainBinding.mainBtRanking.setOnClickListener(view -> {
             Intent rankingIntent = new Intent(MainActivity.this, RankingActivity.class);
             startActivity(rankingIntent);
         });
-        tv_exit.setOnClickListener(view -> {
+        activityMainBinding.mainBtExit.setOnClickListener(view -> {
             moveTaskToBack(true);
             finishAndRemoveTask();
 

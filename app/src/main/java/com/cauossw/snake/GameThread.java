@@ -15,6 +15,7 @@ public class GameThread extends Thread {
     private GameView gameView;
     private int score;
     private PlayMode mode;
+
     private boolean isPaused = false,
             isLost = false,
             isStart = false;
@@ -67,10 +68,8 @@ public class GameThread extends Thread {
             Message Message = handler.obtainMessage();
             Log.i(TAG,"메세지 생성");
             Bundle bundle = new Bundle();
-            bundle.putSerializable("snake_1P", getSnakePositions(0));
-            bundle.putSerializable("snake_2P", getSnakePositions(1));
-            bundle.putSerializable("apple_1", getApplePosition(0));
-            bundle.putSerializable("apple_2", getApplePosition(1));
+            bundle.putSerializable("snakes", getSnakesPositions());
+            bundle.putSerializable("apples", getApplesPosition());
             bundle.putSerializable("score", getScore());
             Message.setData(bundle);
             Log.i(TAG,"메세지에 번들 삽입");
@@ -79,7 +78,7 @@ public class GameThread extends Thread {
 
             try {
                 if (!isStart) {
-                    Thread.sleep(3000);
+                    Thread.sleep(1000);
                     isStart = true;
                 } else {
                     Thread.sleep(snakes.get(0).getSpeed());
@@ -153,12 +152,20 @@ public class GameThread extends Thread {
         return score;
     }
 
-    public ArrayList<Coordinate> getSnakePositions(int snakeIndex) {
-        return snakes.get(snakeIndex).getPositions();
+    public ArrayList<ArrayList<Coordinate>> getSnakesPositions() {
+        ArrayList<ArrayList<Coordinate>> snakesPositions = new ArrayList<ArrayList<Coordinate>>();
+
+        int i;
+        for (i = 0; i < snakes.size(); i++) snakesPositions.add(snakes.get(i).getPositions());
+        return snakesPositions;
     }
 
-    public Coordinate getApplePosition(int appleIndex) {
-        return apples.get(appleIndex).getPosition();
+    public ArrayList<Coordinate> getApplesPosition() {
+        ArrayList<Coordinate> applesPositions = new ArrayList<Coordinate>();
+
+        int i;
+        for (i = 0; i < snakes.size(); i++) applesPositions.add(apples.get(i).getPosition());
+        return applesPositions;
     }
 
     public String getStatusStr() {

@@ -24,10 +24,8 @@ public class GameView extends View {
     private Bitmap appleImage;
     private Bitmap mapTileImage;
 
-    private ArrayList<Coordinate> snakePositions_1P;
-    private ArrayList<Coordinate> snakePositions_2P;
-    private Coordinate applePosition_1;
-    private Coordinate applePosition_2;
+    private ArrayList<ArrayList<Coordinate>> snakesPositions = new ArrayList<ArrayList<Coordinate>>();
+    private ArrayList<Coordinate> applesPosition = new ArrayList<Coordinate>();
 
 
 
@@ -60,11 +58,9 @@ public class GameView extends View {
         imageReSet(canvas);
         Log.i(TAG, "onDraw 호출" + GameView.this.toString());
 
-        drawApple(canvas, applePosition_1);
-        drawApple(canvas, applePosition_2);
-
-        drawSnake(canvas, snakePositions_2P);
-        drawSnake(canvas, snakePositions_1P);
+        int i;
+        for (i = 0; i < applesPosition.size(); i++) drawApple(canvas, applesPosition.get(i));
+        for (i = 0; i < snakesPositions.size(); i++) drawSnake(canvas, snakesPositions.get(i));
 
 //
 //        if(snakePositions != null) {
@@ -121,17 +117,31 @@ public class GameView extends View {
     }
 
     public void setBundle(Bundle bundle) {
-        if (bundle.getSerializable("snake_1P") != null && bundle.getSerializable("snake_2P") != null) {
-            snakePositions_1P = (ArrayList<Coordinate>) bundle.getSerializable("snake_1P");
-            snakePositions_2P = (ArrayList<Coordinate>) bundle.getSerializable("snake_2P");
-            Log.i(TAG, "snake Head Position X:" + snakePositions_1P.get(0).getX() + ", " + snakePositions_2P.get(0).getX());
-        }
-        if (bundle.getSerializable("apple_1") != null && bundle.getSerializable("apple_2") != null) {
-            applePosition_1 = (Coordinate) bundle.getSerializable("apple_1");
-            Log.i(TAG, "applePosition_1 X:" + applePosition_1.getX());
-            applePosition_2 = (Coordinate) bundle.getSerializable("apple_2");
-            Log.i(TAG, "applePosition_2 X:" + applePosition_1.getX());
+        int i;
+        String logStr;
 
+        if (bundle.getSerializable("snakes") != null) {
+            snakesPositions = (ArrayList<ArrayList<Coordinate>>) bundle.getSerializable("snakes");
+
+            logStr = "snake Head Position X: ";
+            for (i = 0; i < snakesPositions.size(); i++) {
+                logStr += snakesPositions.get(i).get(0).getX();
+                if (i != snakesPositions.size() - 1) logStr += ", ";
+            }
+
+            Log.i(TAG, logStr);
+        }
+
+        if (bundle.getSerializable("apples") != null) {
+            applesPosition = (ArrayList<Coordinate>) bundle.getSerializable("apples");
+
+            logStr = "applePosition_1 X: ";
+            for (i = 0; i < applesPosition.size(); i++) {
+                logStr += applesPosition.get(i).getX();
+                if (i != applesPosition.size() - 1) logStr += ", ";
+            }
+
+            Log.i(TAG, logStr);
         }
     }
 

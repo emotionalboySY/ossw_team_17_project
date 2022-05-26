@@ -168,7 +168,6 @@ public class GameActivity extends AppCompatActivity {
         String str = intent.getStringExtra("data");
 
         if(thread == null) {
-            thread = new GameThread(handler, gameView, PlayMode.Dual);
             if(str.isEmpty()) {
                 thread = new GameThread(handler, gameView, PlayMode.Dual);
             } else {

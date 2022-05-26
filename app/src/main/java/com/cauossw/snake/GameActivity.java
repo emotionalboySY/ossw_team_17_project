@@ -59,12 +59,13 @@ public class GameActivity extends AppCompatActivity {
                 bundle = new Bundle();
                 bundle = msg.getData();
 
+                Log.i(TAG, "daed int " + bundle.getInt("dead") + "");
                 if(bundle.getInt("dead") == 1){
                     Log.i(TAG, "handler " + bundle.getInt("snakeIndex") + " is dead");
                     showDeadDialog();
                 }
 
-                if(bundle.getInt("score")!=0) {
+                if(bundle.getInt("score") != 0) {
                     activityGameBinding.score.setText("" + bundle.getInt("score"));
                 }
                 gameView.setBundle(bundle);

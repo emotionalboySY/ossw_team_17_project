@@ -65,15 +65,15 @@ public class GameThread extends Thread {
         while(!isPaused) {
             Log.i(TAG, getStatusStr());
 
-            Message Message = handler.obtainMessage();
-            Log.i(TAG,"메세지 생성");
+            Message msg = handler.obtainMessage();
+            Log.i(TAG,"position - 메세지 생성");
             Bundle bundle = new Bundle();
             bundle.putSerializable("snakes", getSnakesPositions());
             bundle.putSerializable("apples", getApplesPosition());
             bundle.putSerializable("score", getScore());
-            Message.setData(bundle);
+            msg.setData(bundle);
             Log.i(TAG,"메세지에 번들 삽입");
-            handler.sendMessage(Message);
+            handler.sendMessage(msg);
             Log.i(TAG,"Bundle 전달");
 
             try {
@@ -96,13 +96,13 @@ public class GameThread extends Thread {
                     Log.i(TAG,(snakeIndex + 1) + " eat apple");
                     if (mode != PlayMode.Dual) score++;
 
-                    Message upScore = handler.obtainMessage();
-                    Log.i(TAG,"메세지 생성");
+                    Message upScoreMsg = handler.obtainMessage();
+                    Log.i(TAG,"eat apple - 메세지 생성");
                     Bundle upScoreBundle = new Bundle();
                     upScoreBundle.putInt("score", getScore());
-                    Message.setData(upScoreBundle);
+                    upScoreMsg.setData(upScoreBundle);
                     Log.i(TAG,"메세지에 번들 삽입");
-                    handler.sendMessage(upScore);
+                    handler.sendMessage(upScoreMsg);
                     Log.i(TAG,"Bundle 전달");
 
                     // 삭제 후 새 apple 생성
@@ -118,15 +118,15 @@ public class GameThread extends Thread {
                     || (mode == PlayMode.Dual && snakes.get(snakeIndex).canEat(snakes.get((snakeIndex + 1) % 2)))) {
                     Log.i(TAG,(snakeIndex + 1) + " is Dead");
 
-                    Message dead = handler.obtainMessage();
-                    Log.i(TAG,"메세지 생성");
+                    Message deadMsg = handler.obtainMessage();
+                    Log.i(TAG,"dead - 메세지 생성");
                     Bundle deadBundle = new Bundle();
                     deadBundle.putInt("dead", 1);
                     deadBundle.putInt("snakeIndex", snakeIndex + 1);
                     deadBundle.putInt("score", getScore());
-                    Message.setData(deadBundle);
+                    deadMsg.setData(deadBundle);
                     Log.i(TAG,"메세지에 번들 삽입");
-                    handler.sendMessage(dead);
+                    handler.sendMessage(deadMsg);
                     Log.i(TAG,"Bundle 전달");
 
                     isLost = true;

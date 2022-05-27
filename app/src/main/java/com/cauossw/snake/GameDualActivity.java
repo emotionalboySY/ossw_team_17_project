@@ -44,24 +44,21 @@ public class GameDualActivity extends AppCompatActivity {
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                Log.i(TAG, "handler, get message");
+            Log.i(TAG, "handler, get message");
 
-                bundle = new Bundle();
-                bundle = msg.getData();
+            bundle = new Bundle();
+            bundle = msg.getData();
 
-                Log.i(TAG, "dead int " + bundle.getInt("dead") + "");
-                if (bundle.getInt("dead") == 1) {
-                    if (bundle.getInt("winnerNum") == -1) Log.i(TAG, "draw");
-                    else Log.i(TAG, "handler " + bundle.getInt("winnerNum") + " is win");
-                    showDeadDialog();
-                }
-
-                if(bundle.getInt("score") != 0) {
-                    activityGameDualBinding.score.setText("" + bundle.getInt("score"));
-                }
+            Log.i(TAG, "dead int " + bundle.getInt("dead") + "");
+            if (bundle.getInt("dead") == 1) {
+                if (bundle.getInt("winnerNum") == -1) Log.i(TAG, "draw");
+                else Log.i(TAG, "handler " + bundle.getInt("winnerNum") + " is win");
+                showDeadDialog();
+            } else { // 죽지 않은 경우 invalidate
                 gameView.setBundle(bundle);
                 Log.i(TAG, gameView.toString());
-
+                gameView.invalidate();
+            }
             }
         };
 

@@ -59,14 +59,14 @@ public class GameSingleActivity extends AppCompatActivity {
                 Log.i(TAG, "dead int " + bundle.getInt("dead") + "");
                 if(bundle.getInt("dead") == 1){
                     showDeadDialog();
+                } else { // 죽지 않은 경우 invalidate
+                    if(bundle.getInt("score") != 0) {
+                        activityGameSingleBinding.score.setText("" + bundle.getInt("score"));
+                    }
+                    gameView.setBundle(bundle);
+                    Log.i(TAG, gameView.toString());
+                    gameView.invalidate();
                 }
-
-                if(bundle.getInt("score") != 0) {
-                    activityGameSingleBinding.score.setText("" + bundle.getInt("score"));
-                }
-                gameView.setBundle(bundle);
-                Log.i(TAG, gameView.toString());
-
             }
         };
 

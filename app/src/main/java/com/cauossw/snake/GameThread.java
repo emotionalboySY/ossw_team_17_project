@@ -65,7 +65,7 @@ public class GameThread extends Thread {
         while(!isPaused) {
             Log.i(TAG, getStatusStr());
             sendPositionMsg();
-            gameView.invalidate();
+            // gameView.invalidate();
 
             // 처음 시작 전 1초 delay
             try {

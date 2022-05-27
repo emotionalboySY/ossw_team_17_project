@@ -24,6 +24,8 @@ public class GameView extends View {
     private Bitmap appleImage;
     private Bitmap mapTileImage;
 
+    private int width;
+    private int height;
     private ArrayList<ArrayList<Coordinate>> snakesPositions = new ArrayList<ArrayList<Coordinate>>();
     private ArrayList<Coordinate> applesPosition = new ArrayList<Coordinate>();
 
@@ -53,14 +55,12 @@ public class GameView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) { //캔버스 수정이 필요할때마다 호출됨
-//        super.onDraw(canvas);
         //저장된 캔버스 크기가, 현재 캔버스 크기와 맞지않을 때, 가로모드 등으로 화면 크기 변경
         imageReSet(canvas);
         Log.i(TAG, "onDraw 호출" + GameView.this.toString());
 
-        int i;
-        for (i = 0; i < applesPosition.size(); i++) drawApple(canvas, applesPosition.get(i));
-        for (i = 0; i < snakesPositions.size(); i++) drawSnake(canvas, snakesPositions.get(i));
+        for (int i = 0; i < applesPosition.size(); i++) drawApple(canvas, applesPosition.get(i));
+        for (int i = 0; i < snakesPositions.size(); i++) drawSnake(canvas, snakesPositions.get(i));
 
 //
 //        if(snakePositions != null) {
@@ -106,7 +106,7 @@ public class GameView extends View {
     private void drawSnake(Canvas canvas, ArrayList<Coordinate> snakePosition) {
         if (snakePosition != null) {
             //뱀 몸체그리기
-            Log.i(TAG, "start draw Snake");
+            Log.i(TAG, "start draw Snake Head<x,y>: <" + snakePosition.get(0).getX() +"," + snakePosition.get(0).getY()+">");
             for (int snakeLength = 0; snakeLength < snakePosition.size(); snakeLength += 1) {
                 int x = setToCanvasPosition(snakePosition.get(snakeLength).getX());
                 int y = setToCanvasPosition(snakePosition.get(snakeLength).getY());
@@ -123,25 +123,25 @@ public class GameView extends View {
         if (bundle.getSerializable("snakes") != null) {
             snakesPositions = (ArrayList<ArrayList<Coordinate>>) bundle.getSerializable("snakes");
 
-            logStr = "snake Head Position X: ";
-            for (i = 0; i < snakesPositions.size(); i++) {
-                logStr += snakesPositions.get(i).get(0).getX();
-                if (i != snakesPositions.size() - 1) logStr += ", ";
-            }
-
-            Log.i(TAG, logStr);
+//            logStr = "snake Head Position X: ";
+//            for (i = 0; i < snakesPositions.size(); i++) {
+//                logStr += snakesPositions.get(i).get(0).getX();
+//                if (i != snakesPositions.size() - 1) logStr += ", ";
+//            }
+//
+//            Log.i(TAG, logStr);
         }
 
         if (bundle.getSerializable("apples") != null) {
             applesPosition = (ArrayList<Coordinate>) bundle.getSerializable("apples");
 
-            logStr = "applePosition_1 X: ";
-            for (i = 0; i < applesPosition.size(); i++) {
-                logStr += applesPosition.get(i).getX();
-                if (i != applesPosition.size() - 1) logStr += ", ";
-            }
-
-            Log.i(TAG, logStr);
+//            logStr = "applePosition_1 X: ";
+//            for (i = 0; i < applesPosition.size(); i++) {
+//                logStr += applesPosition.get(i).getX();
+//                if (i != applesPosition.size() - 1) logStr += ", ";
+//            }
+//
+//            Log.i(TAG, logStr);
         }
     }
 
@@ -150,6 +150,11 @@ public class GameView extends View {
         Log.i(TAG, "게임뷰 생성");
 
         imageSet();
+    }
+
+    public void setSize(int width, int height){
+        this.width = width;
+        this.height = height;
     }
 
     private void imageSet() {
@@ -168,9 +173,9 @@ public class GameView extends View {
     private void imageReSet(Canvas canvas) {
 
         //현재 크기로 저장
-        eachImageWidth = getWidth() / DefaultConst.DUAL_WIDTH; //각 요소당 크기 계산
+        eachImageWidth = getWidth() / width; //각 요소당 크기 계산
         Log.i(TAG, "canvas width:" + getWidth() + " canvas Height:" + getHeight());
-        Log.i(TAG, "이미지 사이즈 변경 완료 " + getWidth() / DefaultConst.DUAL_WIDTH + "px");
+        Log.i(TAG, "이미지 사이즈 변경 완료 " + getWidth() / width + "px");
 
         snakeHeadImage = Bitmap.createScaledBitmap(snakeHeadImage, eachImageWidth, eachImageWidth, true);
         snakeBodyImage = Bitmap.createScaledBitmap(snakeBodyImage, eachImageWidth, eachImageWidth, true);
@@ -179,8 +184,8 @@ public class GameView extends View {
         mapTileImage = Bitmap.createScaledBitmap(mapTileImage, eachImageWidth, eachImageWidth, true);
         Log.i(TAG, "리사이징 완료");
 
-        for (int vert = 0; vert < eachImageWidth * DefaultConst.DUAL_HEIGHT; vert += eachImageWidth) { //draw mapTile
-            for (int hor = 0; hor < eachImageWidth * DefaultConst.DUAL_WIDTH; hor += eachImageWidth) {
+        for (int vert = 0; vert < eachImageWidth * height; vert += eachImageWidth) { //draw mapTile
+            for (int hor = 0; hor < eachImageWidth * width; hor += eachImageWidth) {
                 canvas.drawBitmap(mapTileImage, hor, vert, null);
             }
         }

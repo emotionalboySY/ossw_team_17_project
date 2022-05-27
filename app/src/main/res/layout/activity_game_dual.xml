@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#aeff82"
+    android:background="@color/button_background"
     tools:context=".GameDualActivity">
 
     <LinearLayout
@@ -12,7 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/GameView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +35,8 @@
                 android:id="@+id/upButton1P"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@drawable/button_circle_style" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -51,7 +54,8 @@
                 android:id="@+id/leftButton1P"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@drawable/button_circle_style" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -63,7 +67,8 @@
                 android:id="@+id/rightButton1P"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@drawable/button_circle_style" />
         </LinearLayout>
 
         <LinearLayout
@@ -81,7 +86,8 @@
                 android:id="@+id/downButton1P"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@drawable/button_circle_style" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -119,6 +125,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -141,7 +148,8 @@
                 android:id="@+id/upButton2P"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@drawable/button_circle_style" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -159,6 +167,7 @@
                 android:id="@+id/leftButton2P"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_circle_style"
                 android:layout_weight="1" />
 
             <Button
@@ -171,6 +180,7 @@
                 android:id="@+id/rightButton2P"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_circle_style"
                 android:layout_weight="1" />
         </LinearLayout>
 
@@ -183,12 +193,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+
                 android:visibility="invisible" />
 
             <Button
                 android:id="@+id/downButton2P"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_circle_style"
                 android:layout_weight="1" />
 
             <Button
@@ -198,21 +210,6 @@
                 android:visibility="invisible" />
         </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/score"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/popup_background"
-        android:fontFamily="@font/gomarice_gogono_cocoa_mochi"
-        android:gravity="center"
-        android:text="0"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/gameView_black"

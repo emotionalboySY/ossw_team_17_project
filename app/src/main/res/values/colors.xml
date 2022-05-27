@@ -14,4 +14,5 @@
     <color name="button_background">#FFE9EFC0</color>
     <color name="popup_background">#FF83BD75</color>
     <color name="deep_green">#FF4E944F</color>
+    <color name="deep_gray">#383838</color>
 </resources>

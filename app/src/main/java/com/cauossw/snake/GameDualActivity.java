@@ -45,11 +45,8 @@ public class GameDualActivity extends AppCompatActivity {
         activityGameDualBinding = ActivityGameDualBinding.inflate(getLayoutInflater());
         setContentView(activityGameDualBinding.getRoot());
 
-//        Display display = getWindowManager().getDefaultDisplay();
-//        Point size = new Point();
-//        display.getSize(size);
-
         gameView = activityGameDualBinding.GameView;
+        gameView.setSize(DefaultConst.DUAL_WIDTH, DefaultConst.DUAL_HEIGHT);
 
         handler = new Handler() {
             @Override
@@ -142,7 +139,6 @@ public class GameDualActivity extends AppCompatActivity {
             blackBG.setAlpha(0f);
             thread = new GameThread(handler, gameView, PlayMode.Dual);
             thread.start();
-            activityGameDualBinding.score.setText(String.valueOf(0));
             Log.i(TAG,"Button RESTART");
         });
         activityGameDualBinding.inGamePausePopupSave.setOnClickListener(view -> {

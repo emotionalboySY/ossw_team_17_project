@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         activityMainBinding.mainBtLoad.setOnClickListener(view -> {
-            Intent loadIntent = new Intent(MainActivity.this, GameDualActivity.class);
+            Intent loadIntent = new Intent(MainActivity.this, GameSingleActivity.class);
             SharedPreferences.Editor ed = pref.edit();
             ed.remove("data");
             ed.apply();

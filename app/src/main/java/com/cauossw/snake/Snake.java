@@ -12,6 +12,7 @@ public class Snake {
     private ArrayList<Coordinate> body = new ArrayList<Coordinate>();
     private int speed;
     private Direction dir;
+    private Direction lastMovedDir = null;
 
     Snake(Coordinate tailPosition, Direction dir){
         this(tailPosition, DefaultConst.SNAKE_LENGTH, DefaultConst.SNAKE_SPEED, dir);
@@ -41,10 +42,10 @@ public class Snake {
 
     public void setDir(Direction dir) {
         // 방향 전환 불가능한 경우 check
-        if ((this.dir == Direction.UP && dir == Direction.DOWN)
-            || (this.dir == Direction.DOWN && dir == Direction.UP)
-            || (this.dir == Direction.LEFT && dir == Direction.RIGHT)
-            || (this.dir == Direction.RIGHT && dir == Direction.LEFT))
+        if ((this.lastMovedDir == Direction.UP && dir == Direction.DOWN)
+            || (this.lastMovedDir == Direction.DOWN && dir == Direction.UP)
+            || (this.lastMovedDir == Direction.LEFT && dir == Direction.RIGHT)
+            || (this.lastMovedDir == Direction.RIGHT && dir == Direction.LEFT))
             return;
 
         this.dir = dir;
@@ -113,6 +114,7 @@ public class Snake {
 
     protected void addHead() { // 현재 dir 방향으로 움직인 snake head 생성, body 맨 앞에 추가 (apple 먹지 않는다면 delTail() 호출 필요)
         body.add(0, body.get(0).getMovedPosition(dir));
+        lastMovedDir = dir;
     }
 
     protected void delTail() {

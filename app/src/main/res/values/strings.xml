@@ -24,6 +24,7 @@
     <string name="restart">Restart</string>
     <string name="pause">PAUSE</string>
     <string name="you_died">YOU DIED</string>
+    <string name="game_over">GAME OVER</string>
     <string name="pause_popup_desc">pause popup desc</string>
     <string name="popup_death_desc">popup death desc</string>
     <string name="scoreDesc">Score: </string>

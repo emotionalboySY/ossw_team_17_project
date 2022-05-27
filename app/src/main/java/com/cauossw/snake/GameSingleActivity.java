@@ -113,6 +113,7 @@ public class GameSingleActivity extends AppCompatActivity {
                 Log.i(TAG,"Button RESUME");
             }
         });
+
         activityGameSingleBinding.inGamePausePopupRestart.setOnClickListener(v -> {
             activityGameSingleBinding.inGamePausePopup.setVisibility(View.GONE);
             activityGameSingleBinding.inGamePausePopup.bringToFront();
@@ -176,7 +177,7 @@ public class GameSingleActivity extends AppCompatActivity {
             activityGameSingleBinding.gameViewBlack.setAlpha(0f);
             thread = new GameThread(handler, gameView, PlayMode.Single);
             thread.start();
-            activityGameSingleBinding.inGameDeadPopupScoreContent.setText("0");
+            activityGameSingleBinding.score.setText(String.valueOf(0));
             Log.i(TAG, "Restart After Death");
         });
 

@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.cauossw.snake.databinding.ActivityGameDualBinding;
 
 import java.io.File;
@@ -141,14 +142,7 @@ public class GameDualActivity extends AppCompatActivity {
             thread.start();
             Log.i(TAG,"Button RESTART");
         });
-        activityGameDualBinding.inGamePausePopupSave.setOnClickListener(view -> {
-            SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-            SharedPreferences.Editor ed = pref.edit();
-            ed.putString("data", str);
-            ed.apply();
-            finish();
-            Log.i(TAG,"Button EXIT");
-        });
+
         activityGameDualBinding.inGamePausePopupExit.setOnClickListener(view -> {
             str = null;
             finish();
@@ -186,7 +180,7 @@ public class GameDualActivity extends AppCompatActivity {
         activityGameDualBinding.inGameDeadPopup.setVisibility(View.VISIBLE);
         activityGameDualBinding.inGameDeadPopup.bringToFront();
         activityGameDualBinding.gameViewBlack.setAlpha(0.3f);
-        activityGameDualBinding.inGameDeadPopupScoreContent.setText(String.valueOf(bundle.getInt("score")));
+        activityGameDualBinding.inGameDeadPopupScoreWinner.setText(String.valueOf(bundle.getInt("snakeIndex"))+" IS WIN");
 
         activityGameDualBinding.inGameDeadPopupRestart.setOnClickListener(view -> {
             activityGameDualBinding.inGameDeadPopup.setVisibility(View.GONE);
@@ -194,41 +188,12 @@ public class GameDualActivity extends AppCompatActivity {
             activityGameDualBinding.gameViewBlack.setAlpha(0f);
             thread = new GameThread(handler, gameView, PlayMode.Dual);
             thread.start();
-            activityGameDualBinding.inGameDeadPopupScoreContent.setText("0");
             Log.i(TAG, "Restart After Death");
         });
 
         activityGameDualBinding.inGameDeadPopupExit.setOnClickListener(view -> {
             str = null;
             finish();
-        });
-        activityGameDualBinding.inGameDeadPopupRanking.setOnClickListener(view -> {
-            edT = new EditText(getApplicationContext());
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Submit to Ranking")
-                    .setMessage("Write your name for ranking page.")
-                    .setCancelable(false)
-                    .setView(edT)
-                    .setPositiveButton("Submit", (dialogInterface, i) -> {
-                        String name = edT.getText().toString();
-                        int score = bundle.getInt("score");
-                        String scoreS = String.valueOf(score);
-                        String inputData = name + "," + scoreS + "\n";
-                        try {
-                            File file = new File(getFilesDir(), "data.txt");
-                            FileWriter fw = new FileWriter(file, true);
-                            PrintWriter writer = new PrintWriter(fw, true);
-                            writer.println(inputData);
-                            Log.i(TAG, "Ranking Submitted: " + inputData);
-                            writer.close();
-                            fw.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        finish();
-                    });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
         });
     }
 }

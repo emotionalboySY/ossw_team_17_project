@@ -72,6 +72,7 @@ public class GameThread extends Thread {
             bundle.putSerializable("snakes", getSnakesPositions());
             bundle.putSerializable("apples", getApplesPosition());
             bundle.putSerializable("score", getScore());
+            bundle.putInt("dead", 0);
             msg.setData(bundle);
             Log.i(TAG,"메세지에 번들 삽입");
             handler.sendMessage(msg);
@@ -103,11 +104,16 @@ public class GameThread extends Thread {
                     Message upScoreMsg = handler.obtainMessage();
                     Log.i(TAG,"eat apple - 메세지 생성");
                     Bundle upScoreBundle = new Bundle();
+                    upScoreBundle.putSerializable("snakes", getSnakesPositions());
+                    upScoreBundle.putSerializable("apples", getApplesPosition());
                     upScoreBundle.putInt("score", getScore());
+                    upScoreBundle.putInt("dead", 0);
                     upScoreMsg.setData(upScoreBundle);
                     Log.i(TAG,"메세지에 번들 삽입");
                     handler.sendMessage(upScoreMsg);
                     Log.i(TAG,"Bundle 전달");
+
+                    gameView.invalidate();
 
                     // 삭제 후 새 apple 생성
                     apples.remove(eatableAppleIndex);
@@ -126,7 +132,6 @@ public class GameThread extends Thread {
                     Log.i(TAG,"dead - 메세지 생성");
                     Bundle deadBundle = new Bundle();
                     deadBundle.putInt("dead", 1);
-                    deadBundle.putSerializable("snakes", getSnakesPositions());
                     Log.i(TAG,"Bundle 전달");
                     deadBundle.putInt("snakeIndex", snakeIndex + 1);
                     deadBundle.putInt("score", getScore());
@@ -135,13 +140,13 @@ public class GameThread extends Thread {
                     handler.sendMessage(deadMsg);
                     Log.i(TAG,"Bundle 전달");
 
-                    gameView.invalidate();
 
                     isLost = true;
                     isPaused = true;
                     break;
                 }
             }
+
         }
     }
 

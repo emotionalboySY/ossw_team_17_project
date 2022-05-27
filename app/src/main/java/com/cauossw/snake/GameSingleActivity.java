@@ -56,9 +56,8 @@ public class GameSingleActivity extends AppCompatActivity {
                 bundle = new Bundle();
                 bundle = msg.getData();
 
-                Log.i(TAG, "daed int " + bundle.getInt("dead") + "");
+                Log.i(TAG, "dead int " + bundle.getInt("dead") + "");
                 if(bundle.getInt("dead") == 1){
-                    Log.i(TAG, "handler " + bundle.getInt("snakeIndex") + " is dead");
                     showDeadDialog();
                 }
 

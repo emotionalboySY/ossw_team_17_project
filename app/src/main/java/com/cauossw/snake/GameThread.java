@@ -64,11 +64,10 @@ public class GameThread extends Thread {
     public void run() { // 주기적으로 반복되는 부분
         while(!isPaused) {
             Log.i(TAG, getStatusStr());
-
             sendPositionMsg();
-
             gameView.invalidate();
 
+            // 처음 시작 전 1초 delay
             try {
                 if (!isStart) {
                     Thread.sleep(1000);
@@ -83,9 +82,24 @@ public class GameThread extends Thread {
             int snakeIndex;
             for (snakeIndex = 0; snakeIndex < snakes.size(); snakeIndex++) {
                 moveSnake(snakeIndex);
-                if (checkAndHandleDead(snakeIndex)) break;
             }
 
+            // check dead condition
+            if (mode == PlayMode.Dual) {
+                if (checkDead(0) && checkDead(1)) {
+                    handleDead(-1);
+                    break;
+                } else if (checkDead(0)) {
+                    handleDead(0);
+                    break;
+                } else if (checkDead(1)) {
+                    handleDead(1);
+                    break;
+                }
+            } else if (checkDead(0)) { // single / auto dead condition
+                handleDead(0);
+                break;
+            }
         }
     }
 
@@ -166,21 +180,23 @@ public class GameThread extends Thread {
         }
     }
 
-    private boolean checkAndHandleDead(int snakeIndex) {
+    private boolean checkDead(int snakeIndex) {
         boolean shouldBreak = false;
 
         if (snakes.get(snakeIndex).isDead()
                 || (mode == PlayMode.Dual && snakes.get(snakeIndex).canEat(snakes.get((snakeIndex + 1) % 2)))) {
             Log.i(TAG,(snakeIndex + 1) + " is Dead");
-
-            sendDeadMsg(snakeIndex);
-
-            isLost = true;
-            isPaused = true;
             shouldBreak = true;
         }
 
         return shouldBreak;
+    }
+
+    private void handleDead(int snakeIndex) {
+        sendDeadMsg(snakeIndex);
+
+        isLost = true;
+        isPaused = true;
     }
 
     private void sendPositionMsg() {
@@ -222,9 +238,12 @@ public class GameThread extends Thread {
         deadBundle.putInt("dead", 1);
         Log.i(TAG,"Bundle 전달");
 
-        if (mode == PlayMode.Dual)
-            deadBundle.putInt("winnerNum", (snakeIndex + 1) % 2 + 1);
-        else
+        if (mode == PlayMode.Dual) {
+            if (snakeIndex == -1) {
+                // 두 뱀 동시에 죽는 경우
+                deadBundle.putInt("winnerNum", -1);
+            } else deadBundle.putInt("winnerNum", (snakeIndex + 1) % 2 + 1);
+        } else
             deadBundle.putInt("score", getScore());
 
         deadMsg.setData(deadBundle);

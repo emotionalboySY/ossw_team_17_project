@@ -103,6 +103,11 @@ public class GameThread extends Thread {
                 handleDead(0);
                 break;
             }
+
+            if (mode == PlayMode.Auto) {
+                // auto일 경우, 자동으로 change dir
+                snakes.get(0).setDir(snakes.get(0).autoFindDir(apples.get(0)));
+            }
         }
     }
 

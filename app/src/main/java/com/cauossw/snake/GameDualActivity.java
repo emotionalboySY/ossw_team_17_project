@@ -2,9 +2,7 @@ package com.cauossw.snake;
 
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,13 +13,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import com.cauossw.snake.databinding.ActivityGameDualBinding;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 
 public class GameDualActivity extends AppCompatActivity {
@@ -57,9 +49,8 @@ public class GameDualActivity extends AppCompatActivity {
                 bundle = new Bundle();
                 bundle = msg.getData();
 
-                Log.i(TAG, "daed int " + bundle.getInt("dead") + "");
                 if(bundle.getInt("dead") == 1){
-                    Log.i(TAG, "handler " + bundle.getInt("snakeIndex") + " is dead");
+                    Log.i(TAG, "handler " + bundle.getInt("winnerNum") + " is win");
                     showDeadDialog();
                 }
 
@@ -180,7 +171,7 @@ public class GameDualActivity extends AppCompatActivity {
         activityGameDualBinding.inGameDeadPopup.setVisibility(View.VISIBLE);
         activityGameDualBinding.inGameDeadPopup.bringToFront();
         activityGameDualBinding.gameViewBlack.setAlpha(0.3f);
-        activityGameDualBinding.inGameDeadPopupScoreWinner.setText(String.valueOf(bundle.getInt("snakeIndex"))+" IS WIN");
+        activityGameDualBinding.inGameDeadPopupScoreWinner.setText(String.valueOf(bundle.getInt("winnerNum"))+" IS WIN");
 
         activityGameDualBinding.inGameDeadPopupRestart.setOnClickListener(view -> {
             activityGameDualBinding.inGameDeadPopup.setVisibility(View.GONE);

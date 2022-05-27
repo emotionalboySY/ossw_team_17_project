@@ -63,7 +63,6 @@ public class GameThread extends Thread {
     @Override
     public void run() { // 주기적으로 반복되는 부분
         while(!isPaused) {
-
             Log.i(TAG, getStatusStr());
 
             Message msg = handler.obtainMessage();
@@ -79,7 +78,6 @@ public class GameThread extends Thread {
             Log.i(TAG,"Bundle 전달");
 
             gameView.invalidate();
-
 
             try {
                 if (!isStart) {
@@ -133,13 +131,12 @@ public class GameThread extends Thread {
                     Bundle deadBundle = new Bundle();
                     deadBundle.putInt("dead", 1);
                     Log.i(TAG,"Bundle 전달");
-                    deadBundle.putInt("snakeIndex", snakeIndex + 1);
+                    deadBundle.putInt("winnerNum", (snakeIndex + 1) % 2 + 1);
                     deadBundle.putInt("score", getScore());
                     deadMsg.setData(deadBundle);
                     Log.i(TAG,"메세지에 번들 삽입");
                     handler.sendMessage(deadMsg);
                     Log.i(TAG,"Bundle 전달");
-
 
                     isLost = true;
                     isPaused = true;

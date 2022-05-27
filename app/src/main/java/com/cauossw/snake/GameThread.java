@@ -65,17 +65,7 @@ public class GameThread extends Thread {
         while(!isPaused) {
             Log.i(TAG, getStatusStr());
 
-            Message msg = handler.obtainMessage();
-            Log.i(TAG,"position - 메세지 생성");
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("snakes", getSnakesPositions());
-            bundle.putSerializable("apples", getApplesPosition());
-            bundle.putSerializable("score", getScore());
-            bundle.putInt("dead", 0);
-            msg.setData(bundle);
-            Log.i(TAG,"메세지에 번들 삽입");
-            handler.sendMessage(msg);
-            Log.i(TAG,"Bundle 전달");
+            sendPositionMsg();
 
             gameView.invalidate();
 
@@ -90,58 +80,10 @@ public class GameThread extends Thread {
                 e.printStackTrace();
             }
 
-            int snakeIndex, eatableAppleIndex;
+            int snakeIndex;
             for (snakeIndex = 0; snakeIndex < snakes.size(); snakeIndex++) {
-                snakes.get(snakeIndex).addHead(); // 이후 apple 먹지 않을 경우 꼬리 제거 필요
-
-                eatableAppleIndex = getEatableAppleIndex(snakeIndex);
-                if (eatableAppleIndex != -1) { // 특정 index의 apple 먹을 수 있는 경우
-                    Log.i(TAG,(snakeIndex + 1) + " eat apple");
-                    if (mode != PlayMode.Dual) score++;
-
-                    Message upScoreMsg = handler.obtainMessage();
-                    Log.i(TAG,"eat apple - 메세지 생성");
-                    Bundle upScoreBundle = new Bundle();
-                    upScoreBundle.putSerializable("snakes", getSnakesPositions());
-                    upScoreBundle.putSerializable("apples", getApplesPosition());
-                    upScoreBundle.putInt("score", getScore());
-                    upScoreBundle.putInt("dead", 0);
-                    upScoreMsg.setData(upScoreBundle);
-                    Log.i(TAG,"메세지에 번들 삽입");
-                    handler.sendMessage(upScoreMsg);
-                    Log.i(TAG,"Bundle 전달");
-
-                    gameView.invalidate();
-
-                    // 삭제 후 새 apple 생성
-                    apples.remove(eatableAppleIndex);
-                    mkApple(eatableAppleIndex);
-                } else {
-                    snakes.get(snakeIndex).delTail();
-                    Log.i(TAG, "꼬리 원복");
-                }
-
-                // 뱀이 죽거나, dual mode에서 다른 뱀을 먹은 경우
-                if (snakes.get(snakeIndex).isDead()
-                    || (mode == PlayMode.Dual && snakes.get(snakeIndex).canEat(snakes.get((snakeIndex + 1) % 2)))) {
-                    Log.i(TAG,(snakeIndex + 1) + " is Dead");
-
-                    Message deadMsg = handler.obtainMessage();
-                    Log.i(TAG,"dead - 메세지 생성");
-                    Bundle deadBundle = new Bundle();
-                    deadBundle.putInt("dead", 1);
-                    Log.i(TAG,"Bundle 전달");
-                    deadBundle.putInt("winnerNum", (snakeIndex + 1) % 2 + 1);
-                    deadBundle.putInt("score", getScore());
-                    deadMsg.setData(deadBundle);
-                    Log.i(TAG,"메세지에 번들 삽입");
-                    handler.sendMessage(deadMsg);
-                    Log.i(TAG,"Bundle 전달");
-
-                    isLost = true;
-                    isPaused = true;
-                    break;
-                }
+                moveSnake(snakeIndex);
+                if (checkAndHandleDead(snakeIndex)) break;
             }
 
         }
@@ -200,7 +142,98 @@ public class GameThread extends Thread {
         return isLost;
     }
 
-   private int getEatableAppleIndex(int snakeIndex) {
+    private void moveSnake(int snakeIndex) {
+        int eatableAppleIndex;
+
+        snakes.get(snakeIndex).addHead(); // 이후 apple 먹지 않을 경우 꼬리 제거 필요
+
+        eatableAppleIndex = getEatableAppleIndex(snakeIndex);
+        if (eatableAppleIndex != -1) { // 특정 index의 apple 먹을 수 있는 경우
+            Log.i(TAG,(snakeIndex + 1) + " eat apple");
+            if (mode != PlayMode.Dual) score++;
+
+            sendEatingAppleMsg();
+
+            // 빼도 될 것 같음
+            gameView.invalidate();
+
+            // 삭제 후 새 apple 생성
+            apples.remove(eatableAppleIndex);
+            mkApple(eatableAppleIndex);
+        } else {
+            snakes.get(snakeIndex).delTail();
+            Log.i(TAG, "꼬리 원복");
+        }
+    }
+
+    private boolean checkAndHandleDead(int snakeIndex) {
+        boolean shouldBreak = false;
+
+        if (snakes.get(snakeIndex).isDead()
+                || (mode == PlayMode.Dual && snakes.get(snakeIndex).canEat(snakes.get((snakeIndex + 1) % 2)))) {
+            Log.i(TAG,(snakeIndex + 1) + " is Dead");
+
+            sendDeadMsg(snakeIndex);
+
+            isLost = true;
+            isPaused = true;
+            shouldBreak = true;
+        }
+
+        return shouldBreak;
+    }
+
+    private void sendPositionMsg() {
+        Message msg = handler.obtainMessage();
+        Log.i(TAG,"position - 메세지 생성");
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("snakes", getSnakesPositions());
+        bundle.putSerializable("apples", getApplesPosition());
+
+        if (mode != PlayMode.Dual)
+            bundle.putSerializable("score", getScore());
+
+        msg.setData(bundle);
+        Log.i(TAG,"메세지에 번들 삽입");
+        handler.sendMessage(msg);
+        Log.i(TAG,"Bundle 전달");
+    }
+
+    private void sendEatingAppleMsg() {
+        Message upScoreMsg = handler.obtainMessage();
+        Log.i(TAG,"eat apple - 메세지 생성");
+        Bundle upScoreBundle = new Bundle();
+        upScoreBundle.putSerializable("snakes", getSnakesPositions());
+        upScoreBundle.putSerializable("apples", getApplesPosition());
+
+        if (mode != PlayMode.Dual)
+           upScoreBundle.putInt("score", getScore());
+
+        upScoreMsg.setData(upScoreBundle);
+        Log.i(TAG,"메세지에 번들 삽입");
+        handler.sendMessage(upScoreMsg);
+        Log.i(TAG,"Bundle 전달");
+    }
+
+    private void sendDeadMsg(int snakeIndex) {
+        Message deadMsg = handler.obtainMessage();
+        Log.i(TAG,"dead - 메세지 생성");
+        Bundle deadBundle = new Bundle();
+        deadBundle.putInt("dead", 1);
+        Log.i(TAG,"Bundle 전달");
+
+        if (mode == PlayMode.Dual)
+            deadBundle.putInt("winnerNum", (snakeIndex + 1) % 2 + 1);
+        else
+            deadBundle.putInt("score", getScore());
+
+        deadMsg.setData(deadBundle);
+        Log.i(TAG,"메세지에 번들 삽입");
+        handler.sendMessage(deadMsg);
+        Log.i(TAG,"Bundle 전달");
+    }
+
+    private int getEatableAppleIndex(int snakeIndex) {
         int i, appleIndex = -1;
 
         for (i = 0; i < apples.size(); i++) {

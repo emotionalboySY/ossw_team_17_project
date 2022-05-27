@@ -174,9 +174,6 @@ public class GameThread extends Thread {
 
             sendEatingAppleMsg();
 
-            // 빼도 될 것 같음
-            gameView.invalidate();
-
             // apple 먹음
             apples.remove(eatableAppleIndex);
             isAppleEaten = true;

@@ -79,14 +79,17 @@ public class GameThread extends Thread {
                 e.printStackTrace();
             }
 
-            int snakeIndex;
-            for (snakeIndex = 0; snakeIndex < snakes.size(); snakeIndex++) {
-                moveSnake(snakeIndex);
+            int i, eatenAppleNum = 0;
+            for (i = 0; i < snakes.size(); i++) {
+                if (moveSnakeAndTryEatApple(i)) eatenAppleNum++;
             }
+
+            // 먹은 Apple 개수만큼 새 apple 생성
+            mkApples(eatenAppleNum);
 
             // check dead condition
             if (mode == PlayMode.Dual) {
-                if (checkDead(0) && checkDead(1)) {
+                if (checkDead(0) && checkDead(1)) { // draw
                     handleDead(-1);
                     break;
                 } else if (checkDead(0)) {
@@ -128,7 +131,7 @@ public class GameThread extends Thread {
         ArrayList<Coordinate> applesPositions = new ArrayList<Coordinate>();
 
         int i;
-        for (i = 0; i < snakes.size(); i++) applesPositions.add(apples.get(i).getPosition());
+        for (i = 0; i < apples.size(); i++) applesPositions.add(apples.get(i).getPosition());
         return applesPositions;
     }
 
@@ -156,13 +159,16 @@ public class GameThread extends Thread {
         return isLost;
     }
 
-    private void moveSnake(int snakeIndex) {
-        int eatableAppleIndex;
+    private boolean moveSnakeAndTryEatApple(int snakeIndex) {
+        boolean isAppleEaten = false;
 
         snakes.get(snakeIndex).addHead(); // 이후 apple 먹지 않을 경우 꼬리 제거 필요
 
-        eatableAppleIndex = getEatableAppleIndex(snakeIndex);
-        if (eatableAppleIndex != -1) { // 특정 index의 apple 먹을 수 있는 경우
+        int eatableAppleIndex = getEatableAppleIndex(snakeIndex);
+        if (eatableAppleIndex == -1) { // apple 못 먹은 경우, 꼬리 제거
+            snakes.get(snakeIndex).delTail();
+            Log.i(TAG, "꼬리 원복");
+        } else { // 특정 index의 apple 먹을 수 있는 경우
             Log.i(TAG,(snakeIndex + 1) + " eat apple");
             if (mode != PlayMode.Dual) score++;
 
@@ -171,13 +177,12 @@ public class GameThread extends Thread {
             // 빼도 될 것 같음
             gameView.invalidate();
 
-            // 삭제 후 새 apple 생성
+            // apple 먹음
             apples.remove(eatableAppleIndex);
-            mkApple(eatableAppleIndex);
-        } else {
-            snakes.get(snakeIndex).delTail();
-            Log.i(TAG, "꼬리 원복");
+            isAppleEaten = true;
         }
+
+        return isAppleEaten;
     }
 
     private boolean checkDead(int snakeIndex) {
@@ -263,18 +268,18 @@ public class GameThread extends Thread {
         return appleIndex;
     }
 
-    private void mkApple(int appleIndex) {
+    private void mkApple() {
         boolean isOkay = true;
+        int appleIndex = apples.size();
 
         do { // snake 가 바로 apple 먹을 수 있는 경우, 다른 apple과 겹치는 경우, snake body 와 겹치는 경우 다시 생성 필요
             isOkay = true;
-            apples.add(appleIndex, new Apple(Coordinate.random(mode)));
+            apples.add(new Apple(Coordinate.random(mode)));
 
             // 다른 apple과 position 겹치는 경우 check
             int i;
-            for (i = 0; i < apples.size(); i++) {
-                if (i != appleIndex) isOkay = isOkay
-                        && !apples.get(appleIndex).getPosition().equals(apples.get(i).getPosition());
+            for (i = 0; i < apples.size() - 1; i++) {
+                isOkay = isOkay && !apples.get(appleIndex).getPosition().equals(apples.get(i).getPosition());
             }
 
             // snake가 바로 먹을 수 있는 경우, snake body와 겹치는 경우 check
@@ -287,6 +292,6 @@ public class GameThread extends Thread {
 
     private void mkApples(int appleNum) {
         int i;
-        for (i = 0; i < appleNum; i++) mkApple(i);
+        for (i = 0; i < appleNum; i++) mkApple();
     }
 }

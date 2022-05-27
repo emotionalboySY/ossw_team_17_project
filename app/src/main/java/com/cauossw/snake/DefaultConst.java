@@ -18,7 +18,7 @@ public class DefaultConst {
     static final int SNAKE_DUAL_2_Y = DUAL_HEIGHT - 1;
     static final Direction SNAKE_DUAL_2_DIR = Direction.UP;
 
-    static final int SNAKE_SINGLE_APPLE_NUM = 2;
+    static final int SNAKE_SINGLE_APPLE_NUM = 1;
     static final int SNAKE_SINGLE_X = SINGLE_WIDTH / 2;
     static final int SNAKE_SINGLE_Y = SINGLE_HEIGHT / 2;
     static final Direction SNAKE_SINGLE_DIR = Direction.UP;

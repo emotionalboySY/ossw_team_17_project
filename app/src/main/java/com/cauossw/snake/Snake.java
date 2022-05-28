@@ -149,6 +149,7 @@ public class Snake {
             for(Direction direction: liveDirection){
                 //TODO
                 //장애물이 없는 방향으로 진행하되, 남은 방향중에 최선을 선택하는 알고리즘 구현
+
                 dir = direction;
             }
         }

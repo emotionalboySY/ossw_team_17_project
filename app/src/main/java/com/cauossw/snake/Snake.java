@@ -2,6 +2,7 @@ package com.cauossw.snake;
 
 import android.util.Log;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -13,8 +14,10 @@ public class Snake {
     private int speed;
     private Direction dir;
     private Direction lastMovedDir = null;
+    private ArrayList<Coordinate> auto_Root = new ArrayList<Coordinate>();
+    private boolean isCycle = false;
 
-    Snake(Coordinate tailPosition, Direction dir){
+    Snake(Coordinate tailPosition, Direction dir) {
         this(tailPosition, DefaultConst.SNAKE_LENGTH, DefaultConst.SNAKE_SPEED, dir);
     }
 
@@ -43,9 +46,9 @@ public class Snake {
     public void setDir(Direction dir) {
         // 방향 전환 불가능한 경우 check
         if ((this.lastMovedDir == Direction.UP && dir == Direction.DOWN)
-            || (this.lastMovedDir == Direction.DOWN && dir == Direction.UP)
-            || (this.lastMovedDir == Direction.LEFT && dir == Direction.RIGHT)
-            || (this.lastMovedDir == Direction.RIGHT && dir == Direction.LEFT))
+                || (this.lastMovedDir == Direction.DOWN && dir == Direction.UP)
+                || (this.lastMovedDir == Direction.LEFT && dir == Direction.RIGHT)
+                || (this.lastMovedDir == Direction.RIGHT && dir == Direction.LEFT))
             return;
 
         this.dir = dir;
@@ -76,8 +79,8 @@ public class Snake {
         return result;
     }
 
-    public int getLength(){
-        Log.i(TAG, "Snake Body Size: "+ body.size());
+    public int getLength() {
+        Log.i(TAG, "Snake Body Size: " + body.size());
         return body.size();
     }
 
@@ -115,9 +118,134 @@ public class Snake {
     public Direction autoFindDir(Apple apple) {
         Direction dir = this.dir;
 
-        // implement
+        if (!isCycle) {
+            switch (dir) {
+                case UP:
+                    if (autoCheckUp()) {
+
+                    } else if (autoCheckRight()) {
+
+                    } else if (autoCheckDown()) {
+
+                    } else if (autoCheckLeft()) {
+
+                    }
+                    break;
+                case DOWN:
+                    break;
+                case RIGHT:
+                    break;
+                case LEFT:
+                    break;
+            }
+        }
+
 
         return dir;
+    }
+
+    public boolean autoCheckUp() {
+        Coordinate limit;
+        int dist = 0;
+        int distMin = 40;
+        int distMinIndex = 0;
+        int leftBodyLength;
+
+        limit = new Coordinate(body.get(0).getX(), DefaultConst.SINGLE_HEIGHT, PlayMode.Auto);
+        int i;
+        for (i = 1; i < body.size(); i++) {
+            if ((body.get(i).getX() == body.get(0).getX()) && (body.get(i).getY() <= limit.getY() && body.get(i).getY() > body.get(0).getY())) {
+                dist = body.get(i).getY() - body.get(0).getY();
+                if (distMin > dist) {
+                    distMin = dist;
+                    distMinIndex = i;
+                }
+            }
+        }
+        dist = body.get(distMinIndex).getY() - body.get(0).getY();
+        leftBodyLength = body.size() - distMinIndex;
+
+        if (leftBodyLength > dist) {
+            return false;
+        } else return true;
+    }
+
+    public boolean autoCheckRight() {
+        Coordinate limit;
+        int dist = 0;
+        int distMin = 40;
+        int distMinIndex = 0;
+        int leftBodyLength;
+
+        limit = new Coordinate(DefaultConst.SINGLE_WIDTH, body.get(0).getY(), PlayMode.Auto);
+        int i;
+        for (i = 1; i < body.size(); i++) {
+            if ((body.get(i).getY() == body.get(0).getY()) && (body.get(i).getX() <= limit.getX() && body.get(i).getX() > body.get(0).getX())) {
+                dist = body.get(i).getX() - body.get(0).getX();
+                if (distMin > dist) {
+                    distMin = dist;
+                    distMinIndex = i;
+                }
+            }
+        }
+        dist = body.get(distMinIndex).getX() - body.get(0).getX();
+        leftBodyLength = body.size() - distMinIndex;
+
+        if (leftBodyLength > dist) {
+            return false;
+        } else return true;
+    }
+
+    public boolean autoCheckDown() {
+        Coordinate limit;
+        int dist = 0;
+        int distMin = 40;
+        int distMinIndex = 0;
+        int leftBodyLength;
+
+        limit = new Coordinate(body.get(0).getX(), 0, PlayMode.Auto);
+        int i;
+        for (i = 1; i < body.size(); i++) {
+            if ((body.get(i).getX() == body.get(0).getX()) && (body.get(i).getY() >= limit.getY() && body.get(i).getY() < body.get(0).getY())) {
+                dist = body.get(0).getY() - body.get(i).getY();
+                if (distMin > dist) {
+                    distMin = dist;
+                    distMinIndex = i;
+                }
+            }
+        }
+        dist = body.get(0).getY() - body.get(distMinIndex).getY();
+        leftBodyLength = body.size() - distMinIndex;
+
+        if (leftBodyLength > dist) {
+            return false;
+        } else return true;
+    }
+
+    public boolean autoCheckLeft() {
+        Coordinate limit;
+        int dist = 0;
+        int distMin = 40;
+        int distMinIndex = 0;
+        int leftBodyLength;
+
+        limit = new Coordinate(0, body.get(0).getY(), PlayMode.Auto);
+        int i;
+        for (i = 1; i < body.size(); i++) {
+            if ((body.get(i).getY() == body.get(0).getY()) && (body.get(i).getX() >= 0 && body.get(i).getX() < body.get(0).getX())) {
+                dist = body.get(0).getX() - body.get(i).getX();
+                if (distMin > dist) {
+                    distMin = dist;
+                    distMinIndex = i;
+                }
+            }
+        }
+        dist = body.get(0).getX() - body.get(distMinIndex).getX();
+        leftBodyLength = body.size() - distMinIndex;
+
+        if (leftBodyLength > dist) {
+            return false;
+        } else return true;
     }
 
     protected void addHead() { // 현재 dir 방향으로 움직인 snake head 생성, body 맨 앞에 추가 (apple 먹지 않는다면 delTail() 호출 필요)

@@ -2,9 +2,7 @@ package com.cauossw.snake;
 
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,11 +14,6 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cauossw.snake.databinding.ActivityGameAutoBinding;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 
 public class GameAutoActivity extends AppCompatActivity {
@@ -98,7 +91,7 @@ public class GameAutoActivity extends AppCompatActivity {
             activityGameAutoBinding.inGamePausePopup.bringToFront();
             LinearLayout blackBG = findViewById(R.id.gameView_black);
             blackBG.setAlpha(0f);
-            thread = new GameThread(handler, gameView, PlayMode.Single);
+            thread = new GameThread(handler, gameView, PlayMode.Auto);
             thread.start();
             activityGameAutoBinding.score.setText(String.valueOf(0));
             Log.i(TAG,"Button RESTART");
@@ -120,7 +113,7 @@ public class GameAutoActivity extends AppCompatActivity {
 
         if(thread == null) {
             if(str.isEmpty()) {
-                thread = new GameThread(handler, gameView, PlayMode.Single);
+                thread = new GameThread(handler, gameView, PlayMode.Auto);
             } else {
                 thread = new GameThread(handler, gameView, str);
             }
@@ -147,7 +140,7 @@ public class GameAutoActivity extends AppCompatActivity {
             activityGameAutoBinding.inGameDeadPopup.setVisibility(View.GONE);
             activityGameAutoBinding.inGameDeadPopup.bringToFront();
             activityGameAutoBinding.gameViewBlack.setAlpha(0f);
-            thread = new GameThread(handler, gameView, PlayMode.Single);
+            thread = new GameThread(handler, gameView, PlayMode.Auto);
             thread.start();
             activityGameAutoBinding.score.setText(String.valueOf(0));
             Log.i(TAG, "Restart After Death");

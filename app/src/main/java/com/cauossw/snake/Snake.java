@@ -2,6 +2,7 @@ package com.cauossw.snake;
 
 import android.util.Log;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -108,15 +109,50 @@ public class Snake {
         return overlaps(body.get(0)) || body.get(0).isOutOfBound();
     }
 
+    public boolean isDead(Direction dir) { //auto모드를 위한 오버로딩 입력받은 포지션으로 갈 시 죽는지를 체크한다.
+        // head 가 body 와 겹치는지, 또는 bound 벗어나는지 check
+        return overlaps(body.get(0).getMovedPosition(dir)) || body.get(0).getMovedPosition(dir).isOutOfBound();
+    }
+
     public int getSpeed() {
         return this.speed;
     }
 
     public Direction autoFindDir(Apple apple) {
         Direction dir = this.dir;
+        ArrayList<Direction> dieDirection = new ArrayList<>();
+        ArrayList<Direction> liveDirection = new ArrayList<>();
 
-        // implement
+        int apple_x = apple.getPosition().getX();
+        int apple_y = apple.getPosition().getY();
 
+        int head_x = this.body.get(0).getX();
+        int head_y = this.body.get(0).getY();
+//        Log.i(TAG, "apple: "+apple_x+","+apple_y+" head: "+head_x+","+head_y);
+
+        for (Direction direction: Direction.values()) {
+            if(isDead(direction)){ dieDirection.add(direction);}
+            else{liveDirection.add(direction);}
+        }
+
+        //1. 사과 위치에따른 방향설정
+        if(Math.abs(apple_x - head_x)>=Math.abs(apple_y-head_y)){ //x방향이 가까움
+            if(apple_x - head_x > 0){ dir = Direction.RIGHT;}
+            else{dir = Direction.LEFT;}
+        }else{ //y방향이 가까움
+            if(apple_y - head_y >0){dir = Direction.DOWN;}
+            else{dir = Direction.UP;}
+        }
+
+        if(liveDirection.contains(dir)){ //해당 방향으로 가면 장애물이 없는 경우
+        }else{ //장애물이 있는경우
+            for(Direction direction: liveDirection){
+                //TODO
+                //장애물이 없는 방향으로 진행하되, 남은 방향중에 최선을 선택하는 알고리즘 구현
+                dir = direction;
+            }
+        }
+        Log.i(TAG,"snake auto dir:"+dir);
         return dir;
     }
 

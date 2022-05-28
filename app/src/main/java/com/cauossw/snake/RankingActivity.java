@@ -88,7 +88,7 @@ public class RankingActivity extends AppCompatActivity {
             TextView restart = findViewById(R.id.rank_layout_nodata_startgame);
 
             restart.setOnClickListener(view -> {
-                Intent startIntent = new Intent(RankingActivity.this, GameDualActivity.class);
+                Intent startIntent = new Intent(RankingActivity.this, GameSingleActivity.class);
                 startIntent.putExtra("data", "");
                 startActivity(startIntent);
                 finish();

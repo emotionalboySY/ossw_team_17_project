@@ -138,6 +138,7 @@ public class GameThread extends Thread {
     public String getStatusStr() {
         String snakesStr = "", applesStr = "";
 
+
         int i;
         for (i = 0; i < snakes.size(); i++) {
             snakesStr += snakes.get(i).getStatusStr();

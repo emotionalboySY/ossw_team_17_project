@@ -79,6 +79,11 @@ public class GameThread extends Thread {
                 e.printStackTrace();
             }
 
+            if (mode == PlayMode.Auto) {
+                // auto일 경우, 자동으로 change dir
+                snakes.get(0).setDir(snakes.get(0).autoFindDir(apples.get(0)));
+            }
+
             int i, eatenAppleNum = 0;
             for (i = 0; i < snakes.size(); i++) {
                 if (moveSnakeAndTryEatApple(i)) eatenAppleNum++;
@@ -102,11 +107,6 @@ public class GameThread extends Thread {
             } else if (checkDead(0)) { // single / auto dead condition
                 handleDead(0);
                 break;
-            }
-
-            if (mode == PlayMode.Auto) {
-                // auto일 경우, 자동으로 change dir
-                snakes.get(0).setDir(snakes.get(0).autoFindDir(apples.get(0)));
             }
         }
     }

@@ -85,7 +85,6 @@
         android:textAlignment="center"
         android:textColor="@color/deep_gray"
         android:textSize="30sp"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/main_bt_load"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

@@ -65,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         activityMainBinding.autoPlay.setOnClickListener(view -> {
-//            Intent startIntent = new Intent(MainActivity.this, GameAutoActivity.class);
-//            startIntent.putExtra("data", "");
-//            startActivity(startIntent);
+            Intent startIntent = new Intent(MainActivity.this, GameAutoActivity.class);
+            startIntent.putExtra("data", "");
+            startActivity(startIntent);
         });
 
         activityMainBinding.mainBtLoad.setOnClickListener(view -> {

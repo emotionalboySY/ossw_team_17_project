@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout-land/activity_game.xml" value="0.25" />
-        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/activity_game.xml" value="0.25" />
+        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/activity_game.xml" value="0.22" />
+        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/activity_game_auto.xml" value="0.25" />
+        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/activity_game_dual.xml" value="0.23333333333333334" />
+        <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/activity_game_single.xml" value="0.17" />
         <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/OSS2022/ossw_team_17_project/app/src/main/res/layout/fragment_game.xml" value="0.3302083333333333" />
         <entry key="..\:/Users/yoppy/AndroidStudioProjects/ossw_team_17_project/app/src/main/res/drawable/baseline_arrow_back_20.xml" value="0.3295" />
@@ -30,23 +33,8 @@
         <entry key="..\:/Users/yoppy/AndroidStudioProjects/ossw_team_17_project/app/src/main/res/layout/popup_pause.xml" value="0.32708333333333334" />
         <entry key="..\:/Users/yoppy/AndroidStudioProjects/ossw_team_17_project/app/src/main/res/layout/ranking_item.xml" value="0.32708333333333334" />
         <entry key="..\:/Users/yoppy/AndroidStudioProjects/ossw_team_17_project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.243" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/drawable/baseline_menu_18.xml" value="0.1" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/drawable/baseline_menu_24.xml" value="0.1" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/drawable/baseline_menu_36.xml" value="0.1" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/drawable/button_circle_style.xml" value="0.1755" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/drawable/button_popup_background.xml" value="0.1755" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/drawable/ic_twotone_report_24.xml" value="0.1" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/drawable/line.xml" value="0.1" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/drawable/popup_background.xml" value="0.1" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/layout-land/activity_game_dual.xml" value="0.1" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/layout-land/activity_game_solo.xml" value="0.13541666666666666" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/layout/activity_game.xml" value="0.18857142857142858" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/layout/activity_game_auto.xml" value="0.33489583333333334" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/layout/activity_game_dual.xml" value="0.25092592592592594" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/layout/activity_game_single.xml" value="0.16487455197132617" />
+        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/layout/activity_game.xml" value="0.33489583333333334" />
         <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/layout/activity_main.xml" value="0.2857142857142857" />
-        <entry key="..\:/Users/you_a/Desktop/Git/ossw_team_17_project/app/src/main/res/layout/activity_splash.xml" value="0.21388888888888888" />
       </map>
     </option>
   </component>

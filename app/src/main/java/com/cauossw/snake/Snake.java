@@ -112,6 +112,14 @@ public class Snake {
         return this.speed;
     }
 
+    public Direction autoFindDir(Apple apple) {
+        Direction dir = this.dir;
+
+        // implement
+
+        return dir;
+    }
+
     protected void addHead() { // 현재 dir 방향으로 움직인 snake head 생성, body 맨 앞에 추가 (apple 먹지 않는다면 delTail() 호출 필요)
         body.add(0, body.get(0).getMovedPosition(dir));
         lastMovedDir = dir;

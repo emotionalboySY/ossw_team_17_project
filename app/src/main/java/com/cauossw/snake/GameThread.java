@@ -15,6 +15,7 @@ public class GameThread extends Thread {
     private GameView gameView;
     private int score;
     private PlayMode mode;
+    private boolean isAutoAppleEated = false;
 
     private boolean isPaused = false,
             isLost = false,
@@ -35,6 +36,10 @@ public class GameThread extends Thread {
                     DefaultConst.SNAKE_SINGLE_DIR));
 
             mkApples(DefaultConst.SNAKE_SINGLE_APPLE_NUM);
+            if(mode == PlayMode.Auto) {
+                Apple nextApple = apples.get(apples.size() - 1);
+                snakes.get(0).setRouteToApple(nextApple, true);
+            }
         }
 
         this.score = 0;
@@ -86,11 +91,21 @@ public class GameThread extends Thread {
 
             int i, eatenAppleNum = 0;
             for (i = 0; i < snakes.size(); i++) {
-                if (moveSnakeAndTryEatApple(i)) eatenAppleNum++;
+                if (moveSnakeAndTryEatApple(i)) {
+                    eatenAppleNum++;
+                    if(mode == PlayMode.Auto) {
+                        isAutoAppleEated = true;
+                    }
+                }
             }
 
             // 먹은 Apple 개수만큼 새 apple 생성
             mkApples(eatenAppleNum);
+            if(mode == PlayMode.Auto && isAutoAppleEated) {
+                Apple nextApple = apples.get(apples.size()-1);
+                snakes.get(0).setRouteToApple(nextApple, false);
+                isAutoAppleEated = false;
+            }
 
             // check dead condition
             if (mode == PlayMode.Dual) {
@@ -264,7 +279,8 @@ public class GameThread extends Thread {
         int i, appleIndex = -1;
 
         for (i = 0; i < apples.size(); i++) {
-            appleIndex = snakes.get(snakeIndex).canEat(apples.get(i)) ? i : appleIndex;
+            if (snakes.get(snakeIndex).canEat(apples.get(i))) appleIndex = i;
+            else appleIndex = appleIndex;
             if (appleIndex != -1) break;
         }
 

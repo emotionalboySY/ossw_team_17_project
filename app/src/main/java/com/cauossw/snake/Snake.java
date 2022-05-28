@@ -2,8 +2,8 @@ package com.cauossw.snake;
 
 import android.util.Log;
 
-import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Snake {
@@ -14,8 +14,8 @@ public class Snake {
     private int speed;
     private Direction dir;
     private Direction lastMovedDir = null;
-    private ArrayList<Coordinate> auto_Root = new ArrayList<Coordinate>();
-    private boolean isCycle = false;
+    private ArrayList<Direction> auto_Route = new ArrayList<Direction>();
+    private int autoDirIndex = 0;
 
     Snake(Coordinate tailPosition, Direction dir) {
         this(tailPosition, DefaultConst.SNAKE_LENGTH, DefaultConst.SNAKE_SPEED, dir);
@@ -115,31 +115,159 @@ public class Snake {
         return this.speed;
     }
 
-    public Direction autoFindDir(Apple apple) {
-        Direction dir = this.dir;
+    public void setRouteToApple(Apple apple, boolean isStart) {
 
-        if (!isCycle) {
+        Direction dir = this.dir;
+        Coordinate applePos = apple.getPosition();
+        Coordinate snakePos = body.get(0);
+        ApplePosition applePos4 = ApplePosition.Top;
+
+        if (!isStart) {
             switch (dir) {
                 case UP:
                     if (autoCheckUp()) {
-
+                        setRouteUp(body.get(0));
                     } else if (autoCheckRight()) {
-
+                        setRouteRight(body.get(0));
                     } else if (autoCheckDown()) {
-
+                        setRouteDown(body.get(0));
                     } else if (autoCheckLeft()) {
-
+                        setRouteLeft(body.get(0));
+                    }
+                    break;
+                case RIGHT:
+                    if (autoCheckRight()) {
+                        setRouteRight(body.get(0));
+                    } else if (autoCheckDown()) {
+                        setRouteDown(body.get(0));
+                    } else if (autoCheckLeft()) {
+                        setRouteLeft(body.get(0));
+                    } else if (autoCheckUp()) {
+                        setRouteUp(body.get(0));
                     }
                     break;
                 case DOWN:
-                    break;
-                case RIGHT:
+                    if (autoCheckDown()) {
+                        setRouteDown(body.get(0));
+                    } else if (autoCheckLeft()) {
+                        setRouteLeft(body.get(0));
+                    } else if (autoCheckUp()) {
+                        setRouteUp(body.get(0));
+                    } else if (autoCheckRight()) {
+                        setRouteRight(body.get(0));
+                    }
                     break;
                 case LEFT:
+                    if (autoCheckLeft()) {
+                        setRouteLeft(body.get(0));
+                    } else if (autoCheckUp()) {
+                        setRouteUp(body.get(0));
+                    } else if (autoCheckRight()) {
+                        setRouteRight(body.get(0));
+                    } else if (autoCheckDown()) {
+                        setRouteDown(body.get(0));
+                    }
                     break;
             }
         }
 
+        if(applePos.getX() > snakePos.getX() && applePos.getY() > snakePos.getY()) applePos4 = ApplePosition.RightTop;
+        else if(applePos.getX() > snakePos.getX() && applePos.getY() < snakePos.getY()) applePos4 = ApplePosition.RightBottom;
+        else if(applePos.getX() < snakePos.getX() && applePos.getY() < snakePos.getY()) applePos4 = ApplePosition.LeftBottom;
+        else if(applePos.getX() < snakePos.getX() && applePos.getY() > snakePos.getY()) applePos4 = ApplePosition.LeftTop;
+        else if(applePos.getX() == snakePos.getX() && applePos.getY() < snakePos.getY()) applePos4 = ApplePosition.Bottom;
+        else if(applePos.getX() > snakePos.getX() && applePos.getY() == snakePos.getY()) applePos4 = ApplePosition.Right;
+        else if(applePos.getX() < snakePos.getX() && applePos.getY() == snakePos.getY()) applePos4 = ApplePosition.Left;
+
+        int i;
+        int xDiff = Math.abs(applePos.getX() - snakePos.getX());
+        int yDiff = Math.abs(applePos.getY() - snakePos.getY());;
+        int turnPos = (int)((Math.random()*10000)%xDiff);
+
+        switch(applePos4) {
+            case Top:
+                for(i = snakePos.getY() + 1; i <= applePos.getY(); i++) {
+                    auto_Route.add(Direction.UP);
+                }
+                break;
+            case RightTop:
+                for(i = 0; i < turnPos; i++) {
+                    auto_Route.add(Direction.RIGHT);
+                }
+                for(i = 0; i < yDiff; i++) {
+                    auto_Route.add(Direction.UP);
+                }
+                for(i = turnPos; i < xDiff; i++) {
+                    auto_Route.add(Direction.RIGHT);
+                }
+                break;
+            case Right:
+                for(i = snakePos.getX() + 1; i <= applePos.getX(); i++) {
+                    auto_Route.add(Direction.RIGHT);
+                }
+                break;
+            case RightBottom:
+                for(i = 0; i < turnPos; i++) {
+                    auto_Route.add(Direction.RIGHT);
+                }
+                for(i = 0; i < yDiff; i++) {
+                    auto_Route.add(Direction.DOWN);
+                }
+                for(i = turnPos; i < xDiff; i++) {
+                    auto_Route.add(Direction.RIGHT);
+                }
+                break;
+            case Bottom:
+                for(i = snakePos.getY() - 1; i >= applePos.getY(); i--) {
+                    auto_Route.add(Direction.DOWN);
+                }
+                break;
+            case LeftBottom:
+                for(i = 0; i < turnPos; i++) {
+                    auto_Route.add(Direction.LEFT);
+                }
+                for(i = 0; i < yDiff; i++) {
+                    auto_Route.add(Direction.DOWN);
+                }
+                for(i = turnPos; i < xDiff; i++) {
+                    auto_Route.add(Direction.LEFT);
+                }
+                break;
+            case Left:
+                for(i = snakePos.getX() - 1; i >= applePos.getY(); i--) {
+                    auto_Route.add(Direction.LEFT);
+                }
+                break;
+            case LeftTop:
+                for(i = 0; i < turnPos; i++) {
+                    auto_Route.add(Direction.LEFT);
+                }
+                for(i = 0; i < yDiff; i++) {
+                    auto_Route.add(Direction.UP);
+                }
+                for(i = turnPos; i < xDiff; i++) {
+                    auto_Route.add(Direction.LEFT);
+                }
+                break;
+        }
+
+        String[] auto_Route_Arr = new String[auto_Route.size()];
+        int k;
+        for(k = 0; k < auto_Route.size(); k++) {
+            auto_Route_Arr[k] = auto_Route.get(k).name();
+        }
+
+        Log.d("********************SETROUTEFORAUTOMODE********************", Arrays.toString(auto_Route_Arr));
+
+    }
+
+    public Direction autoFindDir(Apple apple) {
+        Direction dir = this.dir;
+
+        if (autoDirIndex < auto_Route.size()) {
+            dir = auto_Route.get(autoDirIndex);
+            autoDirIndex++;
+        }
 
         return dir;
     }
@@ -165,9 +293,7 @@ public class Snake {
         dist = body.get(distMinIndex).getY() - body.get(0).getY();
         leftBodyLength = body.size() - distMinIndex;
 
-        if (leftBodyLength > dist) {
-            return false;
-        } else return true;
+        return leftBodyLength <= dist;
     }
 
     public boolean autoCheckRight() {
@@ -191,9 +317,7 @@ public class Snake {
         dist = body.get(distMinIndex).getX() - body.get(0).getX();
         leftBodyLength = body.size() - distMinIndex;
 
-        if (leftBodyLength > dist) {
-            return false;
-        } else return true;
+        return leftBodyLength <= dist;
     }
 
     public boolean autoCheckDown() {
@@ -217,9 +341,7 @@ public class Snake {
         dist = body.get(0).getY() - body.get(distMinIndex).getY();
         leftBodyLength = body.size() - distMinIndex;
 
-        if (leftBodyLength > dist) {
-            return false;
-        } else return true;
+        return leftBodyLength <= dist;
     }
 
     public boolean autoCheckLeft() {
@@ -243,9 +365,99 @@ public class Snake {
         dist = body.get(0).getX() - body.get(distMinIndex).getX();
         leftBodyLength = body.size() - distMinIndex;
 
-        if (leftBodyLength > dist) {
-            return false;
-        } else return true;
+        return leftBodyLength <= dist;
+    }
+
+    public void setRouteUp(Coordinate pos) {
+        int i;
+        for (i = pos.getY() + 1; i < DefaultConst.SINGLE_HEIGHT; i++) {
+            auto_Route.add(Direction.UP);
+        }
+        for (i = pos.getX() + 1; i < DefaultConst.SINGLE_WIDTH; i++) {
+            auto_Route.add(Direction.RIGHT);
+        }
+        for (i = DefaultConst.SINGLE_HEIGHT - 1; i >= 0; i--) {
+            auto_Route.add(Direction.DOWN);
+        }
+        for (i = DefaultConst.SINGLE_WIDTH - 1; i >= 0; i--) {
+            auto_Route.add(Direction.LEFT);
+        }
+        for (i = 0; i < DefaultConst.SINGLE_HEIGHT; i++) {
+            auto_Route.add(Direction.UP);
+        }
+        for (i = 0; i < pos.getX(); i++) {
+            auto_Route.add(Direction.RIGHT);
+        }
+        auto_Route.add(Direction.DOWN);
+    }
+
+    public void setRouteRight(Coordinate pos) {
+        int i;
+        for (i = pos.getX() + 1; i < DefaultConst.SINGLE_WIDTH; i++) {
+            auto_Route.add(Direction.RIGHT);
+        }
+        for (i = pos.getY() - 1; i >= 0; i--) {
+            auto_Route.add(Direction.DOWN);
+        }
+        for (i = DefaultConst.SINGLE_WIDTH - 1; i >= 0; i--) {
+            auto_Route.add(Direction.LEFT);
+        }
+        for (i = 0; i < DefaultConst.SINGLE_HEIGHT; i++) {
+            auto_Route.add(Direction.UP);
+        }
+        for (i = 0; i < DefaultConst.SINGLE_WIDTH; i++) {
+            auto_Route.add(Direction.RIGHT);
+        }
+        for (i = DefaultConst.SINGLE_HEIGHT - 1; i > pos.getY(); i--) {
+            auto_Route.add(Direction.DOWN);
+        }
+        auto_Route.add(Direction.LEFT);
+    }
+
+    public void setRouteDown(Coordinate pos) {
+        int i;
+        for (i = pos.getY() - 1; i >= 0; i--) {
+            auto_Route.add(Direction.DOWN);
+        }
+        for (i = pos.getX() - 1; i >= 0; i--) {
+            auto_Route.add(Direction.LEFT);
+        }
+        for (i = 0; i < DefaultConst.SINGLE_HEIGHT; i++) {
+            auto_Route.add(Direction.UP);
+        }
+        for (i = 0; i < DefaultConst.SINGLE_WIDTH; i++) {
+            auto_Route.add(Direction.RIGHT);
+        }
+        for (i = DefaultConst.SINGLE_HEIGHT - 1; i >= 0; i--) {
+            auto_Route.add(Direction.DOWN);
+        }
+        for (i = DefaultConst.SINGLE_WIDTH - 1; i > pos.getX(); i--) {
+            auto_Route.add(Direction.LEFT);
+        }
+        auto_Route.add(Direction.UP);
+    }
+
+    public void setRouteLeft(Coordinate pos) {
+        int i;
+        for (i = pos.getX() - 1; i >= 0; i--) {
+            auto_Route.add(Direction.LEFT);
+        }
+        for (i = pos.getY() + 1; i < DefaultConst.SINGLE_HEIGHT; i++) {
+            auto_Route.add(Direction.UP);
+        }
+        for (i = 0; i < DefaultConst.SINGLE_WIDTH; i++) {
+            auto_Route.add(Direction.RIGHT);
+        }
+        for (i = DefaultConst.SINGLE_HEIGHT - 1; i >= 0; i--) {
+            auto_Route.add(Direction.DOWN);
+        }
+        for (i = DefaultConst.SINGLE_WIDTH - 1; i >= 0; i--) {
+            auto_Route.add(Direction.LEFT);
+        }
+        for (i = 0; i < pos.getY(); i++) {
+            auto_Route.add(Direction.UP);
+        }
+        auto_Route.add(Direction.RIGHT);
     }
 
     protected void addHead() { // 현재 dir 방향으로 움직인 snake head 생성, body 맨 앞에 추가 (apple 먹지 않는다면 delTail() 호출 필요)

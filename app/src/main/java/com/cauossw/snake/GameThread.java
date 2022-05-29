@@ -73,7 +73,8 @@ public class GameThread extends Thread {
                     Thread.sleep(1000);
                     isStart = true;
                 } else {
-                    Thread.sleep(snakes.get(0).getSpeed());
+                    if(mode == PlayMode.Auto){Thread.sleep(50);}
+                    else{Thread.sleep(snakes.get(0).getSpeed());}
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -136,7 +137,10 @@ public class GameThread extends Thread {
         ArrayList<Coordinate> applesPositions = new ArrayList<Coordinate>();
 
         int i;
-        for (i = 0; i < apples.size(); i++) applesPositions.add(apples.get(i).getPosition());
+        for (i = 0; i < apples.size(); i++){
+        applesPositions.add(apples.get(i).getPosition());
+        Log.i(TAG,apples.get(i).getPositionStr());
+        }
         return applesPositions;
     }
 

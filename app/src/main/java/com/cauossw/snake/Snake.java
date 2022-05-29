@@ -135,6 +135,8 @@ public class Snake {
             else{liveDirection.add(direction);}
         }
 
+        Log.i(TAG, dieDirection.toString());
+        Log.i(TAG, liveDirection.toString());
         //1. 사과 위치에따른 방향설정
         if(Math.abs(apple_x - head_x)>=Math.abs(apple_y-head_y)){ //x방향이 가까움
             if(apple_x - head_x > 0){ dir = Direction.RIGHT;}
@@ -146,11 +148,16 @@ public class Snake {
 
         if(liveDirection.contains(dir)){ //해당 방향으로 가면 장애물이 없는 경우
         }else{ //장애물이 있는경우
+            int min = 9999;
             for(Direction direction: liveDirection){
                 //TODO
                 //장애물이 없는 방향으로 진행하되, 남은 방향중에 최선을 선택하는 알고리즘 구현
-
-                dir = direction;
+                Coordinate temp = body.get(0).getMovedPosition(direction);
+                int tempMin = Math.min(Math.abs(temp.getX()-apple_x),Math.abs(temp.getY()-apple_y));
+                if(tempMin<min){
+                    min =tempMin;
+                    dir = direction;
+                }
             }
         }
         Log.i(TAG,"snake auto dir:"+dir);

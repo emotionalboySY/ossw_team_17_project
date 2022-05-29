@@ -178,8 +178,6 @@ public class GameThread extends Thread {
             Log.i(TAG,(snakeIndex + 1) + " eat apple");
             if (mode != PlayMode.Dual) score++;
 
-            sendEatingAppleMsg();
-
             // apple 먹음
             apples.remove(eatableAppleIndex);
             isAppleEaten = true;
@@ -220,22 +218,6 @@ public class GameThread extends Thread {
         msg.setData(bundle);
         Log.i(TAG,"메세지에 번들 삽입");
         handler.sendMessage(msg);
-        Log.i(TAG,"Bundle 전달");
-    }
-
-    private void sendEatingAppleMsg() {
-        Message upScoreMsg = handler.obtainMessage();
-        Log.i(TAG,"eat apple - 메세지 생성");
-        Bundle upScoreBundle = new Bundle();
-        upScoreBundle.putSerializable("snakes", getSnakesPositions());
-        upScoreBundle.putSerializable("apples", getApplesPosition());
-
-        if (mode != PlayMode.Dual)
-           upScoreBundle.putInt("score", getScore());
-
-        upScoreMsg.setData(upScoreBundle);
-        Log.i(TAG,"메세지에 번들 삽입");
-        handler.sendMessage(upScoreMsg);
         Log.i(TAG,"Bundle 전달");
     }
 

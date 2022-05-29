@@ -15,7 +15,8 @@ public class GameThread extends Thread {
     private GameView gameView;
     private int score;
     private PlayMode mode;
-    private boolean isAutoAppleEated = false;
+    private boolean isAutoAppleEated = false,
+                    isAutoSnakeAtEdge = false;
 
     private boolean isPaused = false,
             isLost = false,
@@ -75,10 +76,11 @@ public class GameThread extends Thread {
             // 처음 시작 전 1초 delay
             try {
                 if (!isStart) {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                     isStart = true;
                 } else {
-                    Thread.sleep(snakes.get(0).getSpeed());
+                    //Thread.sleep(snakes.get(0).getSpeed());
+                    Thread.sleep(5);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -289,24 +291,28 @@ public class GameThread extends Thread {
 
     private void mkApple() {
         boolean isOkay = true;
-        int appleIndex = apples.size();
+        Apple apple;
 
         do { // snake 가 바로 apple 먹을 수 있는 경우, 다른 apple과 겹치는 경우, snake body 와 겹치는 경우 다시 생성 필요
             isOkay = true;
-            apples.add(new Apple(Coordinate.random(mode)));
+            apple = new Apple(Coordinate.random(mode));
 
             // 다른 apple과 position 겹치는 경우 check
             int i;
-            for (i = 0; i < apples.size() - 1; i++) {
-                isOkay = isOkay && !apples.get(appleIndex).getPosition().equals(apples.get(i).getPosition());
+            for (i = 0; i < apples.size(); i++) {
+                Log.i(TAG,"apple 겹치는지 확인");
+                isOkay = isOkay && !apple.getPosition().equals(apples.get(i).getPosition());
             }
 
             // snake가 바로 먹을 수 있는 경우, snake body와 겹치는 경우 check
             for (i = 0; i < snakes.size(); i++) {
-                isOkay = isOkay && !((snakes.get(i).canEat(apples.get(appleIndex))
-                        || snakes.get(i).overlaps(apples.get(appleIndex).getPosition())));
+                Log.i(TAG,"snake 겹치는지 확인");
+                isOkay = isOkay && !((snakes.get(i).canEat(apple))
+                        || snakes.get(i).overlaps(apple.getPosition()));
             }
         } while(!isOkay);
+
+        apples.add(apple);
     }
 
     private void mkApples(int appleNum) {

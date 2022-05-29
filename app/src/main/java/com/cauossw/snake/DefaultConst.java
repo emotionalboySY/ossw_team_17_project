@@ -23,6 +23,8 @@ public class DefaultConst {
     static final int SNAKE_SINGLE_Y = SINGLE_HEIGHT / 2;
     static final Direction SNAKE_SINGLE_DIR = Direction.UP;
 
+    static final int AUTO_CIRCLE_STEPS = 160;
+
     public static int getWidth(PlayMode mode) {
         if (mode == PlayMode.Dual) return DUAL_WIDTH;
         else return SINGLE_WIDTH;

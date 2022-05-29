@@ -274,7 +274,6 @@ public class GameThread extends Thread {
     private void mkApple() {
         boolean isOkay = true;
         Apple apple;
-        int appleIndex = apples.size();
 
         do { // snake 가 바로 apple 먹을 수 있는 경우, 다른 apple과 겹치는 경우, snake body 와 겹치는 경우 다시 생성 필요
             isOkay = true;
@@ -282,7 +281,7 @@ public class GameThread extends Thread {
 
             // 다른 apple과 position 겹치는 경우 check
             int i;
-            for (i = 0; i < apples.size() - 1; i++) {
+            for (i = 0; i < apples.size(); i++) {
                 isOkay = isOkay && !apple.getPosition().equals(apples.get(i).getPosition());
             }
 

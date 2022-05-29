@@ -152,19 +152,19 @@ public class Snake {
         }
 
         if(liveDirection.contains(dir)){ //해당 방향으로 가면 장애물이 없는 경우
-        }else{ //장애물이 있는경우
+        }else { //장애물이 있는경우
 //            int min = 9999;
-//            for(Direction direction: liveDirection){
+//            for (Direction direction : liveDirection) {
 //                //TODO
 //                //장애물이 없는 방향으로 진행하되, 남은 방향중에 최선을 선택하는 알고리즘 구현
 //                Coordinate temp = body.get(0).getMovedPosition(direction);
-//                int tempMin = Math.min(Math.abs(temp.getX()-apple_x),Math.abs(temp.getY()-apple_y));
-//                if(tempMin<min){
-//                    min =tempMin;
+//                int tempMin = Math.min(Math.abs(temp.getX() - apple_x), Math.abs(temp.getY() - apple_y));
+//                if (tempMin < min) {
+//                    min = tempMin;
 //                    dir = direction;
 //                }
 //            }
-
+//        }
             for(Direction direction: liveDirection){
                 ArrayList<Direction> temp = new ArrayList<>();
                 Coordinate coord = body.get(0).getMovedPosition(direction);
@@ -179,6 +179,7 @@ public class Snake {
             }
         }
         Log.i(TAG,"snake auto dir:"+dir);
+
         return dir;
     }
 

@@ -114,6 +114,11 @@ public class Snake {
         return overlaps(body.get(0).getMovedPosition(dir)) || body.get(0).getMovedPosition(dir).isOutOfBound();
     }
 
+    public boolean isDead(Coordinate coord) { //auto모드를 위한 오버로딩 입력받은 포지션으로 갈 시 죽는지를 체크한다.
+        // head 가 body 와 겹치는지, 또는 bound 벗어나는지 check
+        return overlaps(coord) || coord.isOutOfBound();
+    }
+
     public int getSpeed() {
         return this.speed;
     }
@@ -148,14 +153,27 @@ public class Snake {
 
         if(liveDirection.contains(dir)){ //해당 방향으로 가면 장애물이 없는 경우
         }else{ //장애물이 있는경우
-            int min = 9999;
+//            int min = 9999;
+//            for(Direction direction: liveDirection){
+//                //TODO
+//                //장애물이 없는 방향으로 진행하되, 남은 방향중에 최선을 선택하는 알고리즘 구현
+//                Coordinate temp = body.get(0).getMovedPosition(direction);
+//                int tempMin = Math.min(Math.abs(temp.getX()-apple_x),Math.abs(temp.getY()-apple_y));
+//                if(tempMin<min){
+//                    min =tempMin;
+//                    dir = direction;
+//                }
+//            }
+
             for(Direction direction: liveDirection){
-                //TODO
-                //장애물이 없는 방향으로 진행하되, 남은 방향중에 최선을 선택하는 알고리즘 구현
-                Coordinate temp = body.get(0).getMovedPosition(direction);
-                int tempMin = Math.min(Math.abs(temp.getX()-apple_x),Math.abs(temp.getY()-apple_y));
-                if(tempMin<min){
-                    min =tempMin;
+                ArrayList<Direction> temp = new ArrayList<>();
+                Coordinate coord = body.get(0).getMovedPosition(direction);
+                for(Direction direct : Direction.values()){
+                    if(!isDead(coord.getMovedPosition(direct))){
+                        temp.add(direct);
+                    }
+                }
+                if (temp.size() != 0){
                     dir = direction;
                 }
             }

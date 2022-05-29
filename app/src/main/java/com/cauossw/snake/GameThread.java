@@ -137,10 +137,7 @@ public class GameThread extends Thread {
         ArrayList<Coordinate> applesPositions = new ArrayList<Coordinate>();
 
         int i;
-        for (i = 0; i < apples.size(); i++){
-        applesPositions.add(apples.get(i).getPosition());
-        Log.i(TAG,apples.get(i).getPositionStr());
-        }
+        for (i = 0; i < apples.size(); i++) applesPositions.add(apples.get(i).getPosition());
         return applesPositions;
     }
 

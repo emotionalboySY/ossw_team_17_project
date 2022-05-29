@@ -107,7 +107,7 @@ public class GameSingleActivity extends AppCompatActivity {
             LinearLayout blackBG = findViewById(R.id.gameView_black);
             blackBG.setAlpha(0f);
             if (thread.checkIsPaused() && !thread.checkIsLost()) {
-                thread = new GameThread(handler, gameView, str);
+                thread = new GameThread(handler, str);
                 thread.start();
                 Log.i(TAG,"Button RESUME");
             }
@@ -118,7 +118,7 @@ public class GameSingleActivity extends AppCompatActivity {
             activityGameSingleBinding.inGamePausePopup.bringToFront();
             LinearLayout blackBG = findViewById(R.id.gameView_black);
             blackBG.setAlpha(0f);
-            thread = new GameThread(handler, gameView, PlayMode.Single);
+            thread = new GameThread(handler, PlayMode.Single);
             thread.start();
             activityGameSingleBinding.score.setText(String.valueOf(0));
             Log.i(TAG,"Button RESTART");
@@ -147,9 +147,9 @@ public class GameSingleActivity extends AppCompatActivity {
 
         if(thread == null) {
             if(str.isEmpty()) {
-                thread = new GameThread(handler, gameView, PlayMode.Single);
+                thread = new GameThread(handler, PlayMode.Single);
             } else {
-                thread = new GameThread(handler, gameView, str);
+                thread = new GameThread(handler, str);
             }
         }
         thread.start();
@@ -174,7 +174,7 @@ public class GameSingleActivity extends AppCompatActivity {
             activityGameSingleBinding.inGameDeadPopup.setVisibility(View.GONE);
             activityGameSingleBinding.inGameDeadPopup.bringToFront();
             activityGameSingleBinding.gameViewBlack.setAlpha(0f);
-            thread = new GameThread(handler, gameView, PlayMode.Single);
+            thread = new GameThread(handler, PlayMode.Single);
             thread.start();
             activityGameSingleBinding.score.setText(String.valueOf(0));
             Log.i(TAG, "Restart After Death");

@@ -8,6 +8,7 @@ public class DefaultConst {
 
     static final int SNAKE_LENGTH = 4;
     static final int SNAKE_SPEED = 300;
+    static final int SNAKE_AUTO_SPEED = 100;
 
     static final int SNAKE_DUAL_APPLE_NUM = 2;
     static final int SNAKE_DUAL_1_X = 0;

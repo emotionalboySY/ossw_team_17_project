@@ -118,7 +118,7 @@ public class GameDualActivity extends AppCompatActivity {
             LinearLayout blackBG = findViewById(R.id.gameView_black);
             blackBG.setAlpha(0f);
             if (thread.checkIsPaused() && !thread.checkIsLost()) {
-                thread = new GameThread(handler, gameView, str);
+                thread = new GameThread(handler, str);
                 thread.start();
                 Log.i(TAG,"Button RESUME");
             }
@@ -128,7 +128,7 @@ public class GameDualActivity extends AppCompatActivity {
             activityGameDualBinding.inGamePausePopup.bringToFront();
             LinearLayout blackBG = findViewById(R.id.gameView_black);
             blackBG.setAlpha(0f);
-            thread = new GameThread(handler, gameView, PlayMode.Dual);
+            thread = new GameThread(handler, PlayMode.Dual);
             thread.start();
             Log.i(TAG,"Button RESTART");
         });
@@ -149,9 +149,9 @@ public class GameDualActivity extends AppCompatActivity {
 
         if(thread == null) {
             if(str.isEmpty()) {
-                thread = new GameThread(handler, gameView, PlayMode.Dual);
+                thread = new GameThread(handler, PlayMode.Dual);
             } else {
-                thread = new GameThread(handler, gameView, str);
+                thread = new GameThread(handler, str);
             }
         }
         thread.start();
@@ -180,7 +180,7 @@ public class GameDualActivity extends AppCompatActivity {
             activityGameDualBinding.inGameDeadPopup.setVisibility(View.GONE);
             activityGameDualBinding.inGameDeadPopup.bringToFront();
             activityGameDualBinding.gameViewBlack.setAlpha(0f);
-            thread = new GameThread(handler, gameView, PlayMode.Dual);
+            thread = new GameThread(handler, PlayMode.Dual);
             thread.start();
             Log.i(TAG, "Restart After Death");
         });

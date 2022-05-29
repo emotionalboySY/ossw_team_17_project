@@ -12,7 +12,6 @@ public class GameThread extends Thread {
     private final String TAG = "GameThread";
     private ArrayList<Snake> snakes = new ArrayList<Snake>();
     private ArrayList<Apple> apples = new ArrayList<Apple>();
-    private GameView gameView;
     private int score;
     private PlayMode mode;
 
@@ -22,7 +21,7 @@ public class GameThread extends Thread {
 
     private Handler handler;
 
-    GameThread(Handler handler, GameView gameView, PlayMode mode) {
+    GameThread(Handler handler, PlayMode mode) {
         if (mode == PlayMode.Dual) { // dual
             snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_DUAL_1_X, DefaultConst.SNAKE_DUAL_1_Y, mode),
                     DefaultConst.SNAKE_DUAL_1_DIR));
@@ -31,19 +30,22 @@ public class GameThread extends Thread {
 
             mkApples(DefaultConst.SNAKE_DUAL_APPLE_NUM);
         } else { // single / auto
-            snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_SINGLE_X, DefaultConst.SNAKE_SINGLE_Y, mode),
-                    DefaultConst.SNAKE_SINGLE_DIR));
+            if (mode == PlayMode.Single)
+                snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_SINGLE_X, DefaultConst.SNAKE_SINGLE_Y, mode),
+                        DefaultConst.SNAKE_SINGLE_DIR));
+            else
+                snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_SINGLE_X, DefaultConst.SNAKE_SINGLE_Y, mode),
+                        DefaultConst.SNAKE_AUTO_SPEED, DefaultConst.SNAKE_SINGLE_DIR));
 
             mkApples(DefaultConst.SNAKE_SINGLE_APPLE_NUM);
         }
 
         this.score = 0;
         this.handler = handler;
-        this.gameView = gameView;
         this.mode = mode;
     }
 
-    GameThread(Handler handler, GameView gameView, String gameInfo) {
+    GameThread(Handler handler, String gameInfo) {
         // 파싱
         this.handler = handler;
 
@@ -51,7 +53,6 @@ public class GameThread extends Thread {
         String[] snakeInfoArray = infoArray[0].split("#");
         String[] appleInfoArray = infoArray[1].split("#");
 
-        this.gameView = gameView;
         this.score = Integer.parseInt(infoArray[2]);
         this.mode = PlayMode.valueOf(infoArray[3]);
 
@@ -73,8 +74,7 @@ public class GameThread extends Thread {
                     Thread.sleep(1000);
                     isStart = true;
                 } else {
-                    if(mode == PlayMode.Auto){Thread.sleep(50);}
-                    else{Thread.sleep(snakes.get(0).getSpeed());}
+                    Thread.sleep(snakes.get(0).getSpeed());
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

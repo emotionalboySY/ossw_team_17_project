@@ -80,7 +80,7 @@ public class GameAutoActivity extends AppCompatActivity {
             LinearLayout blackBG = findViewById(R.id.gameView_black);
             blackBG.setAlpha(0f);
             if (thread.checkIsPaused() && !thread.checkIsLost()) {
-                thread = new GameThread(handler, gameView, str);
+                thread = new GameThread(handler, str);
                 thread.start();
                 Log.i(TAG,"Button RESUME");
             }
@@ -91,7 +91,7 @@ public class GameAutoActivity extends AppCompatActivity {
             activityGameAutoBinding.inGamePausePopup.bringToFront();
             LinearLayout blackBG = findViewById(R.id.gameView_black);
             blackBG.setAlpha(0f);
-            thread = new GameThread(handler, gameView, PlayMode.Auto);
+            thread = new GameThread(handler, PlayMode.Auto);
             thread.start();
             activityGameAutoBinding.score.setText(String.valueOf(0));
             Log.i(TAG,"Button RESTART");
@@ -113,9 +113,9 @@ public class GameAutoActivity extends AppCompatActivity {
 
         if(thread == null) {
             if(str.isEmpty()) {
-                thread = new GameThread(handler, gameView, PlayMode.Auto);
+                thread = new GameThread(handler, PlayMode.Auto);
             } else {
-                thread = new GameThread(handler, gameView, str);
+                thread = new GameThread(handler, str);
             }
         }
         thread.start();
@@ -140,7 +140,7 @@ public class GameAutoActivity extends AppCompatActivity {
             activityGameAutoBinding.inGameDeadPopup.setVisibility(View.GONE);
             activityGameAutoBinding.inGameDeadPopup.bringToFront();
             activityGameAutoBinding.gameViewBlack.setAlpha(0f);
-            thread = new GameThread(handler, gameView, PlayMode.Auto);
+            thread = new GameThread(handler, PlayMode.Auto);
             thread.start();
             activityGameAutoBinding.score.setText(String.valueOf(0));
             Log.i(TAG, "Restart After Death");

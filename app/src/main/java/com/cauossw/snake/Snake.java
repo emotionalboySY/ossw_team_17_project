@@ -2,7 +2,6 @@ package com.cauossw.snake;
 
 import android.util.Log;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -17,6 +16,10 @@ public class Snake {
 
     Snake(Coordinate tailPosition, Direction dir){
         this(tailPosition, DefaultConst.SNAKE_LENGTH, DefaultConst.SNAKE_SPEED, dir);
+    }
+
+    Snake(Coordinate tailPosition, int speed, Direction dir) {
+        this(tailPosition, DefaultConst.SNAKE_LENGTH, speed, dir);
     }
 
     Snake(Coordinate tailPosition, int length, int speed, Direction dir) {

@@ -52,7 +52,7 @@ public class GameDualActivity extends AppCompatActivity {
             Log.i(TAG, "dead int " + bundle.getInt("dead") + "");
             if (bundle.getInt("dead") == 1) {
                 if (bundle.getInt("winnerNum") == -1) Log.i(TAG, "draw");
-                else Log.i(TAG, "handler " + bundle.getInt("winnerNum") + " is win");
+                else Log.i(TAG, "handler " + bundle.getInt("winnerNum") + " wins");
                 showDeadDialog();
             } else { // 죽지 않은 경우 invalidate
                 gameView.setBundle(bundle);
@@ -173,7 +173,7 @@ public class GameDualActivity extends AppCompatActivity {
         activityGameDualBinding.gameViewBlack.setAlpha(0.3f);
 
         if (bundle.getInt("winnerNum") == -1) endStr = "DRAW";
-        else endStr = bundle.getInt("winnerNum") + " IS WIN";
+        else endStr = bundle.getInt("winnerNum") + " WINS";
         activityGameDualBinding.inGameDeadPopupScoreWinner.setText(endStr);
 
         activityGameDualBinding.inGameDeadPopupRestart.setOnClickListener(view -> {

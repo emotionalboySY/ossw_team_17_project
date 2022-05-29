@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class GameThread extends Thread {
 
     private final String TAG = "GameThread";
-    private ArrayList<Snake> snakes = new ArrayList<Snake>();
-    private ArrayList<Apple> apples = new ArrayList<Apple>();
+    private ArrayList<Snake> snakes = new ArrayList<>();
+    private ArrayList<Apple> apples = new ArrayList<>();
     private GameView gameView;
     private int score;
     private PlayMode mode;
@@ -76,11 +76,10 @@ public class GameThread extends Thread {
             // 처음 시작 전 1초 delay
             try {
                 if (!isStart) {
-                    Thread.sleep(100);
+                    Thread.sleep(1000);
                     isStart = true;
                 } else {
-                    //Thread.sleep(snakes.get(0).getSpeed());
-                    Thread.sleep(5);
+                    Thread.sleep(snakes.get(0).getSpeed());
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -88,7 +87,7 @@ public class GameThread extends Thread {
 
             if (mode == PlayMode.Auto) {
                 // auto일 경우, 자동으로 change dir
-                snakes.get(0).setDir(snakes.get(0).autoFindDir(apples.get(0)));
+                snakes.get(0).setDir(snakes.get(0).autoFindDir());
             }
 
             int i, eatenAppleNum = 0;
@@ -150,7 +149,7 @@ public class GameThread extends Thread {
     }
 
     public ArrayList<Coordinate> getApplesPosition() {
-        ArrayList<Coordinate> applesPositions = new ArrayList<Coordinate>();
+        ArrayList<Coordinate> applesPositions = new ArrayList<>();
 
         int i;
         for (i = 0; i < apples.size(); i++) applesPositions.add(apples.get(i).getPosition());

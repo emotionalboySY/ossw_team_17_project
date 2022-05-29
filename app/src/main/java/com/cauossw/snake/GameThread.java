@@ -8,7 +8,6 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class GameThread extends Thread {
-
     private final String TAG = "GameThread";
     private ArrayList<Snake> snakes = new ArrayList<Snake>();
     private ArrayList<Apple> apples = new ArrayList<Apple>();

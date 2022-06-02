@@ -1,7 +1,6 @@
 # How to Install and Run the Game?
 
-> “해당 게임을 하기 위해서는 두 가지 조건이 필요합니다!”
-> 
+> **"Two conditions are needed to play the game!"**
 
 <aside>
 💡 Android OS
@@ -9,155 +8,165 @@
 </aside>
 
 <aside>
-💡 API 26 이상(Android 11 이상)
+💡 API 26 or later (Android 11 or later)
 
 </aside>
 
-만 맞춰진다면 어디서든 플레이를 할 수 있습니다.
+Now, you can play this game anywhere.
 
-# 1. apk 파일 다운
+# 1. Download .apk file
 
+[snakeGame.zip](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d0fce317-3947-468a-b98a-3815e67f5468/snakeGame.zip)
 
-파일을 다운 받아 압축을 풀고, 안드로이드 기기에서 apk파일을 다운 받아 주세요. (깃헙에서도 받을 수 있어요!)
+Download the file, extract it, and install the .apk file on your Android device.
 
-손쉽게 설치가 완료됩니다.
+(You can also get it at [GITHUB](https://github.com/emotionalboySY/ossw_team_17_project)!)
 
 ---
 
-# 2. 애플리케이션 실행
+# 2. **Play the game**
 
-## 2.1 메인 화면
-![Untitled](https://user-images.githubusercontent.com/66313756/170875985-8dd9fdb9-9bb3-4da5-b7f4-0750c5dab3bc.png)
+## 2.1 Main menu
 
+You can start the game in the mode you want by pressing one of the buttons: **SINGLE**, **DUAL**, or **AUTO**.
 
-**SINGLE**, **DUAL**, **AUTO** 중 하나의 버튼을 눌러 원하는 모드로 게임을 시작할 수 있어요.
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c51f87c8-c0ec-402c-9dd3-0b523c9faa4e/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T163801Z&X-Amz-Expires=86400&X-Amz-Signature=992c75b60b5ac2a76a3ce81989613f60b628919065696da046efc5b0daf31be8&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
+
+or, if there is a single mode game saved before, you can continue the game with the **LOAD** button.
+
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/fdb956d6-ba76-4758-b14a-02b3b5fb03fa/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T163604Z&X-Amz-Expires=86400&X-Amz-Signature=1128abf9f24af2fefba2916f32b625c6bbfb56cc188ebe1579327939dd179a95&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
 ## 2.2 SINGLE
 
-작고 귀여운 뱀이 기다리고 있습니다. 사과가 빨리 먹고 싶다네요.
-![Untitled 1](https://user-images.githubusercontent.com/66313756/170876017-77e3a13d-7b3b-42f7-89fb-5e1f97038b93.png)
+A cute little snake is waiting for you. He is begging you to eat the apple quickly.
 
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/e6546096-90c1-4375-adc4-9b0494c44d7b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T163705Z&X-Amz-Expires=86400&X-Amz-Signature=592c8fe7c10ada009c755b3160c48197fdfb77f44ccf93d6da652032a47aa98d&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
-### 2.2.1 사과 먹기
+### 2.2.1 Eat apple
 
-아래의 방향키를 조작해 사과에게 다가갑시다. 
+Let's help the snake approach the apple by manipulating the arrow keys below.
 
-조심하세요! 벽에 부딪히거나, 자기 자신과 부딪치면 귀엽고 작은 뱀은 죽고 맙니다. 
-![Untitled 2](https://user-images.githubusercontent.com/66313756/170876024-b377c0ba-4740-4b61-af30-370211371e90.png)
+But be careful! When a snake hits a wall or hits its body, the cute little snake will die.
 
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f3ee1678-d120-43c7-9dfd-7c6d370d5c5d/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T163906Z&X-Amz-Expires=86400&X-Amz-Signature=eceaac33da0a665c8641b44121ff022642442785c88b8bd373d9e445a5e77175&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
-### 2.2.2 점수 업!
+### 2.2.2 **Increase the score!**
 
-그새 사과를 두 개나 먹어서 뱀이 길어졌네요, 점수는 왼쪽 위에서 볼 수 있어요!
-![Untitled 3](https://user-images.githubusercontent.com/66313756/170876027-cf5d1b12-8137-4486-b367-c153b639f150.png)
+Oh, the snake grew up eating two apples.
 
+You can see the score from the top left!
 
-### 2.2.3 잠깐 쉬어갈까요?
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/fc81fab1-e9e4-4d8d-b15e-1cf9494c48aa/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T163921Z&X-Amz-Expires=86400&X-Amz-Signature=ce3035cad8ccfe982bdc298f6a2870cc5449b55ec2f048af3e1959648d66edf9&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
-뱀이 지쳤어요. 잠시 쉬어가요. 우측 상단의 ⏸️ 버튼으로 잠시 멈출 수 있어요. 
+### 2.2.3 **Shall we take a break?**
 
-**Resume**으로 개임을 재개하거나,
+Thank you for helping the snake eat apples. Snakes will be full enough.
 
-**Save**로 오래 쉬거나,
+Let's take a break while the snake digests apples.
 
-**Restart**로 새 뱀과 함께 새 게임을 시작하거나,
+You can pause with the ⏸ button located in the upper right corner.
 
-**Exit**로 메인 화면으로 돌아가거나, 
+You can choose one of them:
 
-하나를 선택해주세요.
-![Untitled 4](https://user-images.githubusercontent.com/66313756/170876031-da6a5027-e325-4d69-b4e8-e6d523fc4907.png)
+- click **RESUME** to resume the game,
+- click **SAVE** to take a long break,
+- click **START** to start a new game with a hungry new snake,
+- click **EXIT** to return to the main screen.
 
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b1a71095-136e-478c-9f13-e7147c0cf28c/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T163940Z&X-Amz-Expires=86400&X-Amz-Signature=46408e73a7513cf352e54fad44e402339057870f3a9a909d0033510d8deb8bb8&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
-### 2.2.4 아이코
+### 2.2.4 **Oops…**
 
-아이고, 죽어버렸네요.
+Oh, he's dead.
 
-뱀은 죽어서 가죽을 남길까요? 이름을 남길까요?
+Will the snake leave its skin or name after he dies?
 
-**Submit Ranking**으로 뱀을 애도해주세요.
-![Untitled 5](https://user-images.githubusercontent.com/66313756/170876034-6f22df90-f6bc-4153-bf84-699415f1bf90.png)
+Click **SUBMIT RANKING** to mourn the snake's death.
 
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cbe1be3a-e0f6-470d-b8f8-013f0d9c7adb/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T164442Z&X-Amz-Expires=86400&X-Amz-Signature=f87ca5530e40a5c7fa24609a34d5e378011e663fd5fb82db1885a02693e3637b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
 ## 2.3 Ranking
 
-점수는 메인 화면의 **Ranking**에서도 볼 수 있어요.
+Recorded scores can also be viewed by clicking **RANKING** on the main menu.
 
-멋지지 않나요?
-![Untitled 6](https://user-images.githubusercontent.com/66313756/170876039-6dd0c617-50ee-4fd3-94f9-4ee7ead1c7c7.png)
+Isn't it cool?
 
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a503b3d0-a62e-41d8-bb0f-589ca2fc790b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T164004Z&X-Amz-Expires=86400&X-Amz-Signature=561cabe455dd5de54a8246df7276f5dae5467539b17ff79755a0b7fcbcf66daa&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
 ## 2.4 Load
 
-잘 쉬었다 왔나요? 여기서 **Load**를 눌러 마저 여행을 떠나요!
-![Untitled](https://user-images.githubusercontent.com/66313756/170876044-dbba49a6-3886-4388-9443-e2de73f6d261.png)
+Did you rest well?
 
+Press **LOAD** to go on an apple mukbang trip with the snake again!
+
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/fdb956d6-ba76-4758-b14a-02b3b5fb03fa/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T164051Z&X-Amz-Expires=86400&X-Amz-Signature=c7875198d09113707db201860641a78d148ea20e882d2ccb58fc2dbd7b2d6af3&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
 ## 2.5 DUAL
 
-이번에는 작고 귀여운 뱀이 무려 두 마리예요!
+This time, there are two cute little snakes!
 
-늘어난 뱀의 개수만큼 공간도 넓고 사과도 많아요. 와!
-![Untitled 7](https://user-images.githubusercontent.com/66313756/170876049-6db3ab79-3731-41a2-a6e5-9375bce4c15f.png)
+As much as the increased number of snakes, the space is wide and there are many apples. Wow!
 
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/70febf59-9757-4808-b239-76d91d6b3cb7/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T164127Z&X-Amz-Expires=86400&X-Amz-Signature=8d0f0afcde390dbffd6397e323b887d352093ceacb5eed79316267900bc7c3cc&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
-### 2.5.1 점수 업?
+### 2.5.1 **Score?**
 
-뱀이 한 마리였던 때와는 달리 사과를 몇 개 먹었는지 확인할 필요가 없어요.  
+Unlike when there was only one snake, you don't need to check how many apples snakes ate.
 
-어차피 다른 뱀이 죽으면 남은 사과는 전부 남은 뱀의 차지겠죠? 
+If another snake dies, the remaining apples will be the rest of the other snake, right?
 
-끝까지 살아남아서 모든 사과를 쟁취해봐요! 
+Let's survive to the end and win all the apples!
 
-### 2.5.2 욕심은 금물!
+### 2.5.2 **Don't be greedy!**
 
-그렇지만 욕심은 금물! 너무 급하게 움직이다가는 죽을 수도 있으니까요. 
+But don't be too greedy! If you're hasty, your snake could die.
 
-오래 살아남는 걸 목표로 움직여봅시다.
+Let's move with the goal of your snake surviving for a long time.
 
-![Untitled 8](https://user-images.githubusercontent.com/66313756/170876054-1ece8a93-c86d-40b7-8d89-cdb9ceadb000.png)
-![Untitled 9](https://user-images.githubusercontent.com/66313756/170876056-62a41fc1-4d22-4dc0-8859-77e1271f97b0.png)
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b5171243-3eec-4035-bd1e-7cc0aec41205/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T164138Z&X-Amz-Expires=86400&X-Amz-Signature=cbb0d4cffcd5a81da303962a7e9bf1d70dcdd77080b79f3c0f51a1aee2db88e2&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/77680b25-8bdc-4422-bf9e-2e91d5c0e7fd/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T164147Z&X-Amz-Expires=86400&X-Amz-Signature=de42de70e93b481e29c91287ccc4f1876101eeb42091f0e86fde1aa13c09bd7b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
-어라? 두 뱀이 동시에 죽었나요?
+What? Did two snakes die at the same time?
 
-이렇게 되면 아무도 사과를 차지하지 못하겠군요…
-![Untitled 10](https://user-images.githubusercontent.com/66313756/170876062-af84575e-07d4-4b08-bb6a-46565f9a0ca5.png)
+If this happens, no one will win the apple...
 
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/e2200e2f-720d-4efb-86d2-12fcf6f20e02/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T164203Z&X-Amz-Expires=86400&X-Amz-Signature=06f7c7a8e928a55cfce92b04ed01dadfdc2b9f66642975e710b52190c2c1b95b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
-### 2.5.3 일시 정지
+### 2.5.3 Pause
 
-여기서도 잠시 쉴 수 있어요. 
+You can rest for a while.
 
-그렇지만 **SAVE**로 오래 쉬다 올 수는 없죠.
+But you can't just click **SAVE** and take a long break.
 
-저 둘은 지금 치열한 전투 중이니까요!
-![Untitled 11](https://user-images.githubusercontent.com/66313756/170876066-f7b60e88-569d-4e12-8990-3a9c8108f3ce.png)
+Because those two are in a fierce battle!
 
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8f089b7f-cd11-4db8-9e31-b5211e533fcb/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T164214Z&X-Amz-Expires=86400&X-Amz-Signature=3a70ff8b496f7387a57e1ce65f44c89cb0dc967d7b72d3d0498993442f616cd6&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
 ## 2.6 AUTO
 
-이번에는 한 마리예요. 작고 귀여운 뱀이 사과를 찾아 스스로 움직입니다. 
+A cute little snake moves quickly on its own in search of an apple.
 
-뱀이 사과를 얼마나 야무지게 먹는지 한 번 구경해볼까요?
-![Untitled 12](https://user-images.githubusercontent.com/66313756/170876068-e9e48d90-ecf8-4b5b-a5d4-8d118707e98b.png)
+Shall we take a look at how well the snake eats apples?
 
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/be72eadb-fe13-4837-80fd-b8c9506a06fa/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T164224Z&X-Amz-Expires=86400&X-Amz-Signature=2d87a0340dacf7750352d6461adef4363e77ebe070e7ea7d566c26b13e0a29cd&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
-### 2.6.1 일시 정지
+### 2.6.1 PAUSE
 
-잠시 쉬어갈 수 있어요.
+You can rest for a while.
 
-그렇지만 역시 **SAVE**는 불가능합니다. 
+But like DUAL mode, you can't click **SAVE** and take a long break.
 
-작고 귀여운 뱀의 사과 파티를 끝까지 확인해보는 게 어떨까요?
-![Untitled 13](https://user-images.githubusercontent.com/66313756/170876071-d430c870-7e65-442d-b829-0aac28a43430.png)
+Why don't you check out the cute little snake's apple party until the end?
 
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/503de7a6-842c-4b90-a2a4-b215d5852a59/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T164233Z&X-Amz-Expires=86400&X-Amz-Signature=2db2a410cba40a28a3887860fda2f97007b2363e4cd9eaa2449d23367b9a9628&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
-### 2.6.2 아이코
+### 2.6.2 **Oops…**
 
-아주 많은 사과를 먹고 죽었군요!
+He died after eating so many apples!
 
-아쉽게도 **Ranking**에 기록되지는 못해요.
+Unfortunately, it will not be recorded in **RANKING**.
 
-**SINGLE** 모드에서 정정당당히 실력으로 승부해봅시다!
-![Untitled 14](https://user-images.githubusercontent.com/66313756/170876076-1f8b37b1-2651-4f6f-b43e-7037e731e8ef.png)
+Let's play fair with your skills in **SINGLE** mode!
 
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/0ecd21bf-8c4f-4d1f-8525-3d96aa97dc9f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T164250Z&X-Amz-Expires=86400&X-Amz-Signature=0534749039a5305411fd3d190315a297b95e006de92d14a686a42e3556534ffb&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>

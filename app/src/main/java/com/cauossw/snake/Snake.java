@@ -10,7 +10,7 @@ public class Snake {
     private static final String TAG = "Snake";
 
     private ArrayList<Coordinate> body = new ArrayList<Coordinate>();
-    private int speed;
+    public int speed;
     private Direction dir;
     private Direction lastMovedDir = null;
 
@@ -43,13 +43,16 @@ public class Snake {
         this.speed = Integer.parseInt(infoArray[1]);
         this.dir = Direction.valueOf(infoArray[2]);
     }
-
+    public void speedDown() {
+        this.speed=300;
+    }
+    public void speedUp() { this.speed=150; }
     public void setDir(Direction dir) {
         // 방향 전환 불가능한 경우 check
         if ((this.lastMovedDir == Direction.UP && dir == Direction.DOWN)
-            || (this.lastMovedDir == Direction.DOWN && dir == Direction.UP)
-            || (this.lastMovedDir == Direction.LEFT && dir == Direction.RIGHT)
-            || (this.lastMovedDir == Direction.RIGHT && dir == Direction.LEFT))
+                || (this.lastMovedDir == Direction.DOWN && dir == Direction.UP)
+                || (this.lastMovedDir == Direction.LEFT && dir == Direction.RIGHT)
+                || (this.lastMovedDir == Direction.RIGHT && dir == Direction.LEFT))
             return;
 
         this.dir = dir;

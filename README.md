@@ -85,6 +85,10 @@ Click **SUBMIT RANKING** to mourn the snake's death.
 
 <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cbe1be3a-e0f6-470d-b8f8-013f0d9c7adb/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T164442Z&X-Amz-Expires=86400&X-Amz-Signature=f87ca5530e40a5c7fa24609a34d5e378011e663fd5fb82db1885a02693e3637b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" height="800"/>
 
+### 2.2.4 Speed
+
+The player can change the speed of the snake in a single game, if the speed is increased, then for each apple eaten, 2 points are added to the score
+
 ## 2.3 Ranking
 
 Recorded scores can also be viewed by clicking **RANKING** on the main menu.

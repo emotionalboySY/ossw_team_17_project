@@ -13,6 +13,7 @@ public class GameThread extends Thread {
     private ArrayList<Apple> apples = new ArrayList<Apple>();
     private int score;
     private PlayMode mode;
+    private int sp=1;
 
     private boolean isPaused = false,
             isLost = false,
@@ -52,7 +53,7 @@ public class GameThread extends Thread {
         String[] snakeInfoArray = infoArray[0].split("#");
         String[] appleInfoArray = infoArray[1].split("#");
 
-        this.score = Integer.parseInt(infoArray[2]);
+        this.score =9+ Integer.parseInt(infoArray[2]);
         this.mode = PlayMode.valueOf(infoArray[3]);
 
         int i;
@@ -115,6 +116,20 @@ public class GameThread extends Thread {
         snakes.get(index).setDir(dir);
     }
 
+    public void speedDown(int index) {
+        sp=1;
+        snakes.get(index).speedDown(); }
+
+    public void speedUp(int index) {
+        sp=0;
+        snakes.get(index).speedUp(); }
+    // snakes.set(0,DefaultConst.SNAKE_SPEED);
+    // snakes.add(new Snake(new Coordinate(DefaultConst.SNAKE_SINGLE_X, DefaultConst.SNAKE_SINGLE_Y, mode),
+    //         DefaultConst.SNAKE_SINGLE_DIR));
+    // DefaultConst.SNAKE_SPEED=DefaultConst.SNAKE_SPEED+300;
+
+    //}
+
     public String pause() {
         isPaused = true;
         return getStatusStr();
@@ -171,11 +186,15 @@ public class GameThread extends Thread {
 
         int eatableAppleIndex = getEatableAppleIndex(snakeIndex);
         if (eatableAppleIndex == -1) { // apple 못 먹은 경우, 꼬리 제거
+
             snakes.get(snakeIndex).delTail();
             Log.i(TAG, "꼬리 원복");
         } else { // 특정 index의 apple 먹을 수 있는 경우
             Log.i(TAG,(snakeIndex + 1) + " eat apple");
-            if (mode != PlayMode.Dual) score++;
+
+            if (mode != PlayMode.Dual){
+                if(sp==0) {
+                    score=score+2;}else score++; }//nnnnnnnnnnnnnnbjhjgcvnfxdzsdxcfvgb
 
             // apple 먹음
             apples.remove(eatableAppleIndex);

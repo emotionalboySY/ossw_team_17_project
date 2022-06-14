@@ -10,8 +10,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,6 +39,7 @@ public class GameSingleActivity extends AppCompatActivity {
     private Bundle bundle;
 
     private String str = "";
+
 
     @SuppressLint({"HandlerLeak", "WrongCall"})
     @Override
@@ -90,7 +93,15 @@ public class GameSingleActivity extends AppCompatActivity {
             thread.setSnakeDir(0, Direction.RIGHT);
             Log.i(TAG, "Button RIGHT");
         });
+        activityGameSingleBinding.button.setOnClickListener(v -> {
 
+            thread.speedUp(0);
+        });
+
+        activityGameSingleBinding.button2.setOnClickListener(v -> {
+
+            thread.speedDown(0);
+        });
 
         //etc button
         activityGameSingleBinding.inGamePause.setOnClickListener(v -> {
@@ -136,6 +147,7 @@ public class GameSingleActivity extends AppCompatActivity {
             finish();
         });
     }
+
 
     @Override
     protected void onStart() {
